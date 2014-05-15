@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="RestaurantMessages" targetNamespace="urn:thinktecture-com:demos:restaurantservice:messages:v1" 
+           elementFormDefault="qualified" xmlns="urn:thinktecture-com:demos:restaurantservice:messages:v1" 
+           xmlns:mstns="urn:thinktecture-com:demos:restaurantservice:messages:v1" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           xmlns:import="urn:thinktecture-com:demos:restaurantservice:data:v1">
+  <xs:import id="RestaurantData" schemaLocation="RestaurantData.xsd" 
+             namespace="urn:thinktecture-com:demos:restaurantservice:data:v1">
+  </xs:import>
+  <xs:element name="getRestaurants">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="zip" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getRestaurantsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="restaurants" type="import:restaurantsList" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="addRestaurant">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="restaurant" type="import:restaurantInfo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="rateRestaurant">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="restaurantID" type="xs:int" />
+        <xs:element name="rate" type="import:ratingInfo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="customFault" type="import:customFault" />
+</xs:schema>

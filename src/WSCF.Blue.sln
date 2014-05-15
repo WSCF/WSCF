@@ -1,0 +1,117 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{86584563-214A-48BA-8E33-280C5D57B4AF}"
+	ProjectSection(SolutionItems) = preProject
+		complete.vsmdi = complete.vsmdi
+		Developer.WSCF.blue.VS2008.addin = Developer.WSCF.blue.VS2008.addin
+		Developer.WSCF.blue.VS2010.addin = Developer.WSCF.blue.VS2010.addin
+		FileHeaderTemplate.txt = FileHeaderTemplate.txt
+		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
+		SolutionInfo.cs = SolutionInfo.cs
+		WSCF.Blue.4.5.resharper = WSCF.Blue.4.5.resharper
+		WSCF.blue.VS2008.addin = WSCF.blue.VS2008.addin
+		WSCF.blue.VS2010.addin = WSCF.blue.VS2010.addin
+		wscf.snk = wscf.snk
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thinktecture.Tools.Web.Services.ContractFirst", "Thinktecture.Tools.Web.Services.ContractFirst\Thinktecture.Tools.Web.Services.ContractFirst.csproj", "{2ED38673-D44A-415A-B3D9-634BD10EF870}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thinktecture.Tools.Web.Services.ServiceDescription", "Thinktecture.Tools.Web.Services.ServiceDescription\Thinktecture.Tools.Web.Services.ServiceDescription.csproj", "{85343FA9-67CC-4DEF-9BE8-514BC542B395}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thinktecture.Tools.Web.Services.WsdlWizard", "Thinktecture.Tools.Web.Services.WsdlWizard\Thinktecture.Tools.Web.Services.WsdlWizard.csproj", "{D579D21C-5765-493A-AE08-3275253A72C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thinktecture.Tools.Web.Services.Wscf.Environment", "Thinktecture.Tools.Web.Services.Wscf.Environment\Thinktecture.Tools.Web.Services.Wscf.Environment.csproj", "{C8F160D7-2CDF-4E35-A4DC-91B0F2364E60}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thinktecture.Tools.Web.Services.CodeGeneration", "Thinktecture.Tools.Web.Services.CodeGeneration\Thinktecture.Tools.Web.Services.CodeGeneration.csproj", "{C95E299D-A15E-4FD8-AC50-D3645F0CAA48}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thinktecture.ServiceModel.Extensions.Metadata", "Thinktecture.ServiceModel.Extensions.Metadata\Thinktecture.ServiceModel.Extensions.Metadata.csproj", "{30C58D77-7B92-4B2F-BA19-A0D5603A4C6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thinktecture.ServiceModel.Extensions.Metadata.Tests", "Thinktecture.ServiceModel.Extensions.Metadata.Tests\Thinktecture.ServiceModel.Extensions.Metadata.Tests.csproj", "{A626E623-598B-445D-A8EA-217EFB64E5E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataExtensionPrototype", "MetadataExtensionPrototype\MetadataExtensionPrototype.csproj", "{67075509-1062-4AAB-8E47-80B37EB44809}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{4C2C49A2-1509-459B-8096-D5F694B1486B}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 10
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs04
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = MetadataExtensionPrototype\\MetadataExtensionPrototype.csproj
+		SccProjectName1 = MetadataExtensionPrototype
+		SccLocalPath1 = MetadataExtensionPrototype
+		SccProjectUniqueName2 = Thinktecture.ServiceModel.Extensions.Metadata.Tests\\Thinktecture.ServiceModel.Extensions.Metadata.Tests.csproj
+		SccProjectName2 = Thinktecture.ServiceModel.Extensions.Metadata.Tests
+		SccLocalPath2 = Thinktecture.ServiceModel.Extensions.Metadata.Tests
+		SccProjectUniqueName3 = Thinktecture.ServiceModel.Extensions.Metadata\\Thinktecture.ServiceModel.Extensions.Metadata.csproj
+		SccProjectName3 = Thinktecture.ServiceModel.Extensions.Metadata
+		SccLocalPath3 = Thinktecture.ServiceModel.Extensions.Metadata
+		SccProjectUniqueName4 = Thinktecture.Tools.Web.Services.CodeGeneration\\Thinktecture.Tools.Web.Services.CodeGeneration.csproj
+		SccProjectName4 = Thinktecture.Tools.Web.Services.CodeGeneration
+		SccLocalPath4 = Thinktecture.Tools.Web.Services.CodeGeneration
+		SccProjectUniqueName5 = Thinktecture.Tools.Web.Services.ContractFirst\\Thinktecture.Tools.Web.Services.ContractFirst.csproj
+		SccProjectName5 = Thinktecture.Tools.Web.Services.ContractFirst
+		SccLocalPath5 = Thinktecture.Tools.Web.Services.ContractFirst
+		SccProjectUniqueName6 = Thinktecture.Tools.Web.Services.ServiceDescription\\Thinktecture.Tools.Web.Services.ServiceDescription.csproj
+		SccProjectName6 = Thinktecture.Tools.Web.Services.ServiceDescription
+		SccLocalPath6 = Thinktecture.Tools.Web.Services.ServiceDescription
+		SccProjectUniqueName7 = Thinktecture.Tools.Web.Services.Wscf.Environment\\Thinktecture.Tools.Web.Services.Wscf.Environment.csproj
+		SccProjectName7 = Thinktecture.Tools.Web.Services.Wscf.Environment
+		SccLocalPath7 = Thinktecture.Tools.Web.Services.Wscf.Environment
+		SccProjectUniqueName8 = Thinktecture.Tools.Web.Services.WsdlWizard\\Thinktecture.Tools.Web.Services.WsdlWizard.csproj
+		SccProjectName8 = Thinktecture.Tools.Web.Services.WsdlWizard
+		SccLocalPath8 = Thinktecture.Tools.Web.Services.WsdlWizard
+		SccProjectUniqueName9 = Setup\\Setup.vdproj
+		SccProjectName9 = Setup
+		SccLocalPath9 = Setup
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = Complete.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2ED38673-D44A-415A-B3D9-634BD10EF870}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ED38673-D44A-415A-B3D9-634BD10EF870}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ED38673-D44A-415A-B3D9-634BD10EF870}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ED38673-D44A-415A-B3D9-634BD10EF870}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85343FA9-67CC-4DEF-9BE8-514BC542B395}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85343FA9-67CC-4DEF-9BE8-514BC542B395}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85343FA9-67CC-4DEF-9BE8-514BC542B395}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85343FA9-67CC-4DEF-9BE8-514BC542B395}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D579D21C-5765-493A-AE08-3275253A72C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D579D21C-5765-493A-AE08-3275253A72C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D579D21C-5765-493A-AE08-3275253A72C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D579D21C-5765-493A-AE08-3275253A72C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8F160D7-2CDF-4E35-A4DC-91B0F2364E60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8F160D7-2CDF-4E35-A4DC-91B0F2364E60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8F160D7-2CDF-4E35-A4DC-91B0F2364E60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8F160D7-2CDF-4E35-A4DC-91B0F2364E60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C95E299D-A15E-4FD8-AC50-D3645F0CAA48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C95E299D-A15E-4FD8-AC50-D3645F0CAA48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C95E299D-A15E-4FD8-AC50-D3645F0CAA48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C95E299D-A15E-4FD8-AC50-D3645F0CAA48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30C58D77-7B92-4B2F-BA19-A0D5603A4C6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30C58D77-7B92-4B2F-BA19-A0D5603A4C6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30C58D77-7B92-4B2F-BA19-A0D5603A4C6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30C58D77-7B92-4B2F-BA19-A0D5603A4C6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A626E623-598B-445D-A8EA-217EFB64E5E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A626E623-598B-445D-A8EA-217EFB64E5E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A626E623-598B-445D-A8EA-217EFB64E5E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A626E623-598B-445D-A8EA-217EFB64E5E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67075509-1062-4AAB-8E47-80B37EB44809}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67075509-1062-4AAB-8E47-80B37EB44809}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67075509-1062-4AAB-8E47-80B37EB44809}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67075509-1062-4AAB-8E47-80B37EB44809}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C2C49A2-1509-459B-8096-D5F694B1486B}.Debug|Any CPU.ActiveCfg = Debug
+		{4C2C49A2-1509-459B-8096-D5F694B1486B}.Release|Any CPU.ActiveCfg = Release
+		{4C2C49A2-1509-459B-8096-D5F694B1486B}.Release|Any CPU.Build.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

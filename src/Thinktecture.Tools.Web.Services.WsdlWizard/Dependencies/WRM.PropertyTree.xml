@@ -1,0 +1,3609 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WRM.PropertyTree</name>
+    </assembly>
+    <members>
+        <member name="T:WRM.Windows.Forms.Design.PaneNodeCollectionSerializer">
+            <summary>
+              A CodeDomSerializer built to serialize out objects that contain
+              <see cref="T:WRM.Windows.Forms.PaneNodeCollection">PaneNodeCollection</see>s
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PaneNodeCollectionSerializer.#ctor">
+            <summary>
+            Creates an instance of <c>PaneNodeCollectionSerializer</c>
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PaneNodeCollectionSerializer.Deserialize(System.ComponentModel.Design.Serialization.IDesignerSerializationManager,System.Object)">
+            <summary>
+            Deserialize a 
+            <see cref="T:WRM.Windows.Forms.PaneNodeCollection">PaneNodeCollection</see>-containing
+            class from source code.
+            </summary>
+            <param name="manager">
+            The VS.NET-supplied serialization manager
+            </param>
+            <param name="codeObject">
+            The object representing the loaded and parsed source code from
+            which this component should be deserialized
+            </param>
+            <returns>
+            Returns an instance of the component it is supposed to deserialize
+            </returns>
+            <remarks>
+            The function simply lets the <paramref name="manager"/>-supplied 
+            base serializer to actually do the deserialization.
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PaneNodeCollectionSerializer.Serialize(System.ComponentModel.Design.Serialization.IDesignerSerializationManager,System.Object)">
+            <summary>
+            Serialize a 
+            <see cref="T:WRM.Windows.Forms.PaneNodeCollection">PaneNodeCollection</see>-containing
+            class to source code.
+            </summary>
+            <param name="manager">
+            The VS.NET-supplied serialization manager
+            </param>
+            <param name="value">
+            The component instance that should be serialized to source code
+            </param>
+            <returns>
+            Returns a <see cref="T:System.CodeDom.CodeStatementCollection"/> containing 
+            source code statements that represent <paramref name="value"/> in
+            source-code form.
+            </returns>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PaneNodeCollectionSerializer.GetBaseSerializer(System.ComponentModel.Design.Serialization.IDesignerSerializationManager)">
+            <summary>
+            Get's the base serializer object for the base class of PropertyTree.
+            </summary>
+            <param name="manager">The VS.NET supplied serialization manager</param>
+            <returns>
+            Returns a <see cref="T:System.ComponentModel.Design.Serialization.CodeDomSerializer"/> that is capable of deserializing
+            the <see cref="T:WRM.Windows.Forms.PropertyTree"/>.
+            </returns>
+        </member>
+        <member name="T:WRM.Windows.Forms.Design.PropertyPaneDesigner">
+            <summary>
+            The custom designer class for the the <see cref="T:WRM.Windows.Forms.PropertyPane">PropertyPane</see>
+            class.
+            </summary>
+            <remarks>
+            This designer class is <b>only</b> used for <see cref="T:WRM.Windows.Forms.PropertyPane">
+            PropertyPane</see>, because it allows other controls to be dragged &amp;
+            dropped onto it at design-time.  This action, of course, doesn't make
+            sense for custom classes derived from <c>PropertyPane</c>.
+            </remarks>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyPaneDesigner.mPropertyPane">
+            <summary>
+              The <see cref="T:WRM.Windows.Forms.PropertyPane">PropertyPane</see> object we are designing.
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyPaneDesigner.mBorderPen">
+            <summary>
+              The pen we use to draw the border.
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PropertyPaneDesigner.#ctor">
+            <summary>
+              Default constructor.
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PropertyPaneDesigner.Initialize(System.ComponentModel.IComponent)">
+            <summary>
+              Initialize the designer with the <see cref="T:WRM.Windows.Forms.PropertyPane"/> it's designing.
+            </summary>
+            <param name="component">
+            The <c>IComponent</c>-implementing object that is being attached to
+            this designer.
+            </param>
+            <remarks>
+            An exception is thrown if the supplied component is not a 
+            <see cref="T:WRM.Windows.Forms.PropertyPane"/>-derived object.
+            </remarks>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown if <paramref name="component"/> is null
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            Thrown if <paramref name="component"/>does not descend from
+            <see cref="T:WRM.Windows.Forms.PropertyPane"/>
+            </exception>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PropertyPaneDesigner.OnPaintAdornments(System.Windows.Forms.PaintEventArgs)">
+            <summary>
+            Draw a border around the designed <see cref="T:WRM.Windows.Forms.PropertyPane"/> so that it's
+            easy to distinguish between it and its container during design-time.
+            </summary>
+            <param name="pe">
+            Paint event information
+            </param>
+            <remarks>
+            I've never gotten this to work quite right - when positive width or height
+            sizing takes place, nasty trails are left behind by the old borders that
+            aren't drawn over.  Please feel free to take a shot at fixing it.
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PropertyPaneDesigner.OnExpandChanged(System.Boolean,System.Boolean)">
+            <summary>
+            Fires the ExpandChanged event
+            </summary>
+            <param name="oldValue">The old value of the IsExpanded property</param>
+            <param name="newValue">The new value of the IsExpanded property</param>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PropertyPaneDesigner.PostFilterProperties(System.Collections.IDictionary)">
+            <summary>
+            Filters out all properties that have to do with layout.
+            </summary>
+            <param name="properties">
+            An <see cref="T:System.Collections.IDictionary">IDictionary</see> (key -&gt; value pairs) that
+            contains, as keys, the names of properties of the designed component.
+            </param>
+            <remarks>
+            <para>
+            We remove any properties having to do with sizing or positioning so that
+            the user cannot set them at design-time.  This is because the 
+            containing <see cref="T:WRM.Windows.Forms.PropertyTree"/> is solely responsible for the
+            positioning of a <see cref="T:WRM.Windows.Forms.PropertyPane"/> and for its participation
+            in tabbing.
+            </para>
+            <para>
+            The following properties are removed:
+            </para>
+            <list type="bullet">
+            <item><description>Anchor</description></item>
+            <item><description>Dock</description></item>
+            <item><description>DockPadding</description></item>
+            <item><description>Enabled</description></item>
+            <item><description>Location</description></item>
+            <item><description>Size</description></item>
+            <item><description>TabIndex</description></item>
+            <item><description>TabStop</description></item>
+            <item><description>Visible</description></item>
+            </list>
+            </remarks>
+        </member>
+        <member name="P:WRM.Windows.Forms.Design.PropertyPaneDesigner.SelectionRules">
+            <summary>
+            Gets a value indicating how the designed component may be selected
+            </summary>
+            <value>
+            Returns <see cref="P:WRM.Windows.Forms.Design.PropertyPaneDesigner.SelectionRules">SelectionRules.Visible</see>
+            </value>
+            <remarks>
+            Returns <see cref="P:WRM.Windows.Forms.Design.PropertyPaneDesigner.SelectionRules">SelectionRules.Visible</see> only, 
+            so that <see cref="T:WRM.Windows.Forms.PropertyPane"/> cannot be moved or resized during
+            design-time.
+            </remarks>
+        </member>
+        <member name="P:WRM.Windows.Forms.Design.PropertyPaneDesigner.AssociatedComponents">
+            <summary>
+            Gets an <see cref="T:System.Collections.ICollection"/> containing all of the 
+            <see cref="T:System.ComponentModel.IComponent"/>s that are associated with this
+            <see cref="T:WRM.Windows.Forms.PropertyPane"/>
+            </summary>
+            <value>
+              Return the list of components that depend upon this component.  In this
+            case, this would be the list of components that have been added to the
+            <see cref="T:WRM.Windows.Forms.PropertyPane"/> (like buttons, text boxes, etc...).
+            </value>
+            <remarks>
+            This collection of associated components is used to determine dependancy
+            relationships that must be honored by the design-time environment
+            for certain operations (like Cut or Copy).
+            </remarks>
+        </member>
+        <member name="T:WRM.Windows.Forms.Design.PropertyPaneRootDesigner">
+            <summary>
+            A root-level designer that allows any <see cref="T:WRM.Windows.Forms.PropertyPane"/>-derived
+            class to be designed in the same way that <see cref="T:System.Windows.Forms.UserControl"/>s are
+            designed.
+            </summary>
+            <remarks>
+            <para>
+            This root designer will attempt to create create a <see cref="T:System.Drawing.Design.ToolboxItem"/> 
+            on VS.NET's ToolBox in a group called "PropertyPanes".  The 
+            <see cref="M:WRM.Windows.Forms.Design.PropertyPaneRootDesigner.GetToolboxBitmap(System.Type,System.String)"/> method will search
+            for an appropriate 16x16 bitmap to use as the <c>ToolboxItem</c>'s icon.
+            </para>
+            </remarks>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyPaneRootDesigner.mHost">
+            <summary>
+            A reference to the <see cref="T:System.ComponentModel.Design.IDesignerHost"/> that hosts this
+            instance
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PropertyPaneRootDesigner.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PropertyPaneRootDesigner.OnLoadComplete(System.Object,System.EventArgs)">
+            <summary>
+            Handles the <see cref="E:System.ComponentModel.Design.IDesignerHost.LoadComplete"/> event.
+            </summary>
+            <remarks>
+            After the <c>PropertyPaneRootDesigner</c> is completely loaded 
+            we can add a toolbox item to the toolbox.  
+            We must wait until after the load completes because the fully qualified name
+            of the base class is not known until that time.
+            </remarks>
+            <param name="sender">The object that fired this event</param>
+            <param name="e">Event information</param>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PropertyPaneRootDesigner.GetToolboxBitmap(System.Type,System.String)">
+            <summary>
+              Get a Bitmap to be used on the toolbar
+            </summary>
+            <param name="t">The Type for which to find a Bitmap.</param>
+            <param name="className">The class name for which to get a bitmap</param>
+            <remarks>
+              <para>
+              The function will look for the appropriate bitmap by searching in 
+              the following ways:
+              </para>
+              <list type="number">
+                <item>
+                  <term>[<paramref name="t"/>'s class name].bmp</term>
+                  <description>
+                    The algorithm next looks for a .bmp file in the assembly's
+                    resources that has the same name as <paramref name="t"/>'s class name.
+                  </description>
+                </item>
+                <item>
+                  <term>Default</term>
+                  <description>
+                    If the two previous steps turn up nothing, the default
+                    PropertyPane.bmp bitmap is used (the gray arrow).
+                  </description>
+                </item>
+              </list>
+              <para>
+              The loading algorithm interprets bright green (RGB 0,255,0) as 
+              transparent.
+              </para>
+            </remarks>
+            <returns>
+            Returns a <see cref="T:System.Drawing.Bitmap"/> that is to be used as a Toolbox icon
+            </returns>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PropertyPaneRootDesigner.Initialize(System.ComponentModel.IComponent)">
+            <summary>
+            Initializes this designer with the <see cref="T:WRM.Windows.Forms.PropertyPane"/> that
+            it is designing.
+            </summary>
+            <param name="component">
+            The <c>PropertyPane</c> this designer is designing
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown if <paramref name="component"/> is null
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            Thrown if component does not descend from <see cref="T:WRM.Windows.Forms.PropertyPane"/>
+            </exception>
+        </member>
+        <member name="P:WRM.Windows.Forms.Design.PropertyPaneRootDesigner.DesignerHost">
+            <summary>
+            Gets the <see cref="T:System.ComponentModel.Design.IDesignerHost"/> that hosts this designer
+            </summary>
+            <value>
+            Uses <see cref="M:System.ComponentModel.Design.ComponentDesigner.GetService(System.Type)"/> to retreive an
+            instance of an object that implements the
+            <see cref="T:System.ComponentModel.Design.IDesignerHost"/> interface.
+            </value>
+        </member>
+        <member name="T:WRM.Windows.Forms.Design.PropertyTreeDesigner">
+            <summary>
+               The custom designer class for <see cref="T:WRM.Windows.Forms.PropertyTree"/>.
+            </summary>
+            <remarks>
+            <para>
+            Adds designer
+            verbs to the context menu for <see cref="T:WRM.Windows.Forms.PropertyTree"/>, and generally makes 
+            things operate in the design environment like they would in the runtime environment.
+            </para>
+            </remarks>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.WM_USER">
+            <summary>
+              WM_USER message constant
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.WM_REFLECT">
+            <summary>
+              WM_REFLECT message constant
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.WM_MOUSEMOVE">
+            <summary>
+            WM_MOUSEMOVE
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.WM_LBUTTONDOWN">
+            <summary>
+            WM_LBUTTONDOWN    
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.WM_LBUTTONUP">
+            <summary>
+            WM_LBUTTONUP      
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.WM_LBUTTONDBLCLK">
+            <summary>
+            WM_LBUTTONDBLCLK  
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.WM_RBUTTONDOWN">
+            <summary>
+            WM_RBUTTONDOWN    
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.WM_RBUTTONUP">
+            <summary>
+            WM_RBUTTONUP      
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.WM_RBUTTONDBLCLK">
+            <summary>
+            WM_RBUTTONDBLCLK  
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.MK_CONTROL">
+            <summary>
+            MK_CONTROL        
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.TV_FIRST">
+            <summary>
+            TV_FIRST              
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.TVM_HITTEST">
+            <summary>
+            TVM_HITTEST           
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.TVHT_NOWHERE">
+            <summary>
+            TVHT_NOWHERE          
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.TVHT_ONITEMICON">
+            <summary>
+            TVHT_ONITEMICON       
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.TVHT_ONITEMLABEL">
+            <summary>
+            TVHT_ONITEMLABEL      
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.TVHT_ONITEMSTATEICON">
+            <summary>
+            TVHT_ONITEMSTATEICON  
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.TVHT_ONITEM">
+            <summary>
+            TVHT_ONITEM           
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.TVHT_ONITEMINDENT">
+            <summary>
+            TVHT_ONITEMINDENT     
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.TVHT_ONITEMBUTTON">
+            <summary>
+            TVHT_ONITEMBUTTON     
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.TVHT_ONITEMRIGHT">
+            <summary>
+            TVHT_ONITEMRIGHT      
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.TVHT_ABOVE">
+            <summary>
+            TVHT_ABOVE            
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.TVHT_BELOW">
+            <summary>
+            TVHT_BELOW            
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.TVHT_TORIGHT">
+            <summary>
+            TVHT_TORIGHT          
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.TVHT_TOLEFT">
+            <summary>
+            TVHT_TOLEFT           
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PropertyTreeDesigner.SendMessage(System.IntPtr,System.Int32,System.Int32,WRM.Windows.Forms.Design.PropertyTreeDesigner.TVHITTESTINFO@)">
+            <summary>
+            Import the Win32 API <c>SendMessage</c> function.
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.mVerbs">
+            <summary>
+              A collection of our designer verbs
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.mPropertyTree">
+            <summary>
+              A reference to the instance of PropertyTree that we're 
+            designing
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.mDesignerHost">
+            <summary>
+              A reference to the IDesignerHost the VS.NET environment
+            provides us with.
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.mSelectionService">
+            <summary>
+              A reference to the selection service that is provided by
+            the VS.NET IDE.
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.mToolboxService">
+            <summary>
+              A reference to the toolbox service that is provided by the
+            VS.NET IDE.
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.mMenuService">
+            <summary>
+            A reference tot he menu service that is provided by
+            the VS.NET IDE.
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.mTargetPaneNode">
+            <summary>
+              The pane that is the drop-target of a drag-n-drop operation
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.mMouseDown">
+            <summary>
+            Whether or not the mouse button is currently pressed
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.mIsDragging">
+            <summary>
+            Whether or not an item is being dragged
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.mDragPaneNode">
+            <summary>
+            The <c>PaneNode</c> that is being dragged
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.mDropTargetNode">
+            <summary>
+            The current target of the drag-n-drop operation
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.mDragPt">
+            <summary>
+            The position that the cursor is currently located
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PropertyTreeDesigner.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PropertyTreeDesigner.Initialize(System.ComponentModel.IComponent)">
+            <summary>
+              Setup our internal references to the <see cref="T:WRM.Windows.Forms.PropertyTree">
+              PropertyTree</see>, and various <see cref="T:System.ComponentModel.Design.IDesignerHost">
+              IDesignerHost</see> services
+            </summary>
+            <param name="component">The component that is being attached to this designer</param>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PropertyTreeDesigner.OnAddPane(System.Object,System.EventArgs)">
+            <summary>
+              Handles the "Add PropertyPane..." designer verb.
+            </summary>
+            <param name="sender">
+            The sender of this event
+            </param>
+            <param name="e">
+            Information about the event
+            </param>
+            <remarks>
+              <para>
+              A new <see cref="T:WRM.Windows.Forms.PropertyPane"/> is creating and added to the
+              designed <see cref="T:WRM.Windows.Forms.PropertyTree"/> as a sibling of the
+              node identified by <see cref="P:WRM.Windows.Forms.PropertyTree.SelectedPaneNode"/>.
+              </para>
+              <para>
+              After being added, the new <see cref="T:WRM.Windows.Forms.PropertyPane"/> is selected
+              as the active designer component.
+              </para>
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PropertyTreeDesigner.OnAddPaneAsChild(System.Object,System.EventArgs)">
+            <summary>
+              Handle the "Add PropertyPane as child..." designer verb
+            </summary>
+            <param name="sender">
+            The sender of this event
+            </param>
+            <param name="e">
+            Information about the event
+            </param>
+            <remarks>
+              <para>
+              A new <see cref="T:WRM.Windows.Forms.PropertyPane"/> is creating and added to the
+              designed <see cref="T:WRM.Windows.Forms.PropertyTree"/> as a child of the
+              node identified by <see cref="P:WRM.Windows.Forms.PropertyTree.SelectedPaneNode"/>.
+              </para>
+              <para>
+              After being added, the new <see cref="T:WRM.Windows.Forms.PropertyPane"/> is selected
+              as the active designer component.
+              </para>
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PropertyTreeDesigner.OnRemovePane(System.Object,System.EventArgs)">
+            <summary>
+              Handle the "Remove PropertyPane..." designer verb.
+            </summary>
+            <param name="sender">
+            The sender of this event
+            </param>
+            <param name="e">
+            Information about the event
+            </param>
+            <remarks>
+              <para>
+              The node identified by <see cref="P:WRM.Windows.Forms.PropertyTree.SelectedPaneNode"/>
+              is removed from the <c>PropertyTree</c>.
+              </para>
+              <para>
+              Afterwards, there is no longer a selected designer component.
+              </para>
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PropertyTreeDesigner.OnPaneActivated(WRM.Windows.Forms.PropertyTree,WRM.Windows.Forms.PaneSelectionEventArgs)">
+            <summary>
+              Updates the available menu commands when a new 
+              <see cref="T:WRM.Windows.Forms.PropertyPane"/> is selected.
+            </summary>
+            <param name="sender">
+            The sender of this event
+            </param>
+            <param name="psea">
+            Information about the event
+            </param>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PropertyTreeDesigner.IsParent(System.Windows.Forms.TreeNode,System.Windows.Forms.TreeNode)">
+            <summary>
+              Checks to see if the dragged node is a parent of the drop-target.
+            </summary>
+            <param name="drag">
+            The <see cref="T:System.Windows.Forms.TreeNode"/> being dragged
+            </param>
+            <param name="target">
+            The <see cref="T:System.Windows.Forms.TreeNode"/> that is the current target of the drop operation
+            </param>
+            <returns><c>true</c> if drag node is a parent of the drop target node</returns>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PropertyTreeDesigner.DoDragDrop(WRM.Windows.Forms.PaneNode,WRM.Windows.Forms.PaneNode,System.Boolean)">
+            <summary>
+              Perform our design-time drag n'drop of pane nodes
+            </summary>
+            <param name="dragPaneNode">
+            The <c>PaneNode</c> that is being dragged
+            </param>
+            <param name="dropTargetNode">
+            The <c>PaneNode</c> that <paramref name="dragPaneNode"/> is being dropped onto
+            </param>
+            <param name="dropAsChild">
+            Boolean value indicating whether or not <paramref name="dragPaneNode"/> is to become 
+            a child of <paramref name="dropTargetNode"/>.
+            </param>
+            <remarks>
+            This method filters out and deals with any possible screwy values that could be 
+            passed into it.  If either <paramref name="dragPaneNode"/> or 
+            <paramref name="dropTargetNode"/> is <c>null</c>, or if 
+            <paramref name="dragPaneNode"/> is a parent of 
+            <paramref name="dropTargetNode"/>, this method gracefully no-ops.
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PropertyTreeDesigner.IsOnPlusMinus(System.Drawing.Point)">
+            <summary>
+              Figure out whether or not the given point is on a node's plus/minus button.
+            </summary>
+            <param name="pt">
+            The point that was clicked
+            </param>
+            <returns><c>true</c> if the point is on a node's plus/minus button</returns>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PropertyTreeDesigner.EnsureSelected">
+            <summary>
+            Ensures that the designed <see cref="T:WRM.Windows.Forms.PropertyTree"/> is the currently
+            selected design-time component.
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PropertyTreeDesigner.WndProc(System.Windows.Forms.Message@)">
+            <summary>
+            Low-level access to the designed component's window procedure.
+            </summary>
+            <param name="m">
+            The windows message that was passed to our designed component's
+            window procedure.
+            </param>
+            <remarks>
+            <para>
+            This function is used to handle all mouse-related input that
+            occurs over the <see cref="T:WRM.Windows.Forms.PropertyTree"/>'s internal
+            <see cref="T:System.Windows.Forms.TreeView"/>.  We want the design-time behavior to 
+            mimick the run-time behavior as closely as possible, but we also 
+            want special functionality (like drag-and-drop rearrangement) 
+            during design-time.
+            </para>
+            <para>
+            In order to get this behavior, manual intervention is required 
+            when it comes to processing mouse messages for the 
+            <see cref="T:WRM.Windows.Forms.PropertyTree"/>'s <see cref="T:System.Windows.Forms.TreeView"/>.  This code
+            must intercept all mouse-related messages that are destined for
+            this <c>TreeView</c> and force the expected behavior.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PropertyTreeDesigner.SelectPane(WRM.Windows.Forms.PaneNode)">
+            <summary>
+            Use the VS.NET's <see cref="T:System.ComponentModel.Design.ISelectionService"/> to programmatically select
+            a <see cref="T:WRM.Windows.Forms.PropertyPane"/> in the Forms designer.
+            </summary>
+            <param name="pane">The <c>PaneNode</c> to select</param>
+            <remarks>
+            This is done when a new <see cref="T:WRM.Windows.Forms.PropertyPane">PropertyPane</see>
+            is selected so that its properties will appear in the VS.NET IDE's 
+            property browser.
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PropertyTreeDesigner.UpdateMenuCommands">
+            <summary>
+              Update the available menu commands, based on the currently selected
+            <see cref="T:WRM.Windows.Forms.PropertyPane">PropertyPane</see>.
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PropertyTreeDesigner.GetHitTest(System.Drawing.Point)">
+            <summary>
+            Perform hit-testing on the given <paramref name="point"/> to determine
+            if it is on a node or not.
+            </summary>
+            <param name="point">
+            The <see cref="T:System.Drawing.Point">Point</see>, in screen coordinates,
+            to test.
+            </param>
+            <returns>
+            Returns <c>true</c> if the cursor is over the <c>TreeView</c>, to indicate that
+            the user can click on the nodes in the <c>TreeView</c>.  Returns <c>false</c> otherwise
+            to let the user move the control around on the form.
+            </returns>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PropertyTreeDesigner.OnDragDrop(System.Windows.Forms.DragEventArgs)">
+            <summary>
+            Handle drag-drop from the VS.NET ToolBox
+            </summary>
+            <param name="de">
+            Object describing the drag-drop event that has occured
+            </param>
+            <remarks>
+            <para>
+            If the <c>Ctrl</c> key is down, then the dropped
+            <see cref="T:WRM.Windows.Forms.PropertyPane"/> is added as a child of the
+            drop-target.  Otherwise, it is added as a sibling of
+            the drop-target.
+            </para>
+            <para>
+            Dragged objects that did not originate from the VS.NET
+            ToolBox, that do not derive from <see cref="T:WRM.Windows.Forms.PropertyPane"/>, 
+            or that do derive from <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/> 
+            are ignored.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PropertyTreeDesigner.OnDragEnter(System.Windows.Forms.DragEventArgs)">
+            <summary>
+              Handle the drag-enter event.
+            </summary>
+            <param name="de">Object describing the drag-drop event that has occured</param>
+            <remarks>
+            <para>
+            Dragged objects that did not originate from the VS.NET
+            ToolBox, that do not derive from <see cref="T:WRM.Windows.Forms.PropertyPane"/>, 
+            or that do derive from <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/> 
+            are ignored.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PropertyTreeDesigner.OnDragOver(System.Windows.Forms.DragEventArgs)">
+            <summary>
+              Handle the drag-move event
+            </summary>
+            <param name="de">Object describing the drag-drop event that has occured</param>
+            <remarks>
+            <para>
+            Update our internal drag-n-drop state as an OLE drag-n-drop object is being dragged
+            around above this control.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PropertyTreeDesigner.DropHilite(WRM.Windows.Forms.PaneNode,System.Boolean)">
+            <summary>
+              Turns on or off drop-hiliting for the given PropertyPane's TreeNode.
+            </summary>
+            <param name="paneNode">
+            The PaneNode whose TreeNode's hiliting is in question
+            </param>
+            <param name="hilite">
+            Boolean indicating whether to turn drop-hiliting on or off
+            </param>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PropertyTreeDesigner.GenerateNewPaneName">
+            <summary>
+              Generates a new unique name for a <see cref="T:WRM.Windows.Forms.PropertyPane"/> that is 
+              suitable for use as a variable name.
+            </summary>
+            <remarks>
+              <para>
+              This function returns names of the form "ppPaneN" where N is a number.  This
+              function will start at "ppPane1" and keep incrementing the trailing number
+              until it finds a name that has not been used yet.
+              </para>
+              <para>
+              The <see cref="M:System.ComponentModel.Design.IReferenceService.GetName(System.Object)"/> is used to determine whether
+              or not a name is in use by the designer.
+              </para>
+            </remarks>
+            <returns>
+            A unique name for a <see cref="T:WRM.Windows.Forms.PropertyPane"/> that is suitable for 
+            use as a variable name.
+            </returns>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PropertyTreeDesigner.GetAllChildPaneNodes(WRM.Windows.Forms.PaneNode)">
+            <summary>
+            Gets all of the child <see cref="T:WRM.Windows.Forms.PaneNode"/>s for the given 
+            <paramref name="paneNode"/>.
+            </summary>
+            <param name="paneNode">
+            The <c>PaneNode</c> for which to get children.
+            </param>
+            <returns>
+            Returns an array containing all <see cref="T:WRM.Windows.Forms.PaneNode"/>s that
+            have <paramref name="paneNode"/> as an ancestor.
+            </returns>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PropertyTreeDesigner.GetAllChildPaneNodesHlpr(WRM.Windows.Forms.PaneNode,System.Collections.ArrayList)">
+            <summary>
+            Recursive helper function for 
+            <see cref="M:WRM.Windows.Forms.Design.PropertyTreeDesigner.GetAllChildPaneNodes(WRM.Windows.Forms.PaneNode)"/>.
+            </summary>
+            <param name="parent">
+            The <c>PaneNode</c> whose children are being inspected this recursion
+            </param>
+            <param name="childNodes">
+            The list of all child <see cref="T:WRM.Windows.Forms.PaneNode"/>s found so far.
+            </param>
+        </member>
+        <member name="M:WRM.Windows.Forms.Design.PropertyTreeDesigner.OnContextMenu(System.Int32,System.Int32)">
+            <summary>
+            Updates the menu commands in preparation for displaying the
+            context menu in the designer.
+            </summary>
+            <param name="x">The X coordinate to display the context menu</param>
+            <param name="y">The Y coordinate to display the context menu</param>
+            <remarks>
+            This override actually does nothing more than update our menu
+            commands' states, because we manually take care of determining
+            when and where to should our context menu.
+            </remarks>
+            <seealso cref="M:WRM.Windows.Forms.Design.PropertyTreeDesigner.WndProc(System.Windows.Forms.Message@)"/>
+        </member>
+        <member name="P:WRM.Windows.Forms.Design.PropertyTreeDesigner.AssociatedComponents">
+            <summary>
+            Gets the list of <see cref="T:WRM.Windows.Forms.PropertyPane"/> objects that exist in this 
+            <c>PropertyTree</c>
+            </summary>
+            <value>
+            Builds and returns an <see cref="T:System.Collections.ICollection"/> of all <see cref="T:WRM.Windows.Forms.PropertyPane"/>s
+            contained in this <c>PropertyTree</c>.
+            </value>
+            <remarks>
+            This collection is used to facilitate clipboard copy &amp; paste operations.
+            This ensures that when you copy a <c>PropertyTree</c>, it will carry
+            along with it all the <see cref="T:WRM.Windows.Forms.PropertyPane"/>s that have been added to it.
+            </remarks>
+            <returns>
+            Return the list of <see cref="T:WRM.Windows.Forms.PropertyPane"/> objects that exist in this 
+            <c>PropertyTree</c>
+            </returns>
+        </member>
+        <member name="P:WRM.Windows.Forms.Design.PropertyTreeDesigner.Verbs">
+            <summary>
+            Gets a collection of custom <see cref="T:System.ComponentModel.Design.DesignerVerb"/>s that will appear
+            on VS.NET's context menu when a <c>PropertyTree</c> is selected
+            at design-time.
+            </summary>
+            <value>
+            The <see cref="T:System.ComponentModel.Design.DesignerVerbCollection">DesignerVerbCollection</see>
+            that was created in our constructor.
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.Design.PropertyTreeDesigner.SelectionRules">
+            <summary>
+            Gets the <see cref="P:WRM.Windows.Forms.Design.PropertyTreeDesigner.SelectionRules">SelectionRules</see> for this 
+            component
+            </summary>
+            <value>
+            Any sort of selection for is allowed for 
+            <see cref="T:WRM.Windows.Forms.PropertyTree">PropertyTree</see>, so
+            the value returned is a logical OR of the values
+            in <see cref="P:WRM.Windows.Forms.Design.PropertyTreeDesigner.SelectionRules"/>.
+            </value>
+        </member>
+        <member name="T:WRM.Windows.Forms.Design.PropertyTreeDesigner.POINT">
+            <summary>
+            The Win32 POINT struct
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.POINT.x">
+            <summary>
+            The x coordinate of the point
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.POINT.y">
+            <summary>
+            The y coordinate of the point
+            </summary>
+        </member>
+        <member name="T:WRM.Windows.Forms.Design.PropertyTreeDesigner.TVHITTESTINFO">
+            <summary>
+            The Win32 TVHITTESTINFO struct
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.TVHITTESTINFO.pt">
+            <summary>
+            The point at which to hit test
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.TVHITTESTINFO.flags">
+            <summary>
+            Result of the hit test
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.TVHITTESTINFO.hItem">
+            <summary>
+            An HTREEITEM handle
+            </summary>
+        </member>
+        <member name="T:WRM.Windows.Forms.Design.PropertyTreeDesigner.NodePart">
+            <summary>
+            Enumeration identifying parts of the node that can be
+            detected during hit-testing.
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.NodePart.Above">
+            <summary>
+            Above the node
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.NodePart.Below">
+            <summary>
+            Below the node
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.NodePart.ToLeft">
+            <summary>
+            To the left of the node
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.NodePart.ToRight">
+            <summary>
+            To the right of the node
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.NodePart.Nowhere">
+            <summary>
+            Not near a node
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.NodePart.OnItem">
+            <summary>
+            On the item itself
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.NodePart.OnItemButton">
+            <summary>
+            On the item's plus/minus button
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.NodePart.OnItemIcon">
+            <summary>
+            On the item's icon
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.NodePart.OnItemIndent">
+            <summary>
+            On the space to the left of the item
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.NodePart.OnItemLabel">
+            <summary>
+            On the text label of the item
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.NodePart.OnItemStateIcon">
+            <summary>
+            On the item's state icon
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.Design.PropertyTreeDesigner.NodePart.OnItemRight">
+            <summary>
+            To the right of the item's label
+            </summary>
+        </member>
+        <member name="T:WRM.Windows.Forms.PaneHeader">
+            <summary>
+               <para>
+               A header for <see cref="T:WRM.Windows.Forms.PropertyPane"/>s in the 
+               <see cref="T:WRM.Windows.Forms.PropertyTree"/>.
+               </para>
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PaneHeader.components">
+            <summary>
+               Required designer variable.
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PaneHeader.mLeftColor">
+            <summary>
+            The left color of the non-Themed gradient
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PaneHeader.mRightColor">
+            <summary>
+            The right color of the non-Themed gradient
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PaneHeader.mGradBrush">
+            <summary>
+            The brush that draws the non-Themed gradient
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PaneHeader.mOurRect">
+            <summary>
+            Our client rectangle
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PaneHeader.mTextRect">
+            <summary>
+            The rectangle our text will be drawn into
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneHeader.#ctor">
+            <summary>
+             Creates a new instance of the PaneHeader class
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneHeader.Dispose(System.Boolean)">
+            <summary>
+               Clean up any resources being used.
+            </summary>
+            <param name="isDisposing">
+            <c>true</c> to release both managed and unmanaged resources; 
+            <c>false</c> to release only unmanaged resources.
+            </param>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneHeader.InitializeComponent">
+            <summary>
+               Required method for Designer support - do not modify 
+               the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneHeader.OnPaintBackground(System.Windows.Forms.PaintEventArgs)">
+            <summary>
+            Override to handle background painting.
+            </summary>
+            <param name="e">Event information</param>
+            <remarks>
+            No background painting occurs, and the base class's version of
+            <see cref="M:System.Windows.Forms.Control.OnPaintBackground(System.Windows.Forms.PaintEventArgs)">OnPaintBackground</see> 
+            is not called.
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneHeader.OnPaint(System.Windows.Forms.PaintEventArgs)">
+            <summary>
+            Override to handle painting.
+            </summary>
+            <param name="e">Paint event information</param>
+            <remarks>
+            <c>PaneHeader</c>'s background is drawn using a horizontal 
+            gradient from <see cref="P:WRM.Windows.Forms.PaneHeader.LeftColor"/> to 
+            <see cref="P:WRM.Windows.Forms.PaneHeader.RightColor"/>.
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneHeader.OnResize(System.EventArgs)">
+            <summary>
+              Override to handle the Resize event.
+            </summary>
+            <param name="e">Resize event information</param>
+            <remarks>
+            This function is overridden so that the entire background will be
+            invalidated, and the gradient brush re-created, every time the 
+            canvas changes size.
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneHeader.CreateBrush">
+            <summary>
+            Creates the <see cref="T:System.Drawing.Brush"/> object used to paint the 
+            background gradient.
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneHeader.OnTextChanged(System.EventArgs)">
+            <summary>
+            Override to handle the TextChanged event.
+            </summary>
+            <param name="e">Event information</param>
+            <remarks>
+            When the <see cref="P:System.Windows.Forms.Control.Text">Text</see> property changes, the
+            entire client rectangle needs to be invalidated and redrawn.
+            </remarks>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneHeader.LeftColor">
+            <summary>
+            Gets or sets the color on the left-hand side of the background gradient.
+            </summary>
+            <value>
+            This value represents the color on the left side of the background gradient.
+            </value>
+            <remarks>
+            Setting this value to a new color will cause the gradient brush to be recreated
+            via <see cref="M:WRM.Windows.Forms.PaneHeader.CreateBrush"/> and the entire client rectangle will be 
+            invalidated.
+            </remarks>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneHeader.RightColor">
+            <summary>
+            Gets or sets the color on the right-hand side of the background gradient.
+            </summary>
+            <value>
+            This value represents the color on the right side of the background gradient.
+            </value>
+            <remarks>
+            Setting this value to a new color will cause the gradient brush to be recreated
+            via <see cref="M:WRM.Windows.Forms.PaneHeader.CreateBrush"/> and the entire client rectangle will be 
+            invalidated.
+            </remarks>
+        </member>
+        <member name="T:WRM.Windows.Forms.PaneNode">
+            <summary>
+            <c>PaneNode</c> contains all information necessary to uniquely identify a
+            conceptual node in a <see cref="P:WRM.Windows.Forms.PaneNode.PropertyTree"/>.
+            </summary>
+            <remarks>
+            <para>
+            Because of <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/>s, <see cref="P:WRM.Windows.Forms.PaneNode.PropertyPane"/>s 
+            do not necessarily contain all the information necessary to identify 
+            themselves uniquely in the <see cref="P:WRM.Windows.Forms.PaneNode.PropertyTree"/>.  This is simply 
+            because there is a 1-to-N relationship between an instance of a 
+            <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/> and nodes in the 
+            <see cref="P:WRM.Windows.Forms.PaneNode.PropertyTree"/>.
+            </para>
+            <para>
+            A <c>PaneNode</c> represents a single conceptual node in the 
+            <see cref="P:WRM.Windows.Forms.PaneNode.PropertyTree"/>.  A <c>PaneNode</c> may or may not represent a 
+            <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/> descendant - it doesn't matter.  The 
+            <c>PaneNode</c> keeps all of the information like <see cref="P:WRM.Windows.Forms.PaneNode.Index"/>, 
+            <see cref="P:WRM.Windows.Forms.PaneNode.ImageIndex"/>, etc... so that the various descendants of 
+            <see cref="P:WRM.Windows.Forms.PaneNode.PropertyPane"/> and <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/> don't 
+            have to keep up with these things.
+            </para>
+            <para>
+            In addition to these duties, a <c>PaneNode</c> also keeps track of 
+            all its child <c>PaneNode</c>s via its <see cref="P:WRM.Windows.Forms.PaneNode.PaneNodes"/> property.  
+            Any  <c>PaneNode</c> objects that are members of this collection will 
+            appear as children of this <c>PaneNode</c> in the <see cref="P:WRM.Windows.Forms.PaneNode.PropertyTree"/>.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNode.#ctor(WRM.Windows.Forms.PropertyTree)">
+            <summary>
+            Constructs a <c>PaneNode</c> that is used as the root-level
+            <c>PaneNode</c> for the given <see cref="P:WRM.Windows.Forms.PaneNode.PropertyTree"/>.
+            </summary>
+            <param name="grandPooBah">
+            The <see cref="P:WRM.Windows.Forms.PaneNode.PropertyTree">PropertyTree</see> that will use
+            this <c>PaneNode</c> as its root.
+            </param>
+            <remarks>
+            <para>
+            This constructor is marked <c>internal</c> because it only
+            exists to facilitate the generic machinery of 
+            <see cref="P:WRM.Windows.Forms.PaneNode.PropertyTree">PropertyTree</see>.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNode.#ctor">
+            <summary>
+            Constructs a dummy <c>PaneNode</c>, used only in 
+            <see cref="P:WRM.Windows.Forms.PaneNode.PropertyPane">PropertyPane</see>'s 
+            <see cref="P:WRM.Windows.Forms.PaneNode.PropertyPane"> constructor</see> to stash
+            panes during build time.
+            </summary>
+            <remarks>
+            This constructor is marked <c>internal</c> because it only exists
+            to facilitate the generic machinery of <see cref="P:WRM.Windows.Forms.PaneNode.PropertyPane"/>.
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNode.#ctor(WRM.Windows.Forms.PropertyPane)">
+            <summary>
+            Create a <c>PaneNode</c> to represent a regular PropertyPane
+            </summary>
+            <param name="pane">
+            The <see cref="P:WRM.Windows.Forms.PaneNode.PropertyPane"/> that will be represented by the
+            new <c>PaneNode</c>
+            </param>
+            <remarks>
+            This constructor is marked <c>internal</c> because it only exists
+            to facilitate the generic machinery of <see cref="P:WRM.Windows.Forms.PaneNode.PropertyPane"/>.
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNode.#ctor(System.Type,System.Object)">
+            <summary>
+              Create a PaneNode to represent a SharedPropertyPane
+            </summary>
+            <param name="sharedPaneType"></param>
+            <param name="data"></param>
+            <remarks>
+            This constructor is marked <c>internal</c> because it only exists
+            to facilitate the generic machinery of <see cref="P:WRM.Windows.Forms.PaneNode.PropertyPane"/>.
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNode.SyncImageIndex">
+            <summary>
+            Updates <see cref="P:WRM.Windows.Forms.PaneNode.TreeNode">
+            PaneNode.TreeNode.ImageIndex</see> with the value given
+            by <see cref="P:WRM.Windows.Forms.PaneNode.ImageIndex">PaneNode.ImageIndex</see>.
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNode.SyncSelectedImageIndex">
+            <summary>
+            Updates <see cref="P:WRM.Windows.Forms.PaneNode.TreeNode">
+            PaneNode.TreeNode.SelectedImageIndex</see> with the value given
+            by <see cref="P:WRM.Windows.Forms.PaneNode.SelectedImageIndex">
+            PaneNode.SelectedImageIndex</see>.
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNode.SyncExpanded">
+            <summary>
+            Updates the <see cref="P:WRM.Windows.Forms.PaneNode.TreeNode">
+            PaneNode.TreeNode</see> to reflect the value given
+            by <see cref="P:WRM.Windows.Forms.PaneNode.Expanded">
+            PaneNode.Expanded</see>.
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNode.SyncText">
+            <summary>
+            Updates <see cref="P:WRM.Windows.Forms.PaneNode.TreeNode">
+            PaneNode.TreeNode.Text</see> with the value given
+            by <see cref="P:WRM.Windows.Forms.PaneNode.Text">
+            PaneNode.Text</see>.
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNode.CompareTo(System.Object)">
+            <summary>
+            Compares this <c>PaneNode</c> to another <c>PaneNode</c>
+            </summary>
+            <param name="other">
+            A reference to another <c>PaneNode</c> object.
+            </param>
+            <returns>
+            <list type="table">
+                <listheader>
+                    <term>
+                        Return value
+                    </term>
+                    <description>
+                        Meaning
+                    </description>
+                </listheader>
+                <item>
+                    <term>
+                        <c>&lt; 0</c>
+                    </term>
+                    <description>
+                        Indicates this <c>PaneNode</c> is "less" than the 
+                        <paramref name="other"/> <c>PaneNode</c>
+                    </description>
+                </item>
+                <item>
+                    <term>
+                        <c>0</c>
+                    </term>
+                    <description>
+                        Indicates this <c>PaneNode</c> is "equal to" the 
+                        <paramref name="other"/> <c>PaneNode</c>
+                    </description>
+                </item>
+                <item>
+                    <term>
+                        <c>&gt; 0</c>
+                    </term>
+                    <description>
+                        Indicates this <c>PaneNode</c> is "greater than" the 
+                        <paramref name="other"/> <c>PaneNode</c>
+                    </description>
+                </item>
+            </list>
+            </returns>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneNode.IsShared">
+            <summary>
+              Gets a value indicating whether or not this <c>PaneNode</c> 
+              represents a subclass of <see cref="T:WRM.Windows.Forms.SharedPropertyPane">
+              SharedPropertyPane</see>.
+            </summary>
+            <value>
+              This value is stored at object creation time depending on
+              which constructor was used.
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneNode.PropertyPane">
+            <summary>
+            Gets the <see cref="P:WRM.Windows.Forms.PaneNode.PropertyPane">PropertyPane</see> instance
+            that this <c>PaneNode</c> is associated with.
+            </summary>
+            <value>
+            An instance of <see cref="P:WRM.Windows.Forms.PaneNode.PropertyPane">PropertyPane</see> which this
+            <c>PaneNode</c> represents.
+            </value>
+            <remarks>
+            <para>
+            This value is guarunteed to always be non-<c>null</c>.
+            </para>
+            <para>
+            If the <see cref="P:WRM.Windows.Forms.PaneNode.PropertyPane">PropertyPane</see> is actually an 
+            instance of a <see cref="T:WRM.Windows.Forms.SharedPropertyPane">SharedPropertyPane</see>,
+            more than one <c>PaneNode</c> may reference it.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneNode.PropertyPaneInternal">
+            <summary>
+            Gets or sets the <see cref="P:WRM.Windows.Forms.PaneNode.PropertyPane">PropertyPane</see> instance
+            that this <c>PaneNode</c> is associated with.
+            </summary>
+            <value>
+            An instance of <see cref="P:WRM.Windows.Forms.PaneNode.PropertyPane">PropertyPane</see> which this
+            <c>PaneNode</c> represents.
+            </value>
+            <remarks>
+            <para>
+            This value is guarunteed to always be non-<c>null</c>.
+            </para>
+            <para>
+            If the <see cref="P:WRM.Windows.Forms.PaneNode.PropertyPane">PropertyPane</see> is actually an 
+            instance of a <see cref="T:WRM.Windows.Forms.SharedPropertyPane">SharedPropertyPane</see>,
+            more than one <c>PaneNode</c> may reference it.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneNode.Data">
+            <summary>
+            Gets the user-specified data object that is associated with this particular
+            <c>PaneNode</c>.
+            </summary>
+            <value>
+            The object instance returned by this property is determined by whatever data 
+            object the user specified when adding a <see cref="T:WRM.Windows.Forms.SharedPropertyPane">
+            SharedPropertyPane</see>.
+            </value>
+            <remarks>
+            <para>
+            When <see cref="P:WRM.Windows.Forms.PaneNode.IsShared">IsShared</see> is <c>false</c>, 
+            <c>PaneNode.Data</c> will always be <c>null</c>.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneNode.Index">
+            <summary>
+            Gets the index of this <c>PaneNode</c> in relation to its siblings
+            in <see cref="P:WRM.Windows.Forms.PaneNode.Parent">PaneNode.Parent.PaneNodes
+            </see>.
+            </summary>
+            <value>
+            <para>
+            The value returned is the zero-based index of this <c>PaneNode</c>
+            in <see cref="P:WRM.Windows.Forms.PaneNode.Parent">PaneNode.Parent.PaneNodes
+            </see>.
+            </para>
+            <para>
+            A value of <c>-1</c> indicates that this <c>PaneNode</c> is not
+            currently a child of a <see cref="T:WRM.Windows.Forms.PaneNodeCollection">
+            PaneNodeCollection</see>.
+            </para>
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneNode.IndexInternal">
+            <summary>
+            Gets or Sets the index of this <c>PaneNode</c> in relation to
+            its siblings in
+            <see cref="P:WRM.Windows.Forms.PaneNode.Parent">PaneNode.Parent.PaneNodes</see>.
+            </summary>
+            <value>
+            <para>
+            The value returned is the zero-based index of this <c>PaneNode</c>
+            in <see cref="P:WRM.Windows.Forms.PaneNode.Parent">PaneNode.Parent.PaneNodes
+            </see>.
+            </para>
+            <para>
+            A value of <c>-1</c> indicates that this <c>PaneNode</c> is not
+            currently a child of a <see cref="T:WRM.Windows.Forms.PaneNodeCollection">
+            PaneNodeCollection</see>.
+            </para>
+            </value>
+            <remarks>
+            <c>IndexInternal</c> is only for use by the various bookeeping functions
+            implemented by <see cref="T:WRM.Windows.Forms.PaneNodeCollection">PaneNodeCollection</see>.
+            It is semantically read-only - it is only written to in order to record
+            the resulting index after adding the <c>PaneNode</c> to a
+            <c>PaneNodeCollection</c>.
+            </remarks>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneNode.ImageIndex">
+            <summary>
+            Gets or sets the image list index value of the image displayed when 
+            the <c>PaneNode.TreeNode</c> is not selected in the 
+            <see cref="P:WRM.Windows.Forms.PaneNode.PropertyTree">PropertyTree</see>.
+            </summary>
+            <value>
+            <para>
+            A zero-based index that identifies an image in the 
+            <see cref="T:System.Windows.Forms.ImageList">ImageList</see> referenced by
+            <see cref="P:WRM.Windows.Forms.PaneNode.PropertyTree">PropertyTree.ImageList
+            </see>.
+            </para>
+            <para>
+            A value of <c>-1</c> indicates that no image will be displayed even 
+            if <see cref="P:WRM.Windows.Forms.PaneNode.PropertyTree">PropertyTree.ImageList</see>
+            is non-<c>null</c>.
+            </para>
+            </value>
+            <remarks>
+            This value defaults to the value given by 
+            <see cref="P:WRM.Windows.Forms.PaneNode.PropertyTree">PropertyTree.ImageIndex</see>.
+            </remarks>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneNode.SelectedImageIndex">
+            <summary>
+            Gets or sets the image list index value of the image displayed when 
+            the <c>PaneNode.TreeNode</c> is selected in the 
+            <see cref="P:WRM.Windows.Forms.PaneNode.PropertyTree">PropertyTree</see>.
+            </summary>
+            <value>
+            <para>
+            A zero-based index that identifies an image in the 
+            <see cref="T:System.Windows.Forms.ImageList">ImageList</see> referenced by
+            <see cref="P:WRM.Windows.Forms.PaneNode.PropertyTree">PropertyTree.ImageList
+            </see>.
+            </para>
+            <para>
+            A value of <c>-1</c> indicates that no image will be displayed even 
+            if <see cref="P:WRM.Windows.Forms.PaneNode.PropertyTree">PropertyTree.ImageList</see>
+            is non-<c>null</c>.
+            </para>
+            </value>
+            <remarks>
+            This value defaults to the value given by 
+            <see cref="P:WRM.Windows.Forms.PaneNode.PropertyTree">PropertyTree.SelectedImageIndex</see>.
+            </remarks>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneNode.Expanded">
+            <summary>
+            Gets or sets a value indicating whether or not this <c>PaneNode</c>
+            is expanded so that its children are visible.
+            </summary>
+            <value>
+            A <c>bool</c> value indicating whether or not this <c>PaneNode</c>
+            is expanded in the <see cref="P:WRM.Windows.Forms.PaneNode.PropertyTree">PropertyTree</see>.
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneNode.ExpandedInternal">
+            <summary>
+            Gets or sets a value indicating whether or not this <c>PaneNode</c>
+            is expanded so that its children are visible.
+            </summary>
+            <value>
+            A <c>bool</c> value indicating whether or not this <c>PaneNode</c>
+            is expanded in the <see cref="P:WRM.Windows.Forms.PaneNode.PropertyTree">PropertyTree</see>.
+            </value>
+            <remarks>
+            <c>ExpandedInternal</c> is only for use by the various bookeeping functions
+            implemented by <see cref="P:WRM.Windows.Forms.PaneNode.PropertyTree">PropertyTree</see>.  Setting 
+            <c>ExpandedInternal</c> will not actually cause the associated
+            <see cref="P:WRM.Windows.Forms.PaneNode.TreeNode">TreeNode</see> to expand or collapse.  It is intended
+            to simply record the results of a user manually expanding or collapsing
+            a node.
+            </remarks>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneNode.Text">
+            <summary>
+            Gets or sets the text that is displayed in the 
+            <see cref="P:WRM.Windows.Forms.PaneNode.PropertyTree">PropertyTree</see> for this <c>PaneNode</c>.
+            </summary>
+            <value>
+            The value is the string that is displayed in the 
+            <see cref="P:WRM.Windows.Forms.PaneNode.PropertyTree">PropertyTree</see>'s 
+            <see cref="T:System.Windows.Forms.TreeView">TreeView</see>.  In addition, when this 
+            <c>PaneNode</c> is selected, <see cref="P:WRM.Windows.Forms.PaneNode.PropertyTree"/> will also display this 
+            string above the actual <see cref="P:WRM.Windows.Forms.PaneNode.PropertyPane">PropertyPane</see> 
+            that this <c>PaneNode</c> represents.
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneNode.TreeNode">
+            <summary>
+            The <see cref="P:WRM.Windows.Forms.PaneNode.TreeNode">TreeNode</see> that <see cref="P:WRM.Windows.Forms.PaneNode.PropertyTree">
+            PropertyTree</see> uses to represent this <c>PaneNode</c> in its
+            internal <see cref="T:System.Windows.Forms.TreeView">TreeView</see>.
+            </summary>
+            <value>
+            <para>
+            The <see cref="P:WRM.Windows.Forms.PaneNode.TreeNode">TreeNode</see> that <see cref="P:WRM.Windows.Forms.PaneNode.PropertyTree">
+            PropertyTree</see> uses to represent this <c>PaneNode</c> in its
+            internal <see cref="T:System.Windows.Forms.TreeView">TreeView</see>.
+            </para>
+            <para>
+            If this <c>PaneNode</c> is not currently in a <see cref="P:WRM.Windows.Forms.PaneNode.PropertyTree"/>, this
+            value is <c>null</c>.
+            </para>
+            </value>
+            <remarks>
+            <para>
+            Setting this value will cause this <c>PaneNode</c> to resynchronize its
+            various <see cref="P:WRM.Windows.Forms.PaneNode.TreeNode">TreeNode</see>-related properties, and
+            will also cause it to add all of the <c>PaneNode</c>s in 
+            <see cref="P:WRM.Windows.Forms.PaneNode.PaneNodes">PaneNodes</see> to the tree.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneNode.Parent">
+            <summary>
+            Gets the parent <c>PaneNode</c> of this <c>PaneNode</c>
+            </summary>
+            <value>
+            The parent <c>PaneNode</c> of this <c>PaneNode</c>.  This value 
+            is <c>null</c> if this <c>PaneNode</c> has no parent.
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneNode.ParentInternal">
+            <summary>
+            Gets or sets the parent <c>PaneNode</c> of this <c>PaneNode</c>.  This
+            settable version is intended to be used internally.
+            </summary>
+            <value>
+            <para>
+            The parent <c>PaneNode</c> of this <c>PaneNode</c>.  This value 
+            is <c>null</c> if this <c>PaneNode</c> has no parent.
+            </para>
+            </value>
+            <remarks>
+            <para>
+            Other than assigning this <c>PaneNode</c> a parent, setting this
+            value affects this <c>PaneNode</c>'s appearance in a
+            <see cref="P:WRM.Windows.Forms.PaneNode.PropertyTree"/> according to the following rules:
+            </para>
+            <list type="table">
+                <listheader>
+                    <term>Scenario</term>
+                    <description>Result</description>
+                </listheader>
+                <item>
+                    <term>
+                    <see cref="P:WRM.Windows.Forms.PaneNode.Parent"/><c> == null</c>, and 
+                    <c>value == null</c>
+                    </term>
+                    <description>
+                    No action takes place
+                    </description>
+                </item>
+                <item>
+                    <term>
+                    <see cref="P:WRM.Windows.Forms.PaneNode.Parent"/><c> == null</c>, and 
+                    <c>value != null</c>
+                    </term>
+                    <description>
+                    <see cref="P:WRM.Windows.Forms.PaneNode.Parent"/> is set to <c>value</c>.  <c>PaneNode</c>
+                    is added to the <see cref="P:WRM.Windows.Forms.PaneNode.PropertyTree"/> that its parent <c>PaneNode</c>
+                    is in (if any).
+                    </description>
+                </item>
+                <item>
+                    <term>
+                    <see cref="P:WRM.Windows.Forms.PaneNode.Parent"/><c> != null</c>, and 
+                    <c>value == null</c>
+                    </term>
+                    <description>
+                    <see cref="P:WRM.Windows.Forms.PaneNode.Parent"/> is set to <c>null</c>, and is removed
+                    from the <see cref="P:WRM.Windows.Forms.PaneNode.PropertyTree"/> that its parent <c>PaneNode</c>
+                    is in (if any).
+                    </description>
+                </item>
+                <item>
+                    <term>
+                    <see cref="P:WRM.Windows.Forms.PaneNode.Parent"/><c> != null</c>, and 
+                    <c>value != null</c>
+                    </term>
+                    <description>
+                    <see cref="T:System.InvalidOperationException"/> is thrown.  A <c>PaneNode</c>
+                    must first be removed from its parent by calling its parent's
+                    <see cref="P:WRM.Windows.Forms.PaneNode.PaneNodes">PaneNode.PaneNodes.</see><see cref="M:WRM.Windows.Forms.PaneNodeCollection.Remove(WRM.Windows.Forms.PaneNode)">Remove</see>.
+                    </description>
+                </item>
+            </list>
+            </remarks>
+            <exception cref="T:System.InvalidOperationException">
+                Thrown if a <c>PaneNode</c> is assigned to a parent <c>PaneNode</c> even 
+                though it is already the child of another <c>PaneNode</c>.
+            </exception>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneNode.PaneNodes">
+            <summary>
+            Gets the <see cref="T:WRM.Windows.Forms.PaneNodeCollection"/> that holds the this <c>PaneNode</c>'s
+            child <c>PaneNode</c>s
+            </summary>
+            <value>
+            A reference to the <see cref="T:WRM.Windows.Forms.PaneNodeCollection"/> that holds 
+            this <c>PaneNode</c>'s child <c>PaneNode</c>s
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneNode.PropertyTree">
+            <summary>
+            Gets a reference to the <see cref="P:WRM.Windows.Forms.PaneNode.PropertyTree"/> to which this
+            <c>PaneNode</c> ultimately belongs.
+            </summary>
+            <value>
+            A reference to the <see cref="P:WRM.Windows.Forms.PaneNode.PropertyTree"/> to which this
+            <c>PaneNode</c> ultimately belongs.  This value can be <c>null</c>
+            if this <c>PaneNode</c> is not in a <see cref="P:WRM.Windows.Forms.PaneNode.PropertyTree"/> at the
+            moment.
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneNode.SharedPaneType">
+            <summary>
+            Gets a <see cref="T:System.Type"/> instance representing the subclass of
+            <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/> represented by this <c>PaneNode</c>
+            </summary>
+            <value>
+            A <see cref="T:System.Type"/> instance representing the subclass of
+            <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/> represented by this <c>PaneNode</c>.  This
+            value is <c>null</c> if the <c>PaneNode</c> does not represent an instance of
+            a class derived from <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/>.
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneNode.IsInTree">
+            <summary>
+            Gets a boolean value indicating whether or not this <c>PaneNode</c> is
+            actually represented in the <see cref="T:System.Windows.Forms.TreeView"/> of a 
+            <see cref="P:WRM.Windows.Forms.PaneNode.PropertyTree"/>
+            </summary>
+            <value>
+            A boolean value indicating whether or not this <c>PaneNode</c> is
+            actually represented in the <see cref="T:System.Windows.Forms.TreeView"/> of a 
+            <see cref="P:WRM.Windows.Forms.PaneNode.PropertyTree"/>.
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneNode.Selected">
+            <summary>
+              Gets a boolean value that indicates whether or not this <c>PaneNOde</c> 
+              is selected.
+            </summary>
+            <value>
+              A boolean value that indicates whether or not this <c>PaneNOde</c> 
+              is selected.
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneNode.IsDummy">
+            <summary>
+            Gets a boolean value indicating whether or not this node is a dummy-node.
+            </summary>
+            <value>
+            Gets a boolean value indicating whether or not this node is a dummy-node.
+            </value>
+            <remarks>
+            A "dummy" node is provided for internal use - mostly for shuffling 
+            <c>PaneNode</c>s around behind the scenes.
+            </remarks>
+        </member>
+        <member name="T:WRM.Windows.Forms.PaneNodeEventArgs">
+            <summary>
+              EventArgs-derived class to describe events involving a <see cref="P:WRM.Windows.Forms.PaneNodeEventArgs.PaneNode"/>.
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNodeEventArgs.#ctor(WRM.Windows.Forms.PaneNode)">
+            <summary>
+              Construct a new instance of this class.
+            </summary>
+            <param name="paneNode">The <c>PaneNode</c> that is involved in this event</param>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneNodeEventArgs.PaneNode">
+            <summary>
+              Gets the <see cref="P:WRM.Windows.Forms.PaneNodeEventArgs.PaneNode"/> that was involved in this event
+            </summary>
+            <value>
+              The <see cref="P:WRM.Windows.Forms.PaneNodeEventArgs.PaneNode"/> that was involved in this event
+            </value>
+        </member>
+        <member name="T:WRM.Windows.Forms.PaneNodeEventHandler">
+            <summary>
+              Delegate for events involving <see cref="T:WRM.Windows.Forms.PaneNode"/>s
+            </summary>
+        </member>
+        <member name="T:WRM.Windows.Forms.PaneNodeCollection">
+            <summary>
+            Represents a collection of <see cref="T:WRM.Windows.Forms.PaneNode">PaneNode</see> objects.
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNodeCollection.#ctor(WRM.Windows.Forms.PaneNode)">
+            <summary>
+            Constructs a new instance of <c>PaneNodeCollection</c> with the
+            given <see cref="T:WRM.Windows.Forms.PaneNode"/> <paramref name="parentPaneNode"/> as
+            the parent of all <c>PaneNode</c>s in the collection.
+            </summary>
+            <param name="parentPaneNode">
+            The <c>PaneNode</c> that acts as the parent to all <c>PaneNode</c>s
+            in the collection
+            </param>
+            <remarks>
+            This constructor is marked internal because <c>PaneNodeCollection</c>
+            is designed to only be created as a part of the construction of a
+            <see cref="T:WRM.Windows.Forms.PaneNode"/>
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNodeCollection.RemovePaneNodeFromList(WRM.Windows.Forms.PaneNode)">
+            <summary>
+            Removes the given <paramref name="node"/> from the collection
+            </summary>
+            <param name="node">
+            The <c>PaneNode</c> to remove
+            </param>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNodeCollection.InsertPaneNodeIntoList(WRM.Windows.Forms.PaneNode)">
+            <summary>
+            Inserts the given <paramref name="node"/> into the collection
+            </summary>
+            <param name="node">
+            The <c>PaneNode</c> to insert
+            </param>
+            <exception cref="T:System.InvalidOperationException">
+            Thrown if <paramref name="node"/> already has a valid
+            <see cref="P:WRM.Windows.Forms.PaneNode.Parent">Parent</see>
+            </exception>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNodeCollection.BumpChildIndices(WRM.Windows.Forms.PaneNode,System.Int32,System.Boolean)">
+            <summary>
+            Re-assigns the internal indices of each child <c>PaneNode</c> so that
+            they are all sequential
+            </summary>
+            <param name="node">
+            The <c>PaneNode</c> that caused the indices to be out-of-whack.  This can
+            be because it was added, or because it was removed.
+            </param>
+            <param name="index">
+            The index at which the break ocurred
+            </param>
+            <param name="wasInserted">
+            Boolean value indicating whether or not <paramref name="node"/> was
+            inserted.
+            </param>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNodeCollection.GetSharedPaneInstance(System.Type)">
+            <summary>
+            Wrapper around <see cref="M:WRM.Windows.Forms.PropertyTree.GetSharedPaneInstance(System.Type)"/>
+            </summary>
+            <param name="sharedPaneType">
+            The <see cref="T:System.Type"/> of <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/> to get
+            an instance of
+            </param>
+            <returns>
+            An instance of the type <paramref name="sharedPaneType"/>
+            </returns>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNodeCollection.ReleaseSharedPaneInstance(System.Type)">
+            <summary>
+            Wrapper around <see cref="M:WRM.Windows.Forms.PropertyTree.ReleaseSharedPaneInstance(System.Type)"/>
+            </summary>
+            <param name="sharedPaneType">
+            The <see cref="T:System.Type"/> of <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/> to release
+            an instance of
+            </param>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNodeCollection.System#Collections#ICollection#CopyTo(System.Array,System.Int32)">
+            <summary>
+            Explicit implementation of <see cref="M:System.Collections.ICollection.CopyTo(System.Array,System.Int32)"/>
+            </summary>
+            <param name="array">
+            The array to copy to
+            </param>
+            <param name="index">
+            This index at which to begin copying
+            </param>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNodeCollection.CopyTo(WRM.Windows.Forms.PaneNodeCollection)">
+            <summary>
+            Copies the <see cref="T:WRM.Windows.Forms.PaneNode"/>s in this collection to the
+            <c>PaneNodeCollection</c> <paramref name="other"/>
+            </summary>
+            <param name="other">
+            The <c>PaneNodeCollection</c> to copy this <c>PaneNodeCollection</c>'s
+            child nodes to
+            </param>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNodeCollection.GetEnumerator">
+            <summary>
+            Gets an <see cref="T:System.Collections.IEnumerator"/> object that will enumerate through
+            the child <see cref="T:WRM.Windows.Forms.PaneNode"/>s of this collection
+            </summary>
+            <returns>
+            An <see cref="T:System.Collections.IEnumerator"/> object that will enumerate through
+            the child <see cref="T:WRM.Windows.Forms.PaneNode"/>s of this collection
+            </returns>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNodeCollection.RemoveAt(System.Int32)">
+            <summary>
+            Removes the <see cref="T:WRM.Windows.Forms.PaneNode"/> at the given
+            <paramref name="index"/>
+            </summary>
+            <param name="index">
+            The index of the<c>PaneNode</c> to remove
+            </param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Thrown if there is no <see cref="T:WRM.Windows.Forms.PaneNode"/> at index
+            <paramref name="index"/>
+            </exception>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNodeCollection.System#Collections#IList#Insert(System.Int32,System.Object)">
+            <summary>
+            Explicit implementation of <see cref="M:System.Collections.IList.Insert(System.Int32,System.Object)"/>
+            </summary>
+            <param name="index">not used</param>
+            <param name="value">not used</param>
+            <remarks>
+            This is implemented explicitly so that it is hidden from normal
+            use.  Instead of using this, a <see cref="T:WRM.Windows.Forms.PaneNode"/>'s 
+            <see cref="P:WRM.Windows.Forms.PaneNode.Index"/> property should be set to the index
+            at which it is to appear in the list.
+            </remarks>
+            <exception cref="T:System.NotSupportedException">
+            Thrown whenever this function is called
+            </exception>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNodeCollection.System#Collections#IList#Remove(System.Object)">
+            <summary>
+            Explicit implementation of <see cref="M:System.Collections.IList.Remove(System.Object)"/>
+            </summary>
+            <param name="value">
+            The object to be removed from this list.
+            </param>
+            <remarks>
+            This is implemented explicitly so that it is hidden from normal
+            use.  The strongly typed version is for public use.
+            </remarks>
+            <exception cref="T:System.ArgumentException">
+            Thrown if <paramref name="value"/> is not a <see cref="T:WRM.Windows.Forms.PaneNode"/>
+            </exception>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNodeCollection.Remove(WRM.Windows.Forms.PaneNode)">
+            <summary>
+            Removes the given <paramref name="paneNode"/> from this
+            collection
+            </summary>
+            <param name="paneNode">
+            The <c>PaneNode</c> to remove from this collection
+            </param>
+            <remarks>
+            Removing a <see cref="T:WRM.Windows.Forms.PaneNode"/> froma <c>PaneNodeCollection</c>
+            means that that <c>PaneNode</c> now has no parent.  Once a 
+            <c>PaneNode</c> has been removed from a <c>PaneNodeCollection</c>, 
+            it can safely be added to another one.
+            </remarks>
+            <exception cref="T:System.ArgumentException">
+            Thrown if <paramref name="paneNode"/> is not a member
+            of this collection
+            </exception>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNodeCollection.System#Collections#IList#Contains(System.Object)">
+            <summary>
+            Explicit implementation of <see cref="M:System.Collections.IList.Contains(System.Object)"/>
+            </summary>
+            <param name="value">
+            The value to look for in the collection
+            </param>
+            <returns>
+            A boolean value indicating whether or not <paramref name="value"/>
+            was found in this collection.
+            </returns>
+            <remarks>
+            This is implemented explicitly so that it is hidden from normal use.  The
+            strongly typed version is for public use.
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNodeCollection.Contains(WRM.Windows.Forms.PaneNode)">
+            <summary>
+            Determines whether or not the given <see cref="T:WRM.Windows.Forms.PaneNode"/>
+            <paramref name="paneNode"/> exists in this collection
+            </summary>
+            <param name="paneNode">
+            The <c>PaneNode</c> to look for in this collection
+            </param>
+            <returns>
+            A boolean value indicating whether or not <paramref name="paneNode"/>
+            was found in this collection
+            </returns>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNodeCollection.Clear">
+            <summary>
+            Clears the <c>PaneNodeCollection</c> of all <see cref="T:WRM.Windows.Forms.PaneNode"/>s
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNodeCollection.System#Collections#IList#IndexOf(System.Object)">
+            <summary>
+            Explicit implementation of <see cref="M:System.Collections.IList.IndexOf(System.Object)"/>
+            </summary>
+            <param name="value">
+            The object whose index is to be determined
+            </param>
+            <returns>
+            Returns the index of <paramref name="value"/> in 
+            this collection, or <c>-1</c> if <paramref name="value"/>
+            is not a member of this collection
+            </returns>
+            <exception cref="T:System.ArgumentException">
+            Thrown if <paramref name="value"/> is not a <see cref="T:WRM.Windows.Forms.PaneNode"/>
+            </exception>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNodeCollection.IndexOf(WRM.Windows.Forms.PaneNode)">
+            <summary>
+            Gets the integer index for the <see cref="T:WRM.Windows.Forms.PaneNode"/> <paramref name="paneNode"/>
+            </summary>
+            <param name="paneNode">
+            The <c>PaneNode</c> whose index is to be determined
+            </param>
+            <returns>
+            Returns the index of <paramref name="paneNode"/> in 
+            this collection, or <c>-1</c> if <paramref name="paneNode"/> is
+            not a member of this collection
+            </returns>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNodeCollection.System#Collections#IList#Add(System.Object)">
+            <summary>
+            Explicit implementation of <see cref="M:System.Collections.IList.Add(System.Object)"/>
+            </summary>
+            <param name="value">
+            The object to add to the collection
+            </param>
+            <returns>
+            Returns the integer index of the newly added object
+            </returns>
+            <remarks>
+            This is implemented explicitly so that it is hidden from general
+            use.  The strongly typed version is for public use.
+            </remarks>
+            <exception cref="T:System.ArgumentException">
+            Thrown if <paramref name="value"/> is not a <see cref="T:WRM.Windows.Forms.PaneNode"/>
+            </exception>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNodeCollection.Add(WRM.Windows.Forms.PaneNode)">
+            <overloads>
+            Each of the <c>Add</c> methods ends up adding a <see cref="T:WRM.Windows.Forms.PaneNode"/> to the collection
+            of <see cref="T:WRM.Windows.Forms.PaneNode"/>s.
+            </overloads>
+            <summary>
+            Adds the given <paramref name="paneNode"/> to this collection.
+            </summary>
+            <param name="paneNode">The <see cref="T:WRM.Windows.Forms.PaneNode">PaneNode</see> to add</param>
+            <returns>
+            <para>
+            Returns the <see cref="T:WRM.Windows.Forms.PaneNode"/> object that was just added.  In this case,
+            of course, this is the same object referenced by <paramref name="paneNode"/>.
+            </para>
+            <para>
+            The return value was kept the same as the other overloads of <c>Add</c> for
+            the sake of consistency.
+            </para>
+            </returns>
+            <remarks>
+            <para>
+            When a new <see cref="T:WRM.Windows.Forms.PaneNode">PaneNode</see> is added to the collection, it and 
+            all of its children are added to the tree if the 
+            <see cref="T:WRM.Windows.Forms.PaneNode">PaneNode</see> that owns this <c>PaneNodeCollection</c> 
+            is currently in the tree.
+            </para>
+            <para>
+            The <see cref="T:WRM.Windows.Forms.PaneNode">PaneNode</see> referenced by 
+            <paramref name="paneNode"/> must not already by contained in another 
+            <c>PaneNodeCollection</c>.  If <paramref name="paneNode"/>
+            is contained in another <c>PaneNodeCollection</c>, an exception is thrown.
+            </para>
+            </remarks>
+            <exception cref="T:System.InvalidOperationException">
+              <paramref name="paneNode">paneNode</paramref> is currently assigned to 
+              a <c>PaneNodeCollection</c>.  A <see cref="T:WRM.Windows.Forms.PaneNode">PaneNode</see> can 
+              only be assigned to one <c>PaneNodeCollection</c> at a time.
+            </exception>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNodeCollection.Add(WRM.Windows.Forms.PropertyPane)">
+            <summary>
+            Creates a <see cref="T:WRM.Windows.Forms.PaneNode"/> to represent <paramref name="pane"/>, and adds it
+            to the collection
+            </summary>
+            <param name="pane">
+            The <see cref="T:WRM.Windows.Forms.PropertyPane"/> for which to add a <see cref="T:WRM.Windows.Forms.PaneNode"/>
+            </param>
+            <returns>
+            <para>
+            Returns the <see cref="T:WRM.Windows.Forms.PaneNode"/> object that was just added.
+            </para>
+            </returns>
+            <remarks>
+            <para>
+            The versions of <c>Add</c> that take <see cref="T:WRM.Windows.Forms.PropertyPane"/>s as parameters
+            are not intended to be used by anything other than designer-generated code
+            (like that found in <c>InitializeComponent</c>).  It is a little bit of a
+            hack that allows the <see cref="T:WRM.Windows.Forms.PropertyTree"/> to not have to serialize
+            <see cref="T:WRM.Windows.Forms.PaneNode"/>s during design-time.
+            </para>
+            <para>
+            This implementation is a shortcut that specifies default values of <c>-1</c>
+            for <see cref="P:WRM.Windows.Forms.PaneNode.Index"/>, <see cref="P:WRM.Windows.Forms.PaneNode.ImageIndex"/>, and
+            <see cref="P:WRM.Windows.Forms.PaneNode.SelectedImageIndex"/>
+            </para>
+            <para>
+            When a new <see cref="T:WRM.Windows.Forms.PaneNode">PaneNode</see> is added to the collection, it and 
+            all of its children are added to the tree if the 
+            <see cref="T:WRM.Windows.Forms.PaneNode">PaneNode</see> that owns this <c>PaneNodeCollection</c> 
+            is currently in the tree.
+            </para>
+            <para>
+            The <see cref="T:WRM.Windows.Forms.PropertyPane">PropertyPane</see> <paramref name="pane"/>
+             must not already have a valid <see cref="T:WRM.Windows.Forms.PaneNode"/> associated with it.
+             If <paramref name="pane"/> already has a <c>PaneNode</c> associated
+             with it, an exception is thrown.
+            </para>
+            <para>
+            Instances of classes derived from <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/> cannot be
+            added.  Use one of the other overloads to do that.
+            </para>
+            </remarks>
+            <exception cref="T:System.InvalidOperationException">
+              Thrown if <paramref name="pane"/> already has a <see cref="T:WRM.Windows.Forms.PaneNode"/>
+              associated with it.
+            </exception>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNodeCollection.Add(WRM.Windows.Forms.PropertyPane,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Creates a <see cref="T:WRM.Windows.Forms.PaneNode"/> to represent <paramref name="pane"/>, and adds it
+            to the collection
+            </summary>
+            <param name="pane">
+            The <see cref="T:WRM.Windows.Forms.PropertyPane"/> for which to add a <see cref="T:WRM.Windows.Forms.PaneNode"/>
+            </param>
+            <param name="index">
+            The index at which to add <paramref name="pane"/>
+            </param>
+            <param name="imageIndex">
+            The default image index for <paramref name="pane"/>
+            </param>
+            <param name="selectedImageIndex">
+            The default selected image index for <paramref name="pane"/>
+            </param>
+            <returns>
+            <para>
+            Returns the <see cref="T:WRM.Windows.Forms.PaneNode"/> object that was just added.
+            </para>
+            </returns>
+            <remarks>
+            <para>
+            The versions of <c>Add</c> that take <see cref="T:WRM.Windows.Forms.PropertyPane"/>s as parameters
+            are not intended to be used by anything other than designer-generated code
+            (like that found in <c>InitializeComponent</c>).  It is a little bit of a
+            hack that allows the <see cref="T:WRM.Windows.Forms.PropertyTree"/> to not have to serialize
+            <see cref="T:WRM.Windows.Forms.PaneNode"/>s during design-time.
+            </para>
+            <para>
+            When a new <see cref="T:WRM.Windows.Forms.PaneNode">PaneNode</see> is added to the collection, it and 
+            all of its children are added to the tree if the 
+            <see cref="T:WRM.Windows.Forms.PaneNode">PaneNode</see> that owns this <c>PaneNodeCollection</c> 
+            is currently in the tree.
+            </para>
+            <para>
+            The <see cref="T:WRM.Windows.Forms.PropertyPane">PropertyPane</see> <paramref name="pane"/>
+             must not already have a valid <see cref="T:WRM.Windows.Forms.PaneNode"/> associated with it.
+             If <paramref name="pane"/> already has a <c>PaneNode</c> associated
+             with it, an exception is thrown.
+            </para>
+            <para>
+            Instances of classes derived from <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/> cannot be
+            added.  Use one of the other overloads to do that.
+            </para>
+            </remarks>
+            <exception cref="T:System.InvalidOperationException">
+              Thrown if <paramref name="pane"/> already has a <see cref="T:WRM.Windows.Forms.PaneNode"/>
+              associated with it.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            Thrown if <paramref name="pane"/> is derived from 
+            <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/>
+            </exception>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNodeCollection.Add(System.Type,System.String,System.Int32,System.Int32,System.Int32,System.Object)">
+            <summary>
+              Adds a <see cref="T:WRM.Windows.Forms.PaneNode"/> that references a 
+              <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/>
+            </summary>
+            <remarks>
+            Adds a new <see cref="T:WRM.Windows.Forms.PaneNode"/> to the tree that represents an 
+            instance of the <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/> subclass identified by 
+            <paramref name="sharedPaneType">sharedPaneType</paramref>. Only one instance 
+            of <paramref name="sharedPaneType">sharedPaneType</paramref> is ever created, 
+            so all shared panes added to the <see cref="T:WRM.Windows.Forms.PropertyTree"/> will share that 
+            single instance of  <paramref name="sharedPaneType">sharedPaneType</paramref>.
+            </remarks>
+            <param name="sharedPaneType">
+            The <c>Type</c> of the <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/> subclass that will be used 
+            for the new node</param>
+            <param name="title">
+            The <see cref="P:WRM.Windows.Forms.PaneNode.Text">Text</see> of the new 
+            <see cref="T:WRM.Windows.Forms.PaneNode"/> that will be generated to represent
+            the instance of <paramref name="sharedPaneType"/>
+            </param>
+            <param name="index">
+            The <see cref="P:WRM.Windows.Forms.PaneNode.Index">Index</see> of the new 
+            <see cref="T:WRM.Windows.Forms.PaneNode"/> that will be generated to represent
+            the instance of <paramref name="sharedPaneType"/>
+            </param>
+            <param name="imageIndex">
+            The <see cref="P:WRM.Windows.Forms.PaneNode.ImageIndex">ImageIndex</see> of the new 
+            <see cref="T:WRM.Windows.Forms.PaneNode"/> that will be generated to represent
+            the instance of <paramref name="sharedPaneType"/>
+            </param>
+            <param name="selectedImageIndex">
+            The <see cref="P:WRM.Windows.Forms.PaneNode.SelectedImageIndex">SelectedImageIndex</see> of the new 
+            <see cref="T:WRM.Windows.Forms.PaneNode"/> that will be generated to represent
+            the instance of <paramref name="sharedPaneType"/>
+            </param>
+            <param name="data">
+            The <see cref="P:WRM.Windows.Forms.PaneNode.Data">Data</see> of the new 
+            <see cref="T:WRM.Windows.Forms.PaneNode"/> that will be generated to represent
+            the instance of <paramref name="sharedPaneType"/>
+            </param>
+            <returns>
+            Returns the <see cref="T:WRM.Windows.Forms.PaneNode"/> that identifies the newly added 
+            instance of <paramref name="sharedPaneType"/>
+            </returns>
+            <exception cref="T:System.ArgumentException">
+            Thrown if <paramref name="sharedPaneType"/> is not a <c>Type</c>
+            that descends from <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/>
+            </exception>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneNodeCollection.Add(System.Type,System.String,System.Object)">
+            <summary>
+              Adds a <see cref="T:WRM.Windows.Forms.PaneNode"/> that references a 
+              <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/>
+            </summary>
+            <remarks>
+            <para>
+            This implementation is a shortcut for the other implementation of 
+            <c>Add</c> that deals with <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/>s.  This
+            version sets <see cref="P:WRM.Windows.Forms.PaneNode.Index"/>, <see cref="P:WRM.Windows.Forms.PaneNode.ImageIndex"/>, 
+            and <see cref="P:WRM.Windows.Forms.PaneNode.SelectedImageIndex"/> of the generated
+            <see cref="T:WRM.Windows.Forms.PaneNode"/> to the default values of <c>-1</c>.
+            </para>
+            <para>
+            Adds a new <see cref="T:WRM.Windows.Forms.PaneNode"/> to the tree that represents an 
+            instance of the <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/> subclass identified by 
+            <paramref name="sharedPaneType">sharedPaneType</paramref>. Only one instance 
+            of <paramref name="sharedPaneType">sharedPaneType</paramref> is ever created, 
+            so all shared panes added to the <see cref="T:WRM.Windows.Forms.PropertyTree"/> will share that 
+            single instance of  <paramref name="sharedPaneType">sharedPaneType</paramref>.
+            </para>
+            </remarks>
+            <param name="sharedPaneType">
+            The <c>Type</c> of the <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/> subclass that will be used 
+            for the new node</param>
+            <param name="title">
+            The <see cref="P:WRM.Windows.Forms.PaneNode.Text">Text</see> of the new 
+            <see cref="T:WRM.Windows.Forms.PaneNode"/> that will be generated to represent
+            the instance of <paramref name="sharedPaneType"/>
+            </param>
+            <param name="data">
+            The <see cref="P:WRM.Windows.Forms.PaneNode.Data">Data</see> of the new 
+            <see cref="T:WRM.Windows.Forms.PaneNode"/> that will be generated to represent
+            the instance of <paramref name="sharedPaneType"/>
+            </param>
+            <returns>
+            Returns the <see cref="T:WRM.Windows.Forms.PaneNode"/> that identifies the newly added 
+            instance of <paramref name="sharedPaneType"/>
+            </returns>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneNodeCollection.Parent">
+            <summary>
+            Gets the <see cref="T:WRM.Windows.Forms.PaneNode">PaneNode</see> whose child <see cref="T:WRM.Windows.Forms.PaneNode"/>s are held by
+            this collection
+            </summary>
+            <value>
+            A reference to the <see cref="T:WRM.Windows.Forms.PaneNode"/> whose child <see cref="T:WRM.Windows.Forms.PaneNode"/>s are
+            held in this collection.
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneNodeCollection.IsSynchronized">
+            <summary>
+            Gets a value indicating whether or not this collection is synchronized
+            </summary>
+            <value>
+            Returns a boolean value indicating whether or not this
+            collection is synchronized
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneNodeCollection.Count">
+            <summary>
+            Gets the number of <see cref="T:WRM.Windows.Forms.PaneNode">PaneNode</see>s in 
+            the collection
+            </summary>
+            <value>
+            An integer representing the number of <see cref="T:WRM.Windows.Forms.PaneNode"/>s in
+            the collection
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneNodeCollection.SyncRoot">
+            <summary>
+            Gets the object used to synchronize access to this collection
+            </summary>
+            <value>
+            The object used to synchronize access to this collection
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneNodeCollection.IsReadOnly">
+            <summary>
+            Gets a boolean value indicating whether or not this
+            collection is read only.
+            </summary>
+            <value>
+            Always <c>false</c> for <c>PaneNodeCollection</c>
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneNodeCollection.System#Collections#IList#$Item$(System.Int32)">
+            <summary>
+            Explicit implementation of <see cref="P:System.Collections.IList.Item(System.Int32)"/>
+            </summary>
+            <param name="index">
+            The index of the object to retreive
+            </param>
+            <value>
+            The object at index <paramref name="index"/>, or 
+            null if no object exists at that index.
+            </value>
+            <exception cref="T:System.NotSupportedException">
+            Thrown if this method is used to attempt to set a value
+            </exception>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneNodeCollection.Item(System.Int32)">
+            <summary>
+            Gets the <see cref="T:WRM.Windows.Forms.PaneNode"/> at index <paramref name="index"/> in
+            the collection, or <c>null</c> if no <c>PaneNode</c> exists at that location.
+            </summary>
+            <param name="index">
+            The index of the <see cref="T:WRM.Windows.Forms.PaneNode"/> to retreive
+            </param>
+            <value>
+            The <see cref="T:WRM.Windows.Forms.PaneNode"/> at index <paramref name="index"/> in
+            the collection, or <c>null</c> if no <c>PaneNode</c> exists at that location.
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneNodeCollection.IsFixedSize">
+            <summary>
+            Gets a boolean value indicating whether or not this collection
+            is of fixed size.
+            </summary>
+            <value>
+            Always <c>false</c>
+            </value>
+        </member>
+        <member name="T:WRM.Windows.Forms.PaneSelectionEventArgs">
+            <summary>
+              EventArguments class for pane selection/deselection delegates
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PaneSelectionEventArgs.mCurPaneNode">
+            <summary>
+              The currently selected <see cref="T:WRM.Windows.Forms.PaneNode"/>
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PaneSelectionEventArgs.mNewPaneNode">
+            <summary>
+              The <see cref="T:WRM.Windows.Forms.PaneNode"/> that is about to be selected
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PaneSelectionEventArgs.mCancel">
+            <summary>
+              Boolean value indicating whether or not 
+              this event should be cancelled
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneSelectionEventArgs.#ctor(WRM.Windows.Forms.PaneNode,WRM.Windows.Forms.PaneNode)">
+            <summary>
+              Constructor
+            </summary>
+            <param name="curPaneNode">The current <c>PaneNode</c></param>
+            <param name="newPaneNode">The newly selected <c>PaneNode</c></param>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneSelectionEventArgs.CurPaneNode">
+            <summary>
+              The currently selected <see cref="T:WRM.Windows.Forms.PaneNode"/>
+            </summary>
+            <value>
+            A reference to the currently selected <see cref="T:WRM.Windows.Forms.PaneNode"/>, 
+            or <c>null</c> if none was selected previously.
+            </value>
+            <remarks>
+            <c>CurPane</c> refers to the same <see cref="T:WRM.Windows.Forms.PaneNode"/> instance
+            during both the pre- and post-action events (e.g., 
+            <see cref="E:WRM.Windows.Forms.PropertyTree.PaneActivating"/> and 
+            <see cref="E:WRM.Windows.Forms.PropertyTree.PaneActivated"/>).
+            </remarks>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneSelectionEventArgs.NewPaneNode">
+            <summary>
+              The <see cref="T:WRM.Windows.Forms.PaneNode"/> that is about to be selected
+            </summary>
+            <value>
+            A reference to the currently selected <see cref="T:WRM.Windows.Forms.PaneNode"/>, 
+            or <c>null</c> if none was selected previously.
+            </value>
+            <remarks>
+            <c>NewPane</c> refers to the same <see cref="T:WRM.Windows.Forms.PaneNode"/> instance
+            during both the pre- and post-action events (e.g., 
+            <see cref="E:WRM.Windows.Forms.PropertyTree.PaneActivating"/> and 
+            <see cref="E:WRM.Windows.Forms.PropertyTree.PaneActivated"/>).
+            </remarks>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneSelectionEventArgs.Cancel">
+            <summary>
+            Gets or sets a boolean value indicating whether or not the selection 
+            action should be canceled. 
+            </summary>
+            <value>
+            Since multiple people could be listening, <c>Cancel</c> is the 
+            logical <c>OR</c> of all values that event listeners assign to it.
+            </value>
+            <remarks>
+              This property has no effect during the 
+              <see cref="E:WRM.Windows.Forms.PropertyTree.PaneActivated"/>
+              and <see cref="E:WRM.Windows.Forms.PropertyTree.PaneDeactivated"/> events.
+            </remarks>
+        </member>
+        <member name="T:WRM.Windows.Forms.PropertyPane">
+            <summary>
+            A class the represents a collection of controls that is displayed
+            by a <see cref="T:WRM.Windows.Forms.PropertyTree">PropertyTree</see>.
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PropertyPane.mPropTree">
+            <summary>
+              The PropertyTree that owns us
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PropertyPane.mPaneNode">
+            <summary>
+              Our PaneNode property
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PropertyPane.mStash">
+            <summary>
+              Our stash to be used when mPaneNode isn't set.
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PropertyPane.mAddedDuringInit">
+            <summary>
+              Nodes adding during InitializeComponent
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PropertyPane.mInit">
+            <summary>
+              Boolean variable indicating whether or not we are being initialized
+              by designer-generated code.
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyPane.#ctor">
+            <summary>
+              The default constructor
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyPane.OnPaneActivating(WRM.Windows.Forms.PropertyTree,WRM.Windows.Forms.PaneSelectionEventArgs)">
+            <summary>
+              Function called when this <c>PropertyPane</c> is about to be activated
+            </summary>
+            <param name="sender">
+            The <see cref="T:WRM.Windows.Forms.PropertyTree"/> that sent the event</param>
+            <param name="psea">Info about the selection process</param>
+            <remarks>
+              <para>
+              This function is called and checked before the
+              <see cref="E:WRM.Windows.Forms.PropertyTree.PaneActivating">PropertyTree.PaneActivating</see>
+              event is fired.
+              </para>
+              <para>
+              If <paramref name="psea">psea.Cancel</paramref> is set to <c>true</c>, then the
+              selection process is aborted.
+              </para>
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyPane.OnPaneActivated(WRM.Windows.Forms.PropertyTree,WRM.Windows.Forms.PaneSelectionEventArgs)">
+            <summary>
+              Function called after this <c>PropertyPane</c> has been activated
+            </summary>
+            <param name="sender">
+            The <see cref="T:WRM.Windows.Forms.PropertyTree"/> that sent the event</param>
+            <param name="psea">Info about the selection process</param>
+            <remarks>
+              <para>
+              This function is called and checked before the
+              <see cref="E:WRM.Windows.Forms.PropertyTree.PaneActivating">PropertyTree.PaneActivating</see>
+              event is fired.
+              </para>
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyPane.OnPaneDeactivating(WRM.Windows.Forms.PropertyTree,WRM.Windows.Forms.PaneSelectionEventArgs)">
+            <summary>
+              Function called before this <c>PropertyPane</c> is deactivated.
+            </summary>
+            <param name="sender">
+            The <see cref="T:WRM.Windows.Forms.PropertyTree"/> that sent the event</param>
+            <param name="psea">Info about the selection process</param>
+            <remarks>
+              <para>
+              This function is called and checked before the
+              <see cref="E:WRM.Windows.Forms.PropertyTree.PaneActivating">PropertyTree.PaneActivating</see>
+              event is fired.
+              </para>
+              <para>
+              If <paramref name="psea">psea.Cancel</paramref> is set to <c>true</c>, then the
+              pane selection process is aborted.
+              </para>
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyPane.OnPaneDeactivated(WRM.Windows.Forms.PropertyTree,WRM.Windows.Forms.PaneSelectionEventArgs)">
+            <summary>
+              Function called after this <c>PropertyPane</c> has been deactivated.
+            </summary>
+            <param name="sender">
+            The <see cref="T:WRM.Windows.Forms.PropertyTree"/> that sent the event</param>
+            <param name="psea">Info about the selection process</param>
+            <remarks>
+              <para>
+              This function is called and checked before the
+              <see cref="E:WRM.Windows.Forms.PropertyTree.PaneActivating">PropertyTree.PaneActivating</see>
+              event is fired.
+              </para>
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyPane.OnResize(System.EventArgs)">
+            <summary>
+              Handle the Resize event.
+            </summary>
+            <param name="e">Event information</param>
+            <remarks>
+              This event is overridden in case our background is complex (ie 
+              because of Theme support) and it needs to be fully repainted
+              after each resize.
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyPane.BeginInit">
+            <summary>
+            Implementation of <see cref="M:System.ComponentModel.ISupportInitialize.BeginInit"/>
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyPane.EndInit">
+            <summary>
+            Implementation of <see cref="M:System.ComponentModel.ISupportInitialize.EndInit"/>
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyPane.FlushInitCache">
+            <summary>
+            Called to push any newly-added <see cref="P:WRM.Windows.Forms.PropertyPane.PaneNode"/>s into the 
+            <see cref="P:WRM.Windows.Forms.PropertyPane.PaneNodes"/> object.
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyPane.OnTabOut(System.Boolean)">
+            <summary>
+            Fires the <see cref="F:WRM.Windows.Forms.PropertyPane.TabOut"/> event to notify an listeners that
+            focus should tab "out" of this <c>PropertyPane</c>.
+            </summary>
+            <param name="forward">Whether or not the tabbing is moving forward</param>
+            <returns>
+            Returns <c>true</c> if a listener handled this event - <c>false</c> otherwise.
+            </returns>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyPane.ProcessTabKey(System.Boolean)">
+            <summary>
+            Handles processing of the Tab key
+            </summary>
+            <param name="forward">Whether or not the tabbing is moving forward</param>
+            <returns>
+            Returns <c>true</c> if this class handled the event, <c>false</c> otherwise
+            </returns>
+            <remarks>
+            This is overridden so that the <see cref="M:WRM.Windows.Forms.PropertyPane.OnTabOut(System.Boolean)"/> event can
+            be fired, if necessary.
+            </remarks>
+        </member>
+        <member name="P:WRM.Windows.Forms.PropertyPane.Owner">
+            <summary>
+              Gets the <see cref="T:WRM.Windows.Forms.PropertyTree"/> that owns this <c>PropertyPane</c>, 
+              if any.
+            </summary>
+            <value>
+            The <see cref="T:WRM.Windows.Forms.PropertyTree"/> that owns this <c>PropertyPane</c>, 
+            if any
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PropertyPane.PaneNodeInternal">
+            <summary>
+              Gets or sets the <see cref="P:WRM.Windows.Forms.PropertyPane.PaneNode"/> that represents
+              this <c>PropertyPane</c>, if any.
+            </summary>
+            <value>
+            The <see cref="P:WRM.Windows.Forms.PropertyPane.PaneNode"/> that represents this <c>PropertyPane</c>, 
+            if any.
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PropertyPane.PaneNode">
+            <summary>
+            Gets the <see cref="P:WRM.Windows.Forms.PropertyPane.PaneNode"/> associated with this <c>PropertyPane</c>,
+            if any
+            </summary>
+            <value>
+            The <see cref="P:WRM.Windows.Forms.PropertyPane.PaneNode"/> associated with this <c>PropertyPane</c>, if
+            any
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PropertyPane.PaneNodes">
+            <summary>
+              Gets the <see cref="T:WRM.Windows.Forms.PaneNodeCollection"/> that holds this child
+              <see cref="P:WRM.Windows.Forms.PropertyPane.PaneNode"/>s <c>PropertyPane</c>.
+            </summary>
+            <value>
+              <para>
+              If <see cref="P:WRM.Windows.Forms.PropertyPane.PaneNode"/> is non-<c>null</c>, then
+              this property returns the value of <see cref="P:WRM.Windows.Forms.PropertyPane.PaneNode"/>.
+              </para>
+              <para>
+              If, however, <see cref="P:WRM.Windows.Forms.PropertyPane.PaneNode"/> is <c>null</c>, this property returns
+              an internally held <c>PaneNodeCollection</c> that is used until this
+              <c>PropertyPane</c> is hooked up to a real <see cref="P:WRM.Windows.Forms.PropertyPane.PaneNode"/>.
+              </para>
+            </value>
+            <remarks>
+            In the event that this <c>PropertyPane</c> has not yet been hooked up to a 
+            real <see cref="P:WRM.Windows.Forms.PropertyPane.PaneNode"/>, the value returned from this property is an 
+            internally held temporary <c>PaneNodeCollection</c>.  When this <c>PropertyPane</c>
+            is attached to a real <see cref="P:WRM.Windows.Forms.PropertyPane.PaneNode"/>, the members of this
+            <c>PaneNodeCollection</c> are copied over to it.
+            </remarks>
+        </member>
+        <member name="P:WRM.Windows.Forms.PropertyPane.Text">
+            <summary>
+            Gets or sets the text that will appear in the <see cref="T:WRM.Windows.Forms.PropertyTree">TreeView</see> for 
+            this <c>PropertyPane</c>
+            </summary>
+            <value>
+            The text that will appear in the <see cref="T:WRM.Windows.Forms.PropertyTree"/> for this
+            <c>PropertyPane</c>
+            </value>
+            <remarks>
+              <see cref="T:System.Windows.Forms.UserControl">UserControl</see>, overrides this property and hides it
+              from the designer.  Overriding it again makes sure that it is browsable and that
+              the designer serializer knows that it should write out its value to code.
+            </remarks>
+        </member>
+        <member name="P:WRM.Windows.Forms.PropertyPane.ImageIndex">
+            <summary>
+            Gets or sets the index of the image in <see cref="P:WRM.Windows.Forms.PropertyTree.ImageList"/> that will be
+            used to represent this <c>PropertyPane</c>'s <see cref="P:WRM.Windows.Forms.PropertyPane.PaneNode"/>.
+            </summary>
+            <value>
+            If this <c>PropertyPane</c> has been inserted into a 
+            <see cref="T:WRM.Windows.Forms.PropertyTree"/>, this value comes from 
+            <see cref="P:WRM.Windows.Forms.PropertyPane.PaneNode"/>.  However, if this 
+            <c>PropertyPane</c> has not been inserted into a <see cref="T:WRM.Windows.Forms.PropertyTree"/>, 
+            this value represents and internally held value that this <c>PropertyPane</c>
+            will use once it is added to a <see cref="T:WRM.Windows.Forms.PropertyTree"/> and its
+            <see cref="P:WRM.Windows.Forms.PropertyPane.PaneNode"/> is set to a valid value.
+            </value>
+            <remarks>
+            If this <c>PropertyPane</c> is a <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/>, setting this
+            value will cause a change in whatever <see cref="P:WRM.Windows.Forms.PropertyPane.PaneNode"/> is currently
+            referenced by <see cref="P:WRM.Windows.Forms.PropertyPane.PaneNode"/>
+            </remarks>
+        </member>
+        <member name="P:WRM.Windows.Forms.PropertyPane.SelectedImageIndex">
+            <summary>
+            Gets or sets the index of the image in <see cref="P:WRM.Windows.Forms.PropertyTree.ImageList"/> that will be
+            used to represent this <c>PropertyPane</c>'s <see cref="P:WRM.Windows.Forms.PropertyPane.PaneNode"/>.
+            </summary>
+            <value>
+            If this <c>PropertyPane</c> has been inserted into a 
+            <see cref="T:WRM.Windows.Forms.PropertyTree"/>, this value comes from 
+            <see cref="P:WRM.Windows.Forms.PropertyPane.PaneNode"/>.  However, if this 
+            <c>PropertyPane</c> has not been inserted into a <see cref="T:WRM.Windows.Forms.PropertyTree"/>, 
+            this value represents and internally held value that this <c>PropertyPane</c>
+            will use once it is added to a <see cref="T:WRM.Windows.Forms.PropertyTree"/> and its
+            <see cref="P:WRM.Windows.Forms.PropertyPane.PaneNode"/> is set to a valid value.
+            </value>
+            <remarks>
+            If this <c>PropertyPane</c> is a <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/>, setting this
+            value will cause a change in whatever <see cref="P:WRM.Windows.Forms.PropertyPane.PaneNode"/> is currently
+            referenced by <see cref="P:WRM.Windows.Forms.PropertyPane.PaneNode"/>
+            </remarks>
+        </member>
+        <member name="T:WRM.Windows.Forms.PropertyPane.PaneAddInfo">
+            <summary>
+              Information about a <c>PropertyPane</c> that was added as a child.
+            </summary>
+            <remarks>
+            This struct is used to cache the calls to <see cref="P:WRM.Windows.Forms.PropertyPane.PaneNodes"/> between
+            the <see cref="M:System.ComponentModel.ISupportInitialize.BeginInit"/> and 
+            <see cref="M:System.ComponentModel.ISupportInitialize.EndInit"/> calls.
+            </remarks>
+        </member>
+        <member name="T:WRM.Windows.Forms.PaneTabOutEventArgs">
+            <summary>
+            Class representing arguments involved when the Tab key 
+            is used to tab out of a <see cref="T:WRM.Windows.Forms.PropertyPane"/> 
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.PaneTabOutEventArgs.#ctor(System.Boolean)">
+            <summary>
+            Creates a new isntance of <c>PaneTabOutEventArgs</c>
+            </summary>
+            <param name="forward">
+            Whether or not the tab is moving forward
+            </param>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneTabOutEventArgs.Forward">
+            <summary>
+            Gets a boolean value indicating whether or not the tab is 
+            moving forward
+            </summary>
+            <value>
+            <c>true</c> if the tab is moving forward, <c>false</c> if it
+            is moving backward (i.e. <c>Shift + Tab</c>)
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PaneTabOutEventArgs.Success">
+            <summary>
+            Gets or sets a boolean value indicating whether or not the 
+            listener consumed this event.
+            </summary>
+            <value>
+            <c>true</c> to indicate that the handler of this event 
+            consumed the event and that no further action is to be
+            taken by the <see cref="T:WRM.Windows.Forms.PropertyPane"/>.  <c>false</c> to allow
+            the Tab to be processed normally.
+            </value>
+        </member>
+        <member name="T:WRM.Windows.Forms.PaneTabOutHandler">
+            <summary>
+            A delegate to handle the event fired when a <see cref="T:WRM.Windows.Forms.PropertyPane"/>
+            is tabbed out of.
+            </summary>
+            <param name="sender">
+            The sender of this event
+            </param>
+            <param name="e">
+            Information about the event
+            </param>
+        </member>
+        <member name="T:WRM.Windows.Forms.AutoNavigateImage">
+            <summary>
+              Indices to auto-navigate node images
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.AutoNavigateImage.UnselLeaf">
+            <summary>
+              Unselected leaf node
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.AutoNavigateImage.SelLeaf">
+            <summary>
+              Selected leaf node
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.AutoNavigateImage.ClosedFolder">
+            <summary>
+              Closed parent node
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.AutoNavigateImage.OpenFolder">
+            <summary>
+              Open parent node
+            </summary>
+        </member>
+        <member name="T:WRM.Windows.Forms.PropertyTree">
+            <summary>
+              A class that houses sets of controls like a <see cref="T:System.Windows.Forms.TabControl"/>.  Each set
+            of controls is called a <see cref="T:WRM.Windows.Forms.PropertyPane"/>.  <see cref="T:WRM.Windows.Forms.PropertyPane"/>s 
+            are arranged in a <see cref="P:WRM.Windows.Forms.PropertyTree.TreeView"/> - clicking on a node in the <c>TreeView</c>
+            makes its associated <see cref="T:WRM.Windows.Forms.PropertyPane"/> displayed.
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PropertyTree.tvTree">
+            <summary>
+              Our TreeView
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PropertyTree.lblPlacement">
+            <summary>
+              The label that plays host to all <see cref="T:WRM.Windows.Forms.PropertyPane"/>s
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PropertyTree.components">
+            <summary>
+            Automatically added by Windows.Forms designer
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PropertyTree.mPaneNodeDic">
+            <summary>
+              Our dictionary mapping <see cref="T:WRM.Windows.Forms.PropertyPane"/>s to TreeNodes
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PropertyTree.mSharedPanesDic">
+            <summary>
+              Our shared pane instances - 1 per Type
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PropertyTree.mOnPaneDeactivating">
+            <summary>
+              The delegate for PaneDeactivating
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PropertyTree.mOnPaneDeactivated">
+            <summary>
+              The delegate for PaneDeactivated
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PropertyTree.mOnPaneActivating">
+            <summary>
+              The delegate for PaneActivating
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PropertyTree.mOnPaneActivated">
+            <summary>
+              The delegate for PaneActivated
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PropertyTree.mInternalSelChange">
+            <summary>
+              An internal variable that is set to true when we need
+            to change selection without raising selection-change events
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PropertyTree.mRemovingSharedPane">
+            <summary>
+             This is set when removing a shared pane
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PropertyTree.mRootPaneNode">
+            <summary>
+             Our root PaneNode object
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PropertyTree.ilTree">
+            <summary>
+             The imagelist that contains the AutoNavigate icons
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PropertyTree.splitter">
+            <summary>
+              The splitter
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PropertyTree.mAutoNavigate">
+            <summary>
+              Whether or not we are in AutoNavigate mode
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PropertyTree.paneTitleLabel">
+            <summary>
+              The header control shown above the active 
+              <see cref="T:WRM.Windows.Forms.PropertyPane">PropertyPane</see>.
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PropertyTree.mInit">
+            <summary>
+              Boolean value indicating whether or not we are being initialized
+              by designer-generated code
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PropertyTree.mAddedDuringInit">
+            <summary>
+              Collection of <see cref="T:WRM.Windows.Forms.PropertyPane"/>s that were added by designer-generated
+              code during initialization.
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.#ctor">
+            <summary>
+              Our default constructor
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">
+            <c>true</c> to release both managed and unmanaged resources; 
+            <c>false</c> to release only unmanaged resources.
+            </param>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.tvTree_BeforeSelect(System.Object,System.Windows.Forms.TreeViewCancelEventArgs)">
+            <summary>
+              When the user selects a TreeNode, we need to fire our selection-change
+            to notify people and see if they want to cancel the selection.
+            </summary>
+            <param name="sender">The sender of this event</param>
+            <param name="e">Event details</param>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.SelectPaneByNode(System.Windows.Forms.TreeNode)">
+            <summary>
+              Select a pane given it's <see cref="T:System.Windows.Forms.TreeNode"/>
+            </summary>
+            <param name="n">The <see cref="T:System.Windows.Forms.TreeNode"/> to select</param>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.DoSelectPane(WRM.Windows.Forms.PaneNode)">
+            <summary>
+              Initiate the selection change.  
+            </summary>
+            <remarks>
+              The currently selected <see cref="T:WRM.Windows.Forms.PaneNode"/> is given a chance to 
+            veto deactivation, and the new <see cref="T:WRM.Windows.Forms.PaneNode"/> a chance to veto 
+            selection.
+              Also, if <see cref="P:WRM.Windows.Forms.PropertyTree.AutoNavigate"/><c> == true</c>, we 
+              automatically select the first
+            child pane that is a leaf node (if this node has children).  As a 
+            direct result of this, no pane with children can be selected if
+            <see cref="P:WRM.Windows.Forms.PropertyTree.AutoNavigate"/><c> == true</c>.
+            </remarks>
+            <returns>
+            Returns <c>true</c> if the selection process is vetoed, 
+            and <c>false</c> if everything goes ok.
+            </returns>
+            <param name="newPaneNode">
+            The <c>PaneNode</c> representing the <see cref="T:WRM.Windows.Forms.PropertyPane"/> to be selected
+            </param>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.FindFirstLeafChild(System.Windows.Forms.TreeNode)">
+            <summary>
+              Recursively finds the first leaf child for the given node n.
+            </summary>
+            <param name="n">The parent node</param>
+            <returns>
+            Returns a <see cref="T:WRM.Windows.Forms.PaneNode"/> identifying the first child node that 
+            is a leaf.
+            </returns>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.ShowPaneNode(WRM.Windows.Forms.PaneNode)">
+            <summary>
+              Make a <see cref="T:WRM.Windows.Forms.PaneNode"/> visible
+            </summary>
+            <param name="paneNode">
+            The <c>PaneNode</c> to make visible</param>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.OnPaneActivating(WRM.Windows.Forms.PaneSelectionEventArgs)">
+            <summary>
+              Method to fire the <see cref="E:WRM.Windows.Forms.PropertyTree.PaneActivating">
+              PaneActivating</see> event
+            </summary>
+            <param name="psea">
+            Information about the event
+            </param>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.OnPaneActivated(WRM.Windows.Forms.PaneSelectionEventArgs)">
+            <summary>
+              Method to fire the <see cref="E:WRM.Windows.Forms.PropertyTree.PaneActivated">
+              PaneActivated</see> event
+            </summary>
+            <param name="psea">Information about the event</param>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.OnPaneDeactivating(WRM.Windows.Forms.PaneSelectionEventArgs)">
+            <summary>
+              Method to fire the <see cref="E:WRM.Windows.Forms.PropertyTree.PaneDeactivating">
+              PaneDeactivating</see> event
+            </summary>
+            <param name="psea">Information about the event</param>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.OnPaneDeactivated(WRM.Windows.Forms.PaneSelectionEventArgs)">
+            <summary>
+              Method to fire the <see cref="E:WRM.Windows.Forms.PropertyTree.PaneDeactivated">
+              PaneDeactivated</see> event
+            </summary>
+            <param name="psea">Information about the event</param>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.tvTree_AfterExpand(System.Object,System.Windows.Forms.TreeViewEventArgs)">
+            <summary>
+              After a node is expanded, tell the <see cref="T:WRM.Windows.Forms.PaneNode"/> about it.
+            </summary>
+            <remarks>
+              Notify the <see cref="T:WRM.Windows.Forms.PaneNode"/> of this event so that it can keep its
+            <see cref="P:WRM.Windows.Forms.PaneNode.Expanded"/> property up to date
+            </remarks>
+            <param name="sender">The sender of the event</param>
+            <param name="e">Information about the event</param>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.tvTree_AfterCollapse(System.Object,System.Windows.Forms.TreeViewEventArgs)">
+            <summary>
+              After a node is collapsed, tell the <see cref="T:WRM.Windows.Forms.PaneNode"/> about it.
+            </summary>
+            <param name="sender">The sender of the event</param>
+            <param name="e">Information about the event</param>
+            <remarks>
+              Notify the <see cref="T:WRM.Windows.Forms.PaneNode"/> about this event so that it
+              can keep its <see cref="P:WRM.Windows.Forms.PaneNode.Expanded"/> property up to date
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.UpdateNodesImages">
+            <summary>
+              Update each node's image and sel-image indices.
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.UpdateChildNodesImages(System.Windows.Forms.TreeNode)">
+            <summary>
+              Update the Child nodes images
+            </summary>
+            <param name="n">
+            The <c>TreeNode</c> whose images need updating
+            </param>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.UpdateNodeImages(System.Windows.Forms.TreeNode)">
+            <summary>
+              Update this <see cref="T:System.Windows.Forms.TreeNode"/>'s 
+              <see cref="P:System.Windows.Forms.TreeNode.ImageIndex"/> and 
+              <see cref="P:System.Windows.Forms.TreeNode.SelectedImageIndex"/>
+            </summary>
+            <param name="n">
+                The <c>TreeNode</c> to update
+            </param>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.CollapseSiblingBranches(System.Windows.Forms.TreeNode)">
+            <summary>
+              Collapse all sibling branches of n.  This is used during AutoNavigate
+            selection changes.
+            </summary>
+            <param name="n">
+            The <c>TreeNode</c> to for which to collapse sibling branches
+            </param>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.OnResize(System.EventArgs)">
+            <summary>
+            Handle the Resize event
+            </summary>
+            <param name="e">Information about the event</param>
+            <remarks>
+            This event is handled so that the currently active
+            <see cref="T:WRM.Windows.Forms.PropertyPane"/> can be resized accordingly.
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.ResizePane(WRM.Windows.Forms.PropertyPane)">
+            <summary>
+              Resize the panes and the title label when the 
+              <see cref="T:WRM.Windows.Forms.PropertyTree"/> changes size.
+            </summary>
+            <param name="p">
+            The <see cref="T:WRM.Windows.Forms.PropertyPane"/> to resize
+            </param>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.OnControlAdded(System.Windows.Forms.ControlEventArgs)">
+            <summary>
+              Override handling of the <c>OnControlAdded</c> event to 
+              do some setup work.
+            </summary>
+            <param name="e">
+            Information about this event
+            </param>
+            <remarks>
+            When <see cref="T:WRM.Windows.Forms.PropertyPane"/>s start getting added, they need to 
+            know who their owner is, and that they are sized correctly.
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.splitter_SplitterMoved(System.Object,System.Windows.Forms.SplitterEventArgs)">
+            <summary>
+              Handle splitter movement by resizing things
+            </summary>
+            <param name="sender">The sender of this event</param>
+            <param name="e">Information about the event</param>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.AdjustPaneArea">
+            <summary>
+            This utility method is called whenever the splitter has been moved,
+            or when the <see cref="T:WRM.Windows.Forms.PropertyTree"/> has been resized
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.GetSharedPaneInstance(System.Type)">
+            <summary>
+            Returns an instance of the <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/>-derived type
+            <paramref name="sharedPaneType"/>
+            </summary>
+            <param name="sharedPaneType">
+            A <see cref="T:System.Type"/> object representing the 
+            <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/>-derived class to create or get
+            an instance of
+            </param>
+            <returns>
+            Returns an instance of the type <paramref name="sharedPaneType"/>
+            </returns>
+            <remarks>
+            Only 1 instance of <paramref name="sharedPaneType"/> will ever be
+            created during the lifetime of this <see cref="T:WRM.Windows.Forms.PropertyTree"/>
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.ReleaseSharedPaneInstance(System.Type)">
+            <summary>
+            Release an instance of the <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/>-derived
+            type <paramref name="sharedPaneType"/>
+            </summary>
+            <param name="sharedPaneType">
+            A <see cref="T:System.Type"/> object representing the 
+            <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/>-derived class for which to release
+            an instance.
+            </param>
+            <remarks>
+            Once the reference count goes to zero, the instance of 
+            <paramref name="sharedPaneType"/> is removed from the 
+            <see cref="T:WRM.Windows.Forms.PropertyTree"/> and disposed.
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.IsSharedPaneInstanceInUse(System.Type)">
+            <summary>
+            Determines whether or not a <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/> instance 
+            of type <paramref name="sharedPaneType"/> is currently being cached.
+            </summary>
+            <param name="sharedPaneType">
+            A <see cref="T:System.Type"/> object representing the 
+            <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/>-derived class to check for
+            </param>
+            <returns>
+            Returns a boolean value indicating whether or not an instance of
+            the type <paramref name="sharedPaneType"/> is currently being
+            referenced by a <see cref="T:WRM.Windows.Forms.PaneNode"/>.
+            </returns>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.AddPaneNodeToTree(WRM.Windows.Forms.PaneNode,WRM.Windows.Forms.PaneNode)">
+            <summary>
+            Adds the given <paramref name="paneNode"/> to the tree, using
+            <paramref name="parent"/> as the parent.
+            </summary>
+            <param name="parent">
+            The <c>PaneNode</c> that will act as the parent of 
+            <paramref name="paneNode"/>
+            </param>
+            <param name="paneNode">
+            The <c>PaneNode</c> that is to be added to the <c>PropertyTree</c>
+            </param>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.RemovePaneNodeFromTree(WRM.Windows.Forms.PaneNode)">
+            <summary>
+            Remove <paramref name="paneNode"/> from the <c>PropertyTree</c>
+            </summary>
+            <param name="paneNode">
+            The <c>PaneNode</c> to remove
+            </param>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.GetPaneNodeAt(System.Drawing.Point)">
+            <summary>
+            Gets the <see cref="T:WRM.Windows.Forms.PaneNode"/> that is
+            located at the coordinates given in <paramref name="pt"/>.
+            </summary>
+            <param name="pt">
+            The coordinates to search for a <see cref="T:WRM.Windows.Forms.PaneNode"/>
+            </param>
+            <returns>
+            Returns the <see cref="T:WRM.Windows.Forms.PaneNode"/> located at the
+            given point <paramref name="pt"/>, or <c>null</c>
+            if no <c>PaneNode</c> is located there.
+            </returns>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.BeginInit">
+            <summary>
+            Implementation of <see cref="M:System.ComponentModel.ISupportInitialize.BeginInit"/>
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.EndInit">
+            <summary>
+            Implementation of <see cref="M:System.ComponentModel.ISupportInitialize.EndInit"/>
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.FlushInitCache">
+            <summary>
+            Flush out the cache of added <see cref="T:WRM.Windows.Forms.PaneNode"/>s that we
+            stored during initialization.
+            </summary>
+            <remarks>   
+            After <see cref="M:System.ComponentModel.ISupportInitialize.EndInit"/> is called, 
+            <c>FlushCache</c> is called to add all of the 
+            <see cref="T:WRM.Windows.Forms.PaneNode"/>s cached during initialization to 
+            the <c>PropertyTree</c>
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.PaneTabOut(System.Object,WRM.Windows.Forms.PaneTabOutEventArgs)">
+            <summary>
+            Method to handle the <see cref="F:WRM.Windows.Forms.PropertyPane.TabOut"/> event
+            for all of the <see cref="T:WRM.Windows.Forms.PropertyPane"/>s in the
+            <c>PropertyTree</c>.
+            </summary>
+            <param name="sender">The sender of the event</param>
+            <param name="e">Information about the event</param>
+            <remarks>
+                <para>
+                This handler uses an algorithm to automatically determine the next
+                <see cref="T:WRM.Windows.Forms.PropertyPane"/> to be given focus, and sets focus to
+                it.
+                </para>
+                <para>
+                It starts by getting the next <see cref="T:WRM.Windows.Forms.PaneNode"/>, using
+                in-order tree traversal via <see cref="M:WRM.Windows.Forms.PropertyTree.GetOrderedPaneNodes"/>,
+                and finding the appropriate focusable control on that <see cref="T:WRM.Windows.Forms.PaneNode"/>'s
+                <see cref="P:WRM.Windows.Forms.PaneNode.PropertyPane">PaneNode.PropertyPane</see> via
+                <see cref="M:WRM.Windows.Forms.PropertyTree.GetBoundaryControl(WRM.Windows.Forms.PropertyPane,System.Boolean)"/>.
+                </para>
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.GetBoundaryControl(WRM.Windows.Forms.PropertyPane,System.Boolean)">
+            <summary>
+            Find the control that is at one of the extreme ends of the tab order, as
+            specified by <paramref name="front"/>
+            </summary>
+            <param name="p">
+            The <c>PropertyPane</c> to search for focusable <see cref="P:WRM.Windows.Forms.PropertyTree.Controls"/>
+            </param>
+            <param name="front">
+            Boolean value indicating whether to find the first focusable control 
+            <see cref="T:System.Windows.Forms.Control"/> at the very front of the tab order or at the very back.
+            </param>
+            <returns>
+            Returns an instance of <see cref="T:System.Windows.Forms.Control"/> that meets the stated criteria,
+            or returns <c>null</c> if no focusable <c>Control</c>s exist on 
+            <paramref name="p"/>
+            </returns>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.GetNextInOrder(WRM.Windows.Forms.PaneNode,System.Boolean)">
+            <summary>
+            Gets the next <see cref="T:WRM.Windows.Forms.PaneNode"/> in order, given
+            <paramref name="curPaneNode"/> as the starting point.
+            </summary>
+            <param name="curPaneNode">
+            The <c>PaneNode</c> from which to start the search
+            </param>
+            <param name="forward">
+            Boolean value indicating whether the search is to proceed forwards
+            or backwards
+            </param>
+            <returns>
+            Returns an instance of <see cref="T:WRM.Windows.Forms.PaneNode"/> that represents the
+            stated criteria, or <c>null</c> if none could be found.
+            </returns>
+            <remarks>
+            The "ordering" is determined by an in-order traversal of the tree.
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.GetOrderedPaneNodes">
+            <summary>
+            Creates and returns an array of <see cref="T:WRM.Windows.Forms.PaneNode"/>s that represent an
+            in-order traversal of the <c>PropertyTree</c>
+            </summary>
+            <returns>
+            Returns an array of <see cref="T:WRM.Windows.Forms.PaneNode"/>s that represent an
+            in-order traversal of the <c>PropertyTree</c>
+            </returns>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.TraversePaneNode(WRM.Windows.Forms.PaneNode,System.Collections.ArrayList)">
+            <summary>
+            Helper function for <see cref="M:WRM.Windows.Forms.PropertyTree.GetOrderedPaneNodes"/>
+            </summary>
+            <param name="paneNode">
+            The <c>PaneNode</c> to inspect
+            </param>
+            <param name="orderedList">
+            The list of <c>PaneNode</c>s that represent the currently generated portion
+            of the in-order traversal
+            </param>
+        </member>
+        <member name="F:WRM.Windows.Forms.PropertyTree.mHRCManuallySet">
+            <summary>
+            Private boolean variable to record whether or not the
+            <see cref="P:WRM.Windows.Forms.PropertyTree.PaneHeaderRightColor"/> has
+            been manually set
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.ShouldSerializePaneHeaderRightColor">
+            <summary>
+            Determines whether or not the designer should serialize the
+            value of the <see cref="P:WRM.Windows.Forms.PropertyTree.PaneHeaderRightColor"/>
+            property
+            </summary>
+            <returns>
+            Returns <c>true</c> if the designer should serialize the value
+            of <see cref="P:WRM.Windows.Forms.PropertyTree.PaneHeaderRightColor"/> to code, or
+            <c>false</c> if it should not serialize the value to code.
+            </returns>
+            <remarks>
+            The <c>ShouldSerialize[Property]</c> function is called by the
+            WinForms designer to determine whether or not it should 
+            serialize the property <c>[Property]</c>.   In this case, 
+            <c>ShouldSerializePaneHeaderRightColor</c> returns true if
+            <see cref="P:WRM.Windows.Forms.PropertyTree.PaneHeaderRightColor"/> has been 
+            manually set during design-time, or false otherwise.
+            </remarks>
+        </member>
+        <member name="F:WRM.Windows.Forms.PropertyTree.mHLCManuallySet">
+            <summary>
+            Private boolean variable to record whether or not the
+            <see cref="P:WRM.Windows.Forms.PropertyTree.PaneHeaderRightColor"/> has
+            been manually set
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.ShouldSerializePaneHeaderLeftColor">
+            <summary>
+            Determines whether or not the designer should serialize the
+            value of the <see cref="P:WRM.Windows.Forms.PropertyTree.PaneHeaderLeftColor"/>
+            property
+            </summary>
+            <returns>
+            Returns <c>true</c> if the designer should serialize the value
+            of <see cref="P:WRM.Windows.Forms.PropertyTree.PaneHeaderLeftColor"/> to code, or
+            <c>false</c> if it should not serialize the value to code.
+            </returns>
+            <remarks>
+            The <c>ShouldSerialize[Property]</c> function is called by the
+            WinForms designer to determine whether or not it should 
+            serialize the property <c>[Property]</c>.   In this case, 
+            <c>ShouldSerializePaneHeaderLeftColor</c> returns true if
+            <see cref="P:WRM.Windows.Forms.PropertyTree.PaneHeaderLeftColor"/> has been 
+            manually set during design-time, or false otherwise.
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.ResetPaneHeaderRightColor">
+            <summary>
+            Resets the <see cref="P:WRM.Windows.Forms.PropertyTree.PaneHeaderRightColor"/> to its
+            default value
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.ResetPaneHeaderLeftColor">
+            <summary>
+            Resets the <see cref="P:WRM.Windows.Forms.PropertyTree.PaneHeaderLeftColor"/> to its
+            default value
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.OnBackColorChanged(System.EventArgs)">
+            <summary>
+            Responds to the event of our background color changing
+            </summary>
+            <param name="e">Information about the event</param>
+            <remarks>
+            If <see cref="P:WRM.Windows.Forms.PropertyTree.PaneHeaderRightColor"/> has not been 
+            set manually, we change it to coincide with the new background
+            color that was just set.
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.ShouldSerializeSplitterColor">
+            <summary>
+            Determines whether or not the designer should serialize the
+            value of the <see cref="P:WRM.Windows.Forms.PropertyTree.SplitterColor"/>
+            property
+            </summary>
+            <returns>
+            Returns <c>true</c> if the designer should serialize the value
+            of <see cref="P:WRM.Windows.Forms.PropertyTree.SplitterColor"/> to code, or
+            <c>false</c> if it should not serialize the value to code.
+            </returns>
+            <remarks>
+            The <c>ShouldSerialize[Property]</c> function is called by the
+            WinForms designer to determine whether or not it should 
+            serialize the property <c>[Property]</c>.   In this case, 
+            <c>ShouldSerializeSplitterColor</c> returns true if
+            <see cref="P:WRM.Windows.Forms.PropertyTree.SplitterColor"/> has been 
+            manually set during design-time, or false otherwise.
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.ResetSplitterColor">
+            <summary>
+            Resets the <see cref="P:WRM.Windows.Forms.PropertyTree.SplitterColor"/> to its
+            default value
+            </summary>
+        </member>
+        <member name="P:WRM.Windows.Forms.PropertyTree.PaneNodes">
+            <summary>
+              Gets the <see cref="T:WRM.Windows.Forms.PaneNodeCollection"/> that holds all 
+              <see cref="T:WRM.Windows.Forms.PaneNode"/> instances that are children of the
+              root of the <c>PropertyTree</c>.
+            </summary>
+            <value>
+            A reference to the root <see cref="T:WRM.Windows.Forms.PaneNode"/>'s 
+            <see cref="P:WRM.Windows.Forms.PaneNode.PaneNodes">PaneNodes</see> collection.
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PropertyTree.Controls">
+            <summary>
+            Gets the <see cref="T:System.Windows.Forms.Control.ControlCollection"/> that represents the child
+            controls of this control.
+            </summary>
+            <value>
+            A reference to <see cref="P:System.Windows.Forms.Control.Controls"/>.
+            </value>
+            <remarks>
+            This property is hijacked (via the <c>new</c> keyword) so that we can
+            force the Windows.Forms designer to not serialize this collection.
+            Representation of the controls in a <c>PropertyTree</c> is handled by
+            <see cref="P:WRM.Windows.Forms.PropertyTree.PaneNodes"/>.
+            </remarks>
+        </member>
+        <member name="P:WRM.Windows.Forms.PropertyTree.SelectedPaneNode">
+            <summary>
+              Gets or sets the <see cref="T:WRM.Windows.Forms.PaneNode"/> that is currently selected (if any)
+            </summary>
+            <remarks>
+                <para>
+                While its use as a getter is obvious, <c>SelectedPaneNode</c>is also the 
+                primary means by which selection is programmatically set.
+                </para>
+                <para>
+                To remove selection (ie to make nothing selected), set this 
+                property to <c>null</c>.
+                </para>
+            </remarks>
+            <value>
+            The value of the property is the <see cref="T:WRM.Windows.Forms.PaneNode"/> that is currently
+            selected, or <c>null</c> if none is selected.
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PropertyTree.ImageIndex">
+            <summary>
+              Gets or sets the default image index for all <see cref="T:WRM.Windows.Forms.PropertyPane"/>s
+            </summary>
+            <value>
+            The integer index into <see cref="P:WRM.Windows.Forms.PropertyTree.ImageList"/> of the 
+            image that will be displayed by default for all 
+            <see cref="T:WRM.Windows.Forms.PaneNode"/>s.
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PropertyTree.Indent">
+            <summary>
+              Gets or sets the indentation of child nodes in pixels
+            </summary>
+            <value>
+            Represents the number of pixels that each child node will be
+            horizontally offset from its parent.
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PropertyTree.SelectedImageIndex">
+            <summary>
+              Gets or sets the default image index for all 
+              selected <see cref="T:WRM.Windows.Forms.PropertyPane"/>s
+            </summary>
+            <value>
+            The integer index into <see cref="P:WRM.Windows.Forms.PropertyTree.ImageList"/> of the 
+            image that will be displayed by default for all 
+            <see cref="T:WRM.Windows.Forms.PaneNode"/>s when they are selected.
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PropertyTree.ImageList">
+            <summary>
+              Gets or sets the <see cref="P:WRM.Windows.Forms.PropertyTree.ImageList"/> from which images are taken.  
+              This can be set by the user, but its contents are automatically set 
+              when <see cref="P:WRM.Windows.Forms.PropertyTree.AutoNavigate">AutoNavigate</see> == <c>true</c>.
+            </summary>
+            <value>
+            The <see cref="P:WRM.Windows.Forms.PropertyTree.ImageList"/> indexed by the <see cref="P:WRM.Windows.Forms.PropertyTree.ImageIndex"/> and
+            <see cref="P:WRM.Windows.Forms.PropertyTree.SelectedImageIndex"/> properties.
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PropertyTree.ShowLines">
+            <summary>
+            Gets or sets a boolean value that indicates whether or not
+            lines are displayed between related nodes.
+            </summary>
+            <value>
+            <c>true</c> indicates that lines will be drawn between
+            related nodes, <c>false</c> indicates that no lines
+            will be drawn.
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PropertyTree.ShowPlusMinus">
+            <summary>
+              Gets or sets a boolean value that indicates whether or not
+              the plus/minus glyph is displayed for node that has
+              child nodes.
+            </summary>
+            <value>
+            <c>true</c> indicates that the plus/minus glyphs will be
+            drawn, <c>false</c> indicates they will not be drawn.
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PropertyTree.ShowRootLines">
+            <summary>
+            Gets or sets a value that indicates whether or not lines are drawn between
+            root nodes of the tree.
+            </summary>
+            <value>
+            <c>true</c> indicates that lines will be drawn between root nodes, 
+            <c>false</c> indicates that lines will not be drawn.
+            </value>
+            <remarks>
+            This value must be <c>true</c> and <see cref="P:WRM.Windows.Forms.PropertyTree.ShowPlusMinus"/> must be
+            <c>true</c> in order for the plus/minus buttons to be drawn for root nodes.
+            </remarks>
+        </member>
+        <member name="E:WRM.Windows.Forms.PropertyTree.PaneActivating">
+            <summary>
+              Event fired before a pane is activated.
+            </summary>
+        </member>
+        <member name="E:WRM.Windows.Forms.PropertyTree.PaneActivated">
+            <summary>
+              Event fired after a pane is activated
+            </summary>
+        </member>
+        <member name="E:WRM.Windows.Forms.PropertyTree.PaneDeactivating">
+            <summary>
+              Event fired before a pane is deactivated
+            </summary>
+        </member>
+        <member name="E:WRM.Windows.Forms.PropertyTree.PaneDeactivated">
+            <summary>
+              Event fired after a pane is deactivated
+            </summary>
+        </member>
+        <member name="P:WRM.Windows.Forms.PropertyTree.TreeView">
+            <summary>
+              Gets the <see cref="P:WRM.Windows.Forms.PropertyTree.TreeView"/> that holds the <see cref="T:WRM.Windows.Forms.PaneNode"/>s 
+              for this <c>PropertyTree</c>
+            </summary>
+            <value>
+              The <see cref="P:WRM.Windows.Forms.PropertyTree.TreeView"/> that holds the <see cref="T:WRM.Windows.Forms.PaneNode"/>s for
+              this <c>PropertyTree</c>
+            </value>
+            <remarks>
+              This is internally visible so that the custom designer objects may reference
+            it when they need to.
+            </remarks>
+            <seealso cref="T:WRM.Windows.Forms.Design.PropertyTreeDesigner"/>
+        </member>
+        <member name="P:WRM.Windows.Forms.PropertyTree.AutoNavigate">
+            <summary>
+              Gets a boolean value indicating whether or not we're in 
+              AutoNavigate mode.  This mode is like the <see cref="T:WRM.Windows.Forms.PropertyTree"/> 
+              in the VS.NET IDE's Tools | Options dialog.  Only leaf
+              nodes may be selected.
+            </summary>
+            <value>
+            <c>true</c> indicates AutoNavigate mode is turned on, <c>false</c>
+            indicates that it is turned off
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PropertyTree.IsInitializing">
+            <summary>
+            Gets a boolean value indicating whether or not we are currently 
+            initializing.
+            </summary>
+            <value>
+            In conjuction with the <see cref="T:WRM.Windows.Forms.PropertyTree"/>'s implementation of
+            <see cref="T:System.ComponentModel.ISupportInitialize"/>, this value returns the value of an
+            internal flag that indicates that the <c>PropertyTree</c> is currently
+            in between calls to <see cref="M:System.ComponentModel.ISupportInitialize.BeginInit">BeginInit</see>
+            and <see cref="M:System.ComponentModel.ISupportInitialize.EndInit">EndInit</see>.
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PropertyTree.PaneHeaderLeftColor">
+            <summary>
+            Gets or sets the color of the left-hand side of the gradient for the 
+            <see cref="T:WRM.Windows.Forms.PaneHeader"/>
+            </summary>
+            <value>
+            The color of the left-hand side of the gradient for the 
+            <see cref="T:WRM.Windows.Forms.PaneHeader"/>
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PropertyTree.PaneHeaderRightColor">
+            <summary>
+            Gets or sets the color of the right-hand side of the gradient for the 
+            <see cref="T:WRM.Windows.Forms.PaneHeader"/>
+            </summary>
+            <value>
+            The color of the right-hand side of the gradient for the 
+            <see cref="T:WRM.Windows.Forms.PaneHeader"/>
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PropertyTree.PaneHeaderVisible">
+            <summary>
+            Gets or sets a boolean value that indicates whether or not the
+            <see cref="T:WRM.Windows.Forms.PaneHeader"/> is visible in the <c>PropertyTree</c>.
+            </summary>
+            <value>
+            A boolean value that indicates whether or not the
+            <see cref="T:WRM.Windows.Forms.PaneHeader"/> is visible in the <c>PropertyTree</c>.
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PropertyTree.SplitterLeft">
+            <summary>
+            Gets or sets the width of the portion of the <c>PropertyTree</c>
+            that houses the <see cref="P:WRM.Windows.Forms.PropertyTree.TreeView"/>.
+            </summary>
+            <value>
+            The width, in pixels, of the portion of the <c>PropertyTree</c> that
+            houses the <see cref="P:WRM.Windows.Forms.PropertyTree.TreeView"/>
+            </value>
+        </member>
+        <member name="P:WRM.Windows.Forms.PropertyTree.SplitterColor">
+            <summary>
+            Gets or sets the color of the <see cref="T:System.Windows.Forms.Splitter"/> that splits the <c>TreeView</c>
+            and <c>PropertyPane</c> portions of the <c>PropertyTree</c>
+            </summary>
+            <value>
+            The color of the <see cref="T:System.Windows.Forms.Splitter"/> that splits the <c>TreeView</c>
+            and <c>PropertyPane</c> portions of the <c>PropertyTree</c>
+            </value>
+        </member>
+        <member name="T:WRM.Windows.Forms.PropertyTree.PaneDeactivatingEventHandler">
+            <summary>
+              Event delegate for PaneDeactivating
+            </summary>
+            <param name="sender">
+            The sender of this event
+            </param>
+            <param name="psea">
+            Information about which <see cref="T:WRM.Windows.Forms.PaneNode"/>s are involved
+            of this event
+            </param>
+        </member>
+        <member name="T:WRM.Windows.Forms.PropertyTree.PaneDeactivatedEventHandler">
+            <summary>
+              Event delegate for PaneDeactivated
+            </summary>
+            <param name="sender">
+            The sender of this event
+            </param>
+            <param name="psea">
+            Information about which <see cref="T:WRM.Windows.Forms.PaneNode"/>s are involved
+            of this event
+            </param>
+        </member>
+        <member name="T:WRM.Windows.Forms.PropertyTree.PaneActivatingEventHandler">
+            <summary>
+              Event handler for PaneActivating
+            </summary>
+            <param name="sender">
+            The sender of this event
+            </param>
+            <param name="psea">
+            Information about which <see cref="T:WRM.Windows.Forms.PaneNode"/>s are involved
+            of this event
+            </param>
+        </member>
+        <member name="T:WRM.Windows.Forms.PropertyTree.PaneActivatedEventHandler">
+            <summary>
+              Event handler for PaneActivated
+            </summary>
+            <param name="sender">
+            The sender of this event
+            </param>
+            <param name="psea">
+            Information about which <see cref="T:WRM.Windows.Forms.PaneNode"/>s are involved
+            of this event
+            </param>
+        </member>
+        <member name="T:WRM.Windows.Forms.PropertyTree.SharedPaneInstance">
+            <summary>
+            Struct to hold information about current instances of
+            <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/> instances.
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PropertyTree.SharedPaneInstance.Instance">
+            <summary>
+            The instance of a <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/>-derived class
+            </summary>
+        </member>
+        <member name="F:WRM.Windows.Forms.PropertyTree.SharedPaneInstance.RefCount">
+            <summary>
+            The number of <see cref="T:WRM.Windows.Forms.PaneNode"/>s that reference it
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.PropertyTree.SharedPaneInstance.#ctor(WRM.Windows.Forms.SharedPropertyPane)">
+            <summary>
+            Create an instance of <c>SharedPaneInstace</c>, with the
+            given <paramref name="instance"/> of a 
+            <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/>-derived class.
+            </summary>
+            <param name="instance">
+            An instance of a <c>SharedPropertyPane</c>-derived class
+            </param>
+        </member>
+        <member name="T:WRM.Windows.Forms.SharedPropertyPane">
+            <summary>
+            <c>SharedPropertyPane</c> is a special subclass of <c>PropertyPane</c> that
+            is designed to be shared between multiple nodes in the <c>PropertyTree</c>.
+            </summary>
+            <remarks>
+            Only 1 instance of a particular subclass of <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/> 
+            is ever created - once it is, all subsequent panes of the same type are 
+            represented by that single instance.  Whenever a user selects a different 
+            node in the <see cref="T:WRM.Windows.Forms.PropertyTree"/>, the <see cref="T:WRM.Windows.Forms.SharedPropertyPane"/>'s 
+            <see cref="M:WRM.Windows.Forms.SharedPropertyPane.OnPaneInstanceChanged(WRM.Windows.Forms.PaneNode)"/> method is called to inform the pane that a 
+            new node has been selected.
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.SharedPropertyPane.#ctor">
+            <summary>
+              The only public constructor for shared panes.
+            </summary>
+        </member>
+        <member name="M:WRM.Windows.Forms.SharedPropertyPane.OnPaneInstanceChanged(WRM.Windows.Forms.PaneNode)">
+            <summary>
+              Updates the <c>SharedPropertyPane</c>'s <see cref="P:WRM.Windows.Forms.PropertyPane.PaneNode"/>
+              with the <see cref="T:WRM.Windows.Forms.PaneNode"/> that is currently selected in the
+              <see cref="T:WRM.Windows.Forms.PropertyTree"/>
+            </summary>
+            <remarks>
+            This method is called after <see cref="M:WRM.Windows.Forms.PropertyPane.OnPaneActivating(WRM.Windows.Forms.PropertyTree,WRM.Windows.Forms.PaneSelectionEventArgs)"/>
+            / <see cref="M:WRM.Windows.Forms.PropertyPane.OnPaneActivated(WRM.Windows.Forms.PropertyTree,WRM.Windows.Forms.PaneSelectionEventArgs)"/> or 
+            <see cref="M:WRM.Windows.Forms.PropertyPane.OnPaneDeactivating(WRM.Windows.Forms.PropertyTree,WRM.Windows.Forms.PaneSelectionEventArgs)"/> /
+            <see cref="M:WRM.Windows.Forms.PropertyPane.OnPaneDeactivated(WRM.Windows.Forms.PropertyTree,WRM.Windows.Forms.PaneSelectionEventArgs)"/>.
+            </remarks>
+            <param name="paneNode">The <see cref="T:WRM.Windows.Forms.PaneNode"/> that has just been activated</param>
+        </member>
+        <member name="T:WRM.Windows.Forms.UserPropertyPane">
+            <summary>
+            A custom version of <see cref="T:WRM.Windows.Forms.PropertyPane">PropertyPane</see> that
+            should be used as the base class for all customized versions of
+            <c>PropertyPane</c>.
+            </summary>
+            <remarks>
+            <para>
+            This class exists soley to force all classes that descend from it
+            to be associated with the regular <see cref="T:System.Windows.Forms.Design.ControlDesigner">
+            ControlDesigner</see> instead of the <see cref="T:WRM.Windows.Forms.Design.PropertyPaneDesigner">
+            PropertyPaneDesigner</see>.  This action is necessary because user
+            defined types of <c>PropertyPane</c>s should not act as
+            parent controls during design-time.
+            </para>
+            <para>
+            This reapplication of the <see cref="T:System.ComponentModel.DesignerAttribute">Designer</see> 
+            attribute does not affect the relationship with 
+            <see cref="T:WRM.Windows.Forms.Design.PropertyPaneRootDesigner">PropertyPaneRootDesigner</see>.
+            This root designer will always be used to host the design view of
+            any user defined <c>PropertyPane</c> derivative.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:WRM.Windows.Forms.UserPropertyPane.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+    </members>
+</doc>

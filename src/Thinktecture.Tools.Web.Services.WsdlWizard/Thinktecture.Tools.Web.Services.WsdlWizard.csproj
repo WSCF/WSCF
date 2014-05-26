@@ -21,7 +21,6 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Thinktecture.Tools.Web.Services.WsdlWizard</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <StartupObject>Thinktecture.Tools.Web.Services.WsdlWizard.Form1</StartupObject>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>

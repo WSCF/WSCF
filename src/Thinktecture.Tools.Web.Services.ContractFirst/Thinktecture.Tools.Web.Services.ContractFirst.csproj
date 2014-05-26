@@ -215,6 +215,12 @@
     <Content Include="..\WSCF.blue.VS2010.addin">
       <Link>WSCF.blue.VS2010.addin</Link>
     </Content>
+    <Content Include="..\WSCF.blue.VS2012.addin">
+      <Link>WSCF.blue.VS2012.addin</Link>
+    </Content>
+    <Content Include="..\WSCF.blue.VS2013.addin">
+      <Link>WSCF.blue.VS2013.addin</Link>
+    </Content>
     <Content Include="pics\AStep.bmp" />
     <Content Include="pics\tt.bmp" />
     <Content Include="Wizard.ico" />
@@ -254,6 +260,18 @@ SET addinsDir=%25userprofile%25\My Documents\Visual Studio 2010\Addins
 SET wscfDir=%25addinsDir%25\WSCF.blue
 IF NOT EXIST "%25wscfDir%25" MD "%25wscfDir%25"
 COPY $(OutDir) "%25wscfDir%25"
-COPY $(SolutionDir)Developer.WSCF.blue.VS2010.addin "%25addinsdir%25"\WSCF.blue.VS2010.addin</PostBuildEvent>
+COPY $(SolutionDir)Developer.WSCF.blue.VS2010.addin "%25addinsdir%25"\WSCF.blue.VS2010.addin
+
+SET addinsDir=%25userprofile%25\My Documents\Visual Studio 2012\Addins
+SET wscfDir=%25addinsDir%25\WSCF.blue
+IF NOT EXIST "%25wscfDir%25" MD "%25wscfDir%25"
+COPY $(OutDir) "%25wscfDir%25"
+COPY $(SolutionDir)Developer.WSCF.blue.VS2012.addin "%25addinsdir%25"\WSCF.blue.VS2012.addin
+
+SET addinsDir=%25userprofile%25\My Documents\Visual Studio 2013\Addins
+SET wscfDir=%25addinsDir%25\WSCF.blue
+IF NOT EXIST "%25wscfDir%25" MD "%25wscfDir%25"
+COPY $(OutDir) "%25wscfDir%25"
+COPY $(SolutionDir)Developer.WSCF.blue.VS2013.addin "%25addinsdir%25"\WSCF.blue.VS2013.addin</PostBuildEvent>
   </PropertyGroup>
 </Project>

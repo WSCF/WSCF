@@ -5,10 +5,10 @@ VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{86584563-214A-48BA-8E33-280C5D57B4AF}"
 	ProjectSection(SolutionItems) = preProject
-		Developer.WSCF.VS2013.addin = Developer.WSCF.VS2013.addin
+		Developer.WSCF.addin = Developer.WSCF.addin
 		SolutionInfo.cs = SolutionInfo.cs
+		WSCF.addin = WSCF.addin
 		wscf.snk = wscf.snk
-		WSCF.VS2013.addin = WSCF.VS2013.addin
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thinktecture.Tools.Web.Services.ContractFirst", "Thinktecture.Tools.Web.Services.ContractFirst\Thinktecture.Tools.Web.Services.ContractFirst.csproj", "{2ED38673-D44A-415A-B3D9-634BD10EF870}"

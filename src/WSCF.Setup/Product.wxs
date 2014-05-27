@@ -38,7 +38,7 @@
 		<ComponentGroup Id="AddinFiles" Directory="ADDINS">
 			<Component Id="ContractFirst.VS2013.addin" Guid="5b1e586a-916b-4893-8464-510740d3911f">
 				<RegistryValue Root="HKCU" Type="string" Key="Software\[Manufacturer]\[Product]" Name="InstallFolder" Value="[INSTALLFOLDER]" KeyPath="yes" />
-				<File Source="$(var.SolutionDir)WSCF.VS2013.addin" />
+				<File Source="$(var.SolutionDir)WSCF.addin" />
 			</Component>
 		</ComponentGroup>
 

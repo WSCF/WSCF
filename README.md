@@ -1,9 +1,8 @@
-WSCF
-====
+# WSCF #
 
 **WSCF** is a toolset that facilitates the development of web services using a contract first (specifically, a schema first) approach. This is the WCF version of the orginal [Web Services Contract First tool](http://www.thinktecture.com/WSCF). 
 
-# Introduction #
+## Introduction ##
 
 When developing Web Services, the first step is usually to:
 

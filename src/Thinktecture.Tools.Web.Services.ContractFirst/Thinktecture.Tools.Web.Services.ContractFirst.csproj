@@ -183,6 +183,7 @@
     <Compile Include="LogHelper.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="VsAddIn.cs" />
     <Compile Include="VsObjectWrappers\OutputWindowWriter.cs" />
     <Compile Include="VsObjectWrappers\VisualStudioProject.cs" />
     <Compile Include="VsObjectWrappers\VisualStudio.cs" />

@@ -8,7 +8,7 @@ using EnvDTE80;
 
 namespace Thinktecture.Tools.Web.Services.ContractFirst
 {
-    internal class VisualStudio
+    public class VisualStudio
     {
         #region Private Fields
 

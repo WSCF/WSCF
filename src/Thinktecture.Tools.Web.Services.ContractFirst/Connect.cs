@@ -149,7 +149,7 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst
             {
                 MessageBox.Show(ex.Message,
                     "WSDL Wizard", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                wizard.Close();
+                wizard?.Close();
                 return false;
             }
 

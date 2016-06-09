@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
+  <Default Extension="zip" ContentType="application/zip" />
+  <Default Extension="dll" ContentType="application/octet-stream" />
+  <Default Extension="pdb" ContentType="application/octet-stream" />
+  <Default Extension="pkgdef" ContentType="text/plain" />
+  <Default Extension="vsixmanifest" ContentType="text/xml" />
+  <Default Extension="txt" ContentType="text/plain" />
+  <Default Extension="png" ContentType="application/octet-stream" />
+  <!--<Default Extension="snippet" ContentType="application/octet-stream" />
+  <Default Extension="gitattributes" ContentType="application/octet-stream" />
+  <Default Extension="gitignore" ContentType="application/octet-stream" />
+  <Default Extension="md" ContentType="application/octet-stream" />
+  <Default Extension="yml" ContentType="application/octet-stream" />
+  <Override PartName="/Shared/Resources/LICENSE" ContentType="application/octet-stream" />
+  <Override PartName="/Misc/Resources/GitHub/LICENSE" ContentType="application/octet-stream" />-->
+</Types>

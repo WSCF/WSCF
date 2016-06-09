@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <Extern href="stdidcmd.h"/>
+
+  <Extern href="vsshlids.h"/>
+
+  <Commands package="guidVSPackage">
+
+    <Menus>
+
+      <Menu guid="guidVSPackageCmdSet" id="SolutionExplorerItemContextMenuItem" priority="0x0100" type="Menu">
+        <Parent guid="guidVSPackageCmdSet" id="SolutionExplorerItemContextMenuGroup"/>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>WSCF.blue</ButtonText>
+        </Strings>
+      </Menu>
+
+      <Menu guid="guidVSPackageCmdSet" id="SolutionExplorerProjectContextMenuItem" priority="0x0100" type="Menu">
+        <Parent guid="guidVSPackageCmdSet" id="SolutionExplorerProjectContextMenuGroup"/>
+        <Strings>
+          <ButtonText>WSCF.blue</ButtonText>
+        </Strings>
+      </Menu>
+
+      <Menu guid="guidVSPackageCmdSet" id="ToolsMenuItem" priority="0x0100" type="Menu">
+        <Parent guid="guidVSPackageCmdSet" id="ToolsMenuGroup"/>
+        <Strings>
+          <ButtonText>WSCF.blue</ButtonText>
+        </Strings>
+      </Menu>
+
+    </Menus>
+
+    <Groups>
+
+      <Group guid="guidVSPackageCmdSet" id="SolutionExplorerItemContextMenuGroup" priority="0x0010">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE"/>
+      </Group>
+
+      <Group guid="guidVSPackageCmdSet" id="SolutionExplorerItemContextSubMenuGroup" priority="0x0100">
+        <Parent guid="guidVSPackageCmdSet" id="SolutionExplorerItemContextMenuItem"/>
+      </Group>
+
+      <Group guid="guidVSPackageCmdSet" id="SolutionExplorerProjectContextMenuGroup" priority="0x0010">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE"/>
+      </Group>
+
+      <Group guid="guidVSPackageCmdSet" id="SolutionExplorerProjectContextSubMenuGroup" priority="0x0100">
+        <Parent guid="guidVSPackageCmdSet" id="SolutionExplorerProjectContextMenuItem"/>
+      </Group>
+
+      <Group guid="guidVSPackageCmdSet" id="ToolsMenuGroup" priority="0x0010">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS"/>
+      </Group>
+
+      <Group guid="guidVSPackageCmdSet" id="ToolsMenuSubMenuGroup" priority="0x0100">
+        <Parent guid="guidVSPackageCmdSet" id="ToolsMenuItem"/>
+      </Group>
+      
+    </Groups>
+
+    <Buttons>
+      
+      <Button guid="guidVSPackageCmdSet" id="CreateWsdlCommand" priority="0x0100" type="Button">
+        <Parent guid="guidVSPackageCmdSet" id="SolutionExplorerItemContextSubMenuGroup"/>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Create WSDL Interface Description...</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVSPackageCmdSet" id="EditWsdlCommand" priority="0x0110" type="Button">
+        <Parent guid="guidVSPackageCmdSet" id="SolutionExplorerItemContextSubMenuGroup"/>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Edit WSDL Interface Description...</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVSPackageCmdSet" id="CreateContractCodeCommand" priority="0x0120" type="Button">
+        <Parent guid="guidVSPackageCmdSet" id="SolutionExplorerItemContextSubMenuGroup"/>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Generate Data Contract Code...</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVSPackageCmdSet" id="CreateServiceCodeCommand" priority="0x0130" type="Button">
+        <Parent guid="guidVSPackageCmdSet" id="SolutionExplorerItemContextSubMenuGroup"/>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Generate Web Service Code...</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVSPackageCmdSet" id="ImplementWsdlCommand" priority="0x0100" type="Button">
+        <Parent guid="guidVSPackageCmdSet" id="SolutionExplorerProjectContextSubMenuGroup"/>
+        <Strings>
+          <ButtonText>Choose WSDL to Implement...</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVSPackageCmdSet" id="ContractFirstCommand" priority="0x0100" type="Button">
+        <Parent guid="guidVSPackageCmdSet" id="ToolsMenuSubMenuGroup"/>
+        <Strings>
+          <ButtonText>Web Services Contract First...</ButtonText>
+        </Strings>
+      </Button>
+      
+      <!--To define a menu group you have to specify its ID, the parent menu and its display priority.
+          The command is visible and enabled by default. If you need to change the visibility, status, etc, you can use
+          the CommandFlag node.
+          You can add more than one CommandFlag node e.g.:
+              <CommandFlag>DefaultInvisible</CommandFlag>
+              <CommandFlag>DynamicVisibility</CommandFlag>
+          If you do not want an image next to your command, remove the Icon node /> -->
+      <!--
+      -->
+      <!--<Button guid="guidVSPackageCmdSet" id="Command1Id" priority="0x0100" type="Button">
+        <Parent guid="guidVSPackageCmdSet" id="MyMenuGroup" />
+        <Icon guid="guidImages" id="bmpPic1" />
+        <Strings>
+          <ButtonText>Invoke Command1</ButtonText>
+        </Strings>
+      </Button>-->
+    </Buttons>
+
+    <Bitmaps>
+      <Bitmap guid="guidImages" href="Resources\Command1.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough"/>
+    </Bitmaps>
+  </Commands>
+
+  <Symbols>
+    <GuidSymbol name="guidVSPackage" value="{ede032b5-9e2d-4576-a53a-58f117366ce4}" />
+
+    <GuidSymbol name="guidVSPackageCmdSet" value="{9bb4c433-e73e-43bc-8040-3fc68d2bfbaa}">
+      <IDSymbol name="SolutionExplorerItemContextMenuGroup" value="0x1020" />
+      <IDSymbol name="SolutionExplorerItemContextMenuItem" value="0x1030" />
+      <IDSymbol name="SolutionExplorerItemContextSubMenuGroup" value="0x1040" />
+      <IDSymbol name="SolutionExplorerProjectContextMenuGroup" value="0x1050" />
+      <IDSymbol name="SolutionExplorerProjectContextMenuItem" value="0x1060" />
+      <IDSymbol name="SolutionExplorerProjectContextSubMenuGroup" value="0x1070" />
+      <IDSymbol name="ToolsMenuGroup" value="0x1080"/>
+      <IDSymbol name="ToolsMenuItem" value="0x1090"/>
+      <IDSymbol name="ToolsMenuSubMenuGroup" value="0x1100"/>
+      <IDSymbol name="CreateWsdlCommand" value="0x0100" />
+      <IDSymbol name="EditWsdlCommand" value="0x0110" />
+      <IDSymbol name="CreateContractCodeCommand" value="0x0120"/>
+      <IDSymbol name="CreateServiceCodeCommand" value="0x0130" />
+      <IDSymbol name="ImplementWsdlCommand" value="0x0140"/>
+      <IDSymbol name="ContractFirstCommand" value="0x0150"/>
+    </GuidSymbol>
+
+    <GuidSymbol name="guidImages" value="{cd4e20a3-5ddb-45e4-8699-58b5fd0a12f7}" >
+      <IDSymbol name="bmpPic1" value="1" />
+      <IDSymbol name="bmpPic2" value="2" />
+      <IDSymbol name="bmpPicSearch" value="3" />
+      <IDSymbol name="bmpPicX" value="4" />
+      <IDSymbol name="bmpPicArrows" value="5" />
+      <IDSymbol name="bmpPicStrikethrough" value="6" />
+    </GuidSymbol>
+  </Symbols>
+</CommandTable>

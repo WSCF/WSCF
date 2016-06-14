@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="WSCF.blue.Thinktecture.5854de2e-43d5-4466-8f14-810261b8ec64" Version="0.6" Language="en-US" Publisher="thinktecture" />
+    <Identity Id="WSCF.blue.Thinktecture.5854de2e-43d5-4466-8f14-810261b8ec64" Version="0.6" Language="en-US" Publisher="WSCF" />
     <DisplayName>WSCF.blue (BETA)</DisplayName>
-    <Description xml:space="preserve">Use schema and WSDL first to generate client and service code skeletons for WCF Web Services.Use schema and WSDL first to generate client and service code skeletons for WCF Web Services.</Description>
+    <Description xml:space="preserve">Use schema and WSDL first to generate client and service code skeletons for WCF Web Services and/or client side code and clases.</Description>
     <License>LICENSE.txt</License>
+    <Icon>Resources\wscf.bmp</Icon>
     <Tags>WSCF, Web Services Contract First</Tags>
   </Metadata>
   <Installation>

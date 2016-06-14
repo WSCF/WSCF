@@ -5,6 +5,7 @@
     <DisplayName>WSCF.blue (BETA)</DisplayName>
     <Description xml:space="preserve">Use schema and WSDL first to generate client and service code skeletons for WCF Web Services and/or client side code and clases.</Description>
     <License>LICENSE.txt</License>
+    <ReleaseNotes>VSIX Release Notes.txt</ReleaseNotes>
     <Icon>Resources\wscf.bmp</Icon>
     <Tags>WSCF, Web Services Contract First</Tags>
   </Metadata>

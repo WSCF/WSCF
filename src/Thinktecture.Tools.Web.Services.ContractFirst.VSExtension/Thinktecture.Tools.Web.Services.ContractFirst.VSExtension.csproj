@@ -105,6 +105,10 @@
     </Content>
     <Content Include="Resources\wscf.png" />
     <Content Include="stylesheet.css" />
+    <Content Include="VSIX Release Notes.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="[Content_Types].xml">
       <SubType>Designer</SubType>
     </Content>

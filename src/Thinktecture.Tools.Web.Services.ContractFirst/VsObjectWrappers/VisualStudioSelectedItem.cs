@@ -6,7 +6,7 @@ using System.IO;
 
 namespace Thinktecture.Tools.Web.Services.ContractFirst
 {
-    internal class VisualStudioSelectedItem
+    public class VisualStudioSelectedItem
     {
         #region Private Members
 

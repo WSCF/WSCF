@@ -10,7 +10,7 @@ using System.IO;
 
 namespace Thinktecture.Tools.Web.Services.ContractFirst
 {
-    internal class VisualStudioProject
+    public class VisualStudioProject
     {
         #region Private Fields
 

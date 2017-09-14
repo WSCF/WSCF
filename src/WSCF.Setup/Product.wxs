@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="WSCF" Language="1033" Version="1.0.14.0" Manufacturer="WSCF Contributors" UpgradeCode="bd6f9533-58f4-490f-bf0b-803c2d369a80">
+	<Product Id="*" Name="WSCF" Language="1033" Version="2.1.0" Manufacturer="WSCF Contributors" UpgradeCode="bd6f9533-58f4-490f-bf0b-803c2d369a80">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perUser" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />

@@ -17,7 +17,7 @@ The diagram below shows the main steps involved in schema-first web service deve
 
 ## The WSCF tool ##
 
-**WSCF** is a Visual Studio 2013 add-in that provides the following features:
+**WSCF** is a Visual Studio extension that provides the following features:
 
 * A **WSDL Wizard** that allows the developer to step through the creation of a WSDL from one or more XSDs.
 * A **Data Contract Generator** (similar to XSD.exe, XSDObjectGen.exe and Svcutil.exe) that generates the . NET equivalent of the XSD types.
@@ -32,6 +32,22 @@ The diagram below shows the main steps involved in schema-first web service deve
 
 For the endpoints and the client proxy, WSCF also generates the necessary configuration file. 
 
-## Current Release ##
+## VSIX Release History ##
 
-The current release is V1 (1.0.14). This is an MSI which will install the Visual Studio 2013 Add-In.
+### 2.1.0-beta ###
+
+Converted solution to Visual Studio 2017 and generates a VSIX v3 package.  Should support Visual Studio 2013 to 2017.
+
+### 2.0.0-beta ###
+
+This build is the first functional build for the WSCF.blue Visual Studio Extension.  The Contact class in the ContactFirst assembly was refactored to 
+decouple the Visual Studio code and contract generation from the Add-in and Extension specific implementations.  The WSCF.blue functionality remains
+the same but is now cleanly separated from the implementation.
+
+## Add-In Release History ##
+
+Add-ins are no longer supported as of Visual Studio 2015.  As such, the add-in is deprecated and new development would likely be done on the extension side.  The solution still supports both at this point, but the add-in is likely to be removed at some point.
+
+### 1.0.14 ###
+
+The current stable release is V1 (1.0.14). This is an MSI which will install the Visual Studio 2013 add-in.

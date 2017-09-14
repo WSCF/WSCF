@@ -154,7 +154,7 @@ namespace Thinktecture.Tools.Web.Services.CodeGeneration
                 metadataServiceExtensionElement.Name = "metadataService";
                 //TODO: Make this more dynamic so it can discover the assembly version etc otherwise this will always throw exceptions
                 // that the behavior extension was not found in the collection.
-                metadataServiceExtensionElement.Type = "Thinktecture.ServiceModel.Extensions.Metadata.StaticMetadataBehaviorElement, Thinktecture.ServiceModel.Extensions.Metadata, Version=1.0.14.0, Culture=neutral, PublicKeyToken=20fb7cabbfb92df4";
+                metadataServiceExtensionElement.Type = "Thinktecture.ServiceModel.Extensions.Metadata.StaticMetadataBehaviorElement, Thinktecture.ServiceModel.Extensions.Metadata, Version=2.1.0, Culture=neutral, PublicKeyToken=20fb7cabbfb92df4";
                 
                 // Add the newly created behavior extension to the extensions section.
                 extensionsSection.BehaviorExtensions.Add(metadataServiceExtensionElement);                

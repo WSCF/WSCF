@@ -79,11 +79,11 @@ namespace Thinktecture.ServiceModel.Extensions.Metadata.Tests
         public void GetMetadataServiceUriForAbsoluteMetadataUriAtSameBaseUriTest()
         {
             string metadataUrl = "http://www.thinktecture.com/samples/restaurantservice/wsdl";
-            StaticMetadataBehavior_Accessor target = new StaticMetadataBehavior_Accessor(metadataUrl, "c:\\host\\contracts\\restaurantservice.wsdl");
+            PrivateObject target = new PrivateObject(typeof(StaticMetadataBehavior), metadataUrl, "c:\\host\\contracts\\restaurantservice.wsdl");
             Uri hostBaseAddress = new Uri("http://www.thinktecture.com/samples/restaurantservice");
             Uri expected = new Uri(metadataUrl);
             Uri actual;
-            actual = target.GetMetadataServiceUri(hostBaseAddress);
+            actual = (Uri)target.Invoke("GetMetadataServiceUri", hostBaseAddress);
             Assert.AreEqual(expected, actual);            
         }
 
@@ -97,11 +97,11 @@ namespace Thinktecture.ServiceModel.Extensions.Metadata.Tests
         public void GetMetadataServiceUriForAbsoluteMetadataUriAtDifferentBaseUriTest()
         {
             string metadataUrl = "http://schemas.thinktecture.com/samples/restaurantservice/wsdl";
-            StaticMetadataBehavior_Accessor target = new StaticMetadataBehavior_Accessor(metadataUrl, "c:\\host\\contracts\\restaurantservice.wsdl");
+            PrivateObject target = new PrivateObject(typeof(StaticMetadataBehavior), metadataUrl, "c:\\host\\contracts\\restaurantservice.wsdl");
             Uri hostBaseAddress = new Uri("http://www.thinktecture.com/samples/restaurantservice");
             Uri expected = new Uri(metadataUrl);
             Uri actual;
-            actual = target.GetMetadataServiceUri(hostBaseAddress);
+            actual = (Uri)target.Invoke("GetMetadataServiceUri", hostBaseAddress);
             Assert.AreEqual(expected, actual);
         }
 
@@ -114,12 +114,12 @@ namespace Thinktecture.ServiceModel.Extensions.Metadata.Tests
         public void GetMetadataServiceUriForRelativeMetadataUriTest()
         {
             string metadataUrl = "metadata\\wsdl";
-            StaticMetadataBehavior_Accessor target = new StaticMetadataBehavior_Accessor(metadataUrl, "c:\\host\\contracts\\restaurantservice.wsdl");
+            PrivateObject target = new PrivateObject(typeof(StaticMetadataBehavior), metadataUrl, "c:\\host\\contracts\\restaurantservice.wsdl");
             Uri hostBaseAddress = new Uri("http://www.thinktecture.com/samples/restaurantservice");
             Uri expected = null;
             Uri.TryCreate(hostBaseAddress, metadataUrl, out expected);
             Uri actual;
-            actual = target.GetMetadataServiceUri(hostBaseAddress);
+            actual = (Uri)target.Invoke("GetMetadataServiceUri", hostBaseAddress);
             Assert.AreEqual(expected, actual);
         }
 
@@ -133,9 +133,9 @@ namespace Thinktecture.ServiceModel.Extensions.Metadata.Tests
         public void GetMetadataServiceUriForAbsoluteNonHttpMetadataUriTest()
         {
             string metadataUrl = "ftp://ftp.thinktecture.com/samples/schemas/restaurantservice/wsdl";
-            StaticMetadataBehavior_Accessor target = new StaticMetadataBehavior_Accessor(metadataUrl, "c:\\host\\contracts\\restaurantservice.wsdl");
-            Uri hostBaseAddress = new Uri("http://www.thinktecture.com/samples/restaurantservice");            
-            Uri actual = target.GetMetadataServiceUri(hostBaseAddress);            
+            PrivateObject target = new PrivateObject(typeof(StaticMetadataBehavior), metadataUrl, "c:\\host\\contracts\\restaurantservice.wsdl");
+            Uri hostBaseAddress = new Uri("http://www.thinktecture.com/samples/restaurantservice");
+            Uri actual = (Uri)target.Invoke("GetMetadataServiceUri", hostBaseAddress);
         }
 
         /// <summary>
@@ -148,9 +148,9 @@ namespace Thinktecture.ServiceModel.Extensions.Metadata.Tests
         public void GetMetadataServiceUriForMalFormattedRelativeMetadataUriTest()
         {
             string metadataUrl = null;
-            StaticMetadataBehavior_Accessor target = new StaticMetadataBehavior_Accessor(metadataUrl, "c:\\host\\contracts\\restaurantservice.wsdl");
-            Uri hostBaseAddress = new Uri("http://www.thinktecture.com/samples/restaurantservice");            
-            Uri actual = target.GetMetadataServiceUri(hostBaseAddress);            
+            PrivateObject target = new PrivateObject(typeof(StaticMetadataBehavior), metadataUrl, "c:\\host\\contracts\\restaurantservice.wsdl");
+            Uri hostBaseAddress = new Uri("http://www.thinktecture.com/samples/restaurantservice");
+            Uri actual = (Uri)target.Invoke("GetMetadataServiceUri", hostBaseAddress);
         }
 
         /// <summary>
@@ -163,9 +163,9 @@ namespace Thinktecture.ServiceModel.Extensions.Metadata.Tests
         public void GetMetadataServiceUriForRelativeMetadataUriWhenHostBaseAddressIsNullTest()
         {
             string metadataUrl = "restaurantservice/wsdl";
-            StaticMetadataBehavior_Accessor target = new StaticMetadataBehavior_Accessor(metadataUrl, "c:\\host\\contracts\\restaurantservice.wsdl");
-            Uri hostBaseAddress = null;            
-            Uri actual = target.GetMetadataServiceUri(hostBaseAddress);            
+            PrivateObject target = new PrivateObject(typeof(StaticMetadataBehavior), metadataUrl, "c:\\host\\contracts\\restaurantservice.wsdl");
+            Uri hostBaseAddress = null;
+            Uri actual = (Uri)target.Invoke("GetMetadataServiceUri", hostBaseAddress);
         }
 
         #endregion

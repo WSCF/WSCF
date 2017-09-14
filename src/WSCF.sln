@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{86584563-214A-48BA-8E33-280C5D57B4AF}"
 	ProjectSection(SolutionItems) = preProject
 		Developer.WSCF.addin = Developer.WSCF.addin
 		SolutionInfo.cs = SolutionInfo.cs
-		VSIX Release Notes.txt = VSIX Release Notes.txt
+		VSIX Release Notes.md = VSIX Release Notes.md
 		WSCF.addin = WSCF.addin
 		wscf.snk = wscf.snk
 	EndProjectSection
@@ -232,8 +232,8 @@ Global
 		{A5E40A7A-5146-4FE0-94E0-4448AEB23C4C}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{A5E40A7A-5146-4FE0-94E0-4448AEB23C4C}.Debug|x86.ActiveCfg = Debug|x86
 		{A5E40A7A-5146-4FE0-94E0-4448AEB23C4C}.Debug|x86.Build.0 = Debug|x86
-		{A5E40A7A-5146-4FE0-94E0-4448AEB23C4C}.Release Add-in|Any CPU.ActiveCfg = Debug Add-in|x86
-		{A5E40A7A-5146-4FE0-94E0-4448AEB23C4C}.Release Add-in|Any CPU.Build.0 = Debug Add-in|x86
+		{A5E40A7A-5146-4FE0-94E0-4448AEB23C4C}.Release Add-in|Any CPU.ActiveCfg = Debug|x86
+		{A5E40A7A-5146-4FE0-94E0-4448AEB23C4C}.Release Add-in|Any CPU.Build.0 = Debug|x86
 		{A5E40A7A-5146-4FE0-94E0-4448AEB23C4C}.Release Add-in|Mixed Platforms.ActiveCfg = Release|x86
 		{A5E40A7A-5146-4FE0-94E0-4448AEB23C4C}.Release Add-in|Mixed Platforms.Build.0 = Release|x86
 		{A5E40A7A-5146-4FE0-94E0-4448AEB23C4C}.Release Add-in|x86.ActiveCfg = Release|x86
@@ -269,6 +269,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {45D83234-EEF6-4628-9D13-CC155D0FE75A}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Complete.vsmdi

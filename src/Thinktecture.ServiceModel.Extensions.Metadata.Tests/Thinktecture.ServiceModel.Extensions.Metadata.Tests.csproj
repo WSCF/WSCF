@@ -102,9 +102,6 @@
     <Compile Include="UriComparisonTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Shadow Include="Test References\Thinktecture.ServiceModel.Extensions.Metadata.accessor" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Thinktecture.ServiceModel.Extensions.Metadata\Thinktecture.ServiceModel.Extensions.Metadata.csproj">
       <Project>{30C58D77-7B92-4B2F-BA19-A0D5603A4C6C}</Project>
       <Name>Thinktecture.ServiceModel.Extensions.Metadata</Name>

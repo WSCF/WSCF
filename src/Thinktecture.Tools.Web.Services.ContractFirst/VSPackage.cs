@@ -1,23 +1,10 @@
-﻿//------------------------------------------------------------------------------
-// <copyright file="VSPackage.cs" company="Company">
-//     Copyright (c) Company.  All rights reserved.
-// </copyright>
-//------------------------------------------------------------------------------
-
-using System;
-using System.ComponentModel.Design;
-using System.Diagnostics;
+﻿using System.ComponentModel.Design;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using System.Runtime.InteropServices;
 using EnvDTE;
 using EnvDTE80;
-using Microsoft.VisualStudio;
-using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using Microsoft.Win32;
-using Thinktecture.Tools.Web.Services.ContractFirst.MenuItems;
 using Thinktecture.Tools.Web.Services.ContractFirst.MenuItems.SolutionExplorerItemContextMenu;
 using Thinktecture.Tools.Web.Services.ContractFirst.MenuItems.SolutionExplorerProjectContextMenu;
 using Thinktecture.Tools.Web.Services.ContractFirst.MenuItems.ToolsMenu;
@@ -43,16 +30,13 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst
     /// </remarks>
     [PackageRegistration(UseManagedResourcesOnly = true)]
     [InstalledProductRegistration("#110", "#112", "2.1.0", IconResourceID = 400)] // Info on this package for Help/About
-    [Guid(VSPackage.PackageGuidString)]
+    [Guid(PackageGuidString)]
     [ProvideAutoLoad(UIContextGuids80.SolutionExists)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     public sealed class VSPackage : Package
     {
-        /// <summary>
-        /// VSPackage GUID string.
-        /// </summary>
-        public const string PackageGuidString = "ede032b5-9e2d-4576-a53a-58f117366ce4";
+        private const string PackageGuidString = "ede032b5-9e2d-4576-a53a-58f117366ce4";
 
         public static DTE2 DTE { get; private set; }
 
@@ -81,10 +65,9 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst
 
             DTE = GetService(typeof(DTE)) as DTE2;
 
-            ServiceFacade = new ServiceFacade(VSPackage.DTE);
+            ServiceFacade = new ServiceFacade(DTE);
 
-            var mcs = GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-            if (null == mcs) return;
+            if (!(GetService(typeof(IMenuCommandService)) is OleMenuCommandService mcs)) return;
 
             ItemContextMenuItem.Register(mcs);
             CreateWsdlMenuItem.Register(mcs);

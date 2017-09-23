@@ -1,9 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -35,12 +30,7 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst
 
         private void XsdCodeGenDialog_Load(object sender, EventArgs e)
         {
-            this.FormClosing += new FormClosingEventHandler(XsdCodeGenDialog_FormClosing);
             LoadFormValues();
-        }
-
-        void XsdCodeGenDialog_FormClosing(object sender, FormClosingEventArgs e)
-        {            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -62,70 +52,43 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst
                 return;
             }
             
-            this.DialogResult = DialogResult.OK;
+            DialogResult = DialogResult.OK;
             SaveFormValues();
-            this.Close();
+            Close();
         }
 
         #endregion
 
         #region Properties
 
-        public bool PublicProperties
-        {
-            get { return cbProperties.Checked; }
-        }
+        public bool PublicProperties => cbProperties.Checked;
 
-    	public bool VirtualProperties
-    	{
-			get { return cbVirtualProperties.Checked; }
-    	}
+        public bool VirtualProperties => cbVirtualProperties.Checked;
 
-        public bool Collections
-        {
-            get { return cbCollections.Checked; }
-        }
+        public bool Collections => cbCollections.Checked;
 
-        public bool GenericLists
-        {
-            get { return cbGenericList.Checked; }
-        }
+        public bool GenericLists => cbGenericList.Checked;
 
-        public bool DataBinding
-        {
-            get { return cbDataBinding.Checked; }
-        }
+        public bool DataBinding => cbDataBinding.Checked;
 
-        public bool OrderIdentifiers
-        {
-            get { return cbOrderIds.Checked; }
-        }
+        public bool OrderIdentifiers => cbOrderIds.Checked;
 
-        public bool AdjustCasing
-        {
-            get { return cbAdjustCasing.Checked; }
-        }
+        public bool AdjustCasing => cbAdjustCasing.Checked;
 
-        public bool OverwriteFiles
-        {
-            get { return cbOverwrite.Checked; }
-        }
+        public bool OverwriteFiles => cbOverwrite.Checked;
 
-        public bool GenerateMultipleFiles
-        {
-            get { return cbMultipleFiles.Checked; }
-        }
+        public bool GenerateMultipleFiles => cbMultipleFiles.Checked;
 
         public string Namespace
         {
-            get { return tbNamespace.Text; }
-			set { tbNamespace.Text = value; }
+            get => tbNamespace.Text;
+            set => tbNamespace.Text = value;
         }
 
         public string TargetFileName
         {
-            get { return tbTargetFileName.Text; }
-			set { tbTargetFileName.Text = value; }
+            get => tbTargetFileName.Text;
+            set => tbTargetFileName.Text = value;
         }
 
         #endregion
@@ -219,7 +182,7 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst
         /// </summary>
         private void LoadFormValues()
         {
-            ConfigurationManager config = ConfigurationManager.GetConfigurationManager("WSCF05");            
+            ConfigurationManager config = ConfigurationManager.GetConfigurationManager("WSCF05");
             if ((cbSettings.Checked = config.ReadBoolean("xsdRememberSettings")))
             {
                 cbProperties.Checked = config.ReadBoolean("xsdProperties");
@@ -232,12 +195,8 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst
 				cbMultipleFiles.Checked = config.ReadBoolean("xsdMultipleFiles");
                 cbOverwrite.Checked = config.ReadBoolean("xsdOverwrite");
 				tbNamespace.Text = config.Read("xsdDestinationNamespace");
-				tbTargetFileName.Text = config.Read("xsdDestinationFilename");                
+				tbTargetFileName.Text = config.Read("xsdDestinationFilename");
             }
         }
-
-        private void bnCancel_Click(object sender, EventArgs e)
-        {            
-        }       
     }
 }

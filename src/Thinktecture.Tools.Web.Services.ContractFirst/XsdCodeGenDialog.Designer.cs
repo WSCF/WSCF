@@ -269,7 +269,6 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst
 			this.bnCancel.Size = new System.Drawing.Size(77, 28);
 			this.bnCancel.TabIndex = 5;
 			this.bnCancel.Text = "Cancel";
-			this.bnCancel.Click += new System.EventHandler(this.bnCancel_Click);
 			// 
 			// bnGenerate
 			// 

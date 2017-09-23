@@ -26,28 +26,27 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst
 		private Label label4;
 		private Button bnBrowse;
 		private OpenFileDialog openFileDialogWSDL;
-		private IContainer components;		
+		private IContainer components;
 		private CheckBox cbSettings;
 		private CheckBox cbSeperateFiles;
 		private PictureBox pbWizard;
 		private ComboBox cbWsdlLocation;
-		private System.Windows.Forms.CheckBox cbOverwrite;
-		private System.Windows.Forms.PictureBox pbWscf;
-		private System.Windows.Forms.CheckBox cbAdjustCasing;
-        private System.Windows.Forms.CheckBox cbMultipleFiles;
-		private System.Windows.Forms.CheckBox cbCollections;
-		private System.Windows.Forms.CheckBox cbProperties;
-		private System.Windows.Forms.RadioButton rbServer;
-		private System.Windows.Forms.RadioButton rbClient;
-		private System.Windows.Forms.GroupBox groupBox1;
-		private System.Windows.Forms.GroupBox groupBox4;
+		private CheckBox cbOverwrite;
+		private PictureBox pbWscf;
+		private CheckBox cbAdjustCasing;
+        private CheckBox cbMultipleFiles;
+		private CheckBox cbCollections;
+		private CheckBox cbProperties;
+		private RadioButton rbServer;
+		private RadioButton rbClient;
+		private GroupBox groupBox1;
+		private GroupBox groupBox4;
         private CheckBox cbOrderIds;
         private CheckBox cbAsync;
         private CheckBox cbDataBinding;
         private ArrayList wsdlFileCache;
         private CheckBox cbGenericList;
 
-        private bool externalFile = false;
         private string wsdlLocation = "";
         private string wsdlPath = "";
         private CheckBox cbEnableWsdlEndpoint;
@@ -88,10 +87,7 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst
 		{
 			if( disposing )
 			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
+			    components?.Dispose();
 			}
 			base.Dispose( disposing );
 		}
@@ -245,7 +241,6 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst
 			this.cbSettings.TabIndex = 3;
 			this.cbSettings.Text = "Remember settings";
 			this.cfTooltip.SetToolTip(this.cbSettings, "Save dialog settings for future use.");
-			this.cbSettings.CheckedChanged += new System.EventHandler(this.cbSettings_CheckedChanged);
 			// 
 			// pbWscf
 			// 
@@ -540,8 +535,6 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst
 			this.cbWsdlLocation.Name = "cbWsdlLocation";
 			this.cbWsdlLocation.Size = new System.Drawing.Size(404, 21);
 			this.cbWsdlLocation.TabIndex = 1;
-			this.cbWsdlLocation.SelectedIndexChanged += new System.EventHandler(this.cbWsdlLocation_SelectedIndexChanged);
-			this.cbWsdlLocation.TextChanged += new System.EventHandler(this.tbWSDLLocation_TextChanged);
 			this.cbWsdlLocation.MouseMove += new System.Windows.Forms.MouseEventHandler(this.cbWsdlLocation_MouseMove);
 			// 
 			// bnBrowse
@@ -688,9 +681,9 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst
 		{
 			if(rbClient.Checked || rbServer.Checked)
 			{
-				if(tbDestinationNamespace.Text.Length == 0  ||					
+				if(tbDestinationNamespace.Text.Length == 0 ||
 					tbDestinationFilename.Text.Length == 0 ||
-					!ValidationHelper.IsWindowsFileName(tbDestinationFilename.Text) || 
+					!ValidationHelper.IsWindowsFileName(tbDestinationFilename.Text) ||
                     !ValidationHelper.IsDotNetNamespace(tbDestinationNamespace.Text) ||
                     cbWsdlLocation.Text.Length == 0)
 				{
@@ -738,11 +731,6 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst
 
 			gbServiceBehavior.DataBindings.Add("Enabled", rbServer, "Checked");
 			gbServiceMethodImplementation.DataBindings.Add("Enabled", rbServer, "Checked");
-		}
-
-		private void ttPicBox_Click(object sender, EventArgs e)
-		{
-			Process.Start("http://www.thinktecture.com/");
 		}
 
 		private void bnBrowse_Click(object sender, EventArgs e)
@@ -893,24 +881,6 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst
 			}
 		}
 
-		private void ttPicBox_MouseEnter(object sender, EventArgs e)
-		{
-			Cursor.Current = Cursors.Hand;
-		}
-
-		private void ttPicBox_MouseLeave(object sender, EventArgs e)
-		{
-			Cursor.Current = Cursors.Default;
-		}
-
-		private void ttPicBox_MouseMove(object sender, MouseEventArgs e)
-		{			
-		}
-
-		private void tbWSDLLocation_TextChanged(object sender, EventArgs e)
-		{			
-		}
-
 		private void WebServiceCodeGenOptions_Closed(object sender, EventArgs e)
 		{
 			// BDS: Save the values only if the OK button is clicked.
@@ -918,11 +888,6 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst
 			{
 				SaveFormValues();		
 			}
-		}
-
-		private void cbWsdlLocation_SelectedIndexChanged(object sender, System.EventArgs e)
-		{
-		
 		}
 		
 		/// <summary>
@@ -935,7 +900,7 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst
 			if(cbWsdlLocation.SelectedIndex >= 0)
 			{
 				cfTooltip.SetToolTip(cbWsdlLocation, 
-					wsdlFileCache[cbWsdlLocation.SelectedIndex].ToString());		
+					wsdlFileCache[cbWsdlLocation.SelectedIndex].ToString());
 			}
 		}
 
@@ -947,9 +912,9 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst
 		/// <author>BDS - thinktecture</author>
 		private string AddWsdlFileToCache(string path)
 		{
-			if(path.LastIndexOf("\\") > 0 && path.ToLower().EndsWith(".wsdl"))
+			if (path.LastIndexOf("\\") > 0 && path.ToLower().EndsWith(".wsdl"))
 			{
-				if(wsdlFileCache.Count == 10)
+				if (wsdlFileCache.Count == 10)
 				{
 					wsdlFileCache.RemoveAt(0);
 					cbWsdlLocation.Items.RemoveAt(0);
@@ -961,16 +926,6 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst
 			}
 
 			return "";
-		}
-
-		private string GetFileNameFromPath(string path)
-		{
-			string fname = "";
-			if(path.LastIndexOf("\\") < path.Length - 1)
-			{
-				fname = path.Substring(path.LastIndexOf("\\") + 1);
-			}
-			return fname;
 		}
 
 		private void cbOverwrite_CheckedChanged(object sender, System.EventArgs e)
@@ -991,130 +946,68 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst
             }
 		}
 
-		private void pbWscf_Click(object sender, System.EventArgs e)
+		private void pbWscf_Click(object sender, EventArgs e)
 		{
 			Process.Start("http://www.thinktecture.com/");
-		}        
-
-		public bool ServiceCode
-		{
-			get { return rbServer.Checked; }
 		}
 
-		public bool ClientCode
-		{
-			get { return rbClient.Checked; }
-		}
+		public bool ServiceCode => rbServer.Checked;
 
-		public string DestinationFilename
+	    public bool ClientCode => rbClient.Checked;
+
+	    public string DestinationFilename
 		{
-			get { return tbDestinationFilename.Text; }
-			set { tbDestinationFilename.Text = value; }
-		}		
+			get => tbDestinationFilename.Text;
+	        set => tbDestinationFilename.Text = value;
+	    }		
 
 		public string DestinationNamespace
 		{
-			get { return tbDestinationNamespace.Text; }
-			set { tbDestinationNamespace.Text = value; }
+			get => tbDestinationNamespace.Text;
+		    set => tbDestinationNamespace.Text = value;
 		}
 		
-		public bool GenerateProperties
+		public bool GenerateProperties => cbProperties.Checked;
+
+	    public bool VirtualProperties => cbVirtualProperties.Checked;
+
+	    public bool FormatSoapActions => cbFormatSoapActions.Checked;
+
+	    public bool Collections => cbCollections.Checked;
+
+	    public string WsdlLocation
 		{
-			get { return cbProperties.Checked; }
-		}
+			get => cbWsdlLocation.Text;
+	        set => wsdlLocation = value;
+	    }
 
-        public bool VirtualProperties
-        {
-            get { return cbVirtualProperties.Checked; }
-        }
-        
-		public bool FormatSoapActions
-		{
-			get { return cbFormatSoapActions.Checked; }
-		}
-		
-		public bool Collections
-		{
-			get { return cbCollections.Checked; }
-		}
+	    public bool GenerateMultipleFiles => cbMultipleFiles.Checked;
 
-		public string WsdlLocation
-		{
-			get { return cbWsdlLocation.Text; }
-			set	{ wsdlLocation = value; }
-		}
+	    public string WsdlPath => wsdlPath;
 
-		public bool ExternalFile
-		{
-			get { return externalFile; }
-		}
+	    public bool Overwrite => cbOverwrite.Checked;
 
-		public bool GenerateMultipleFiles
-		{
-			get { return cbMultipleFiles.Checked; }
-		}
+	    public bool ChangeCasing => cbAdjustCasing.Checked;
 
-		public string WsdlPath
-		{
-			get { return this.wsdlPath; }
-		}
+	    public bool EnableDataBinding => cbDataBinding.Checked;
 
-		public bool Overwrite
-		{
-			get { return this.cbOverwrite.Checked; }
-		}
+	    public bool OrderIdentifiers => cbOrderIds.Checked;
 
-        public bool ChangeCasing
-        {
-            get { return this.cbAdjustCasing.Checked; }
-        }
-        
-        public bool EnableDataBinding
-        {
-            get { return this.cbDataBinding.Checked; }
-        }
+	    public bool AsyncMethods => cbAsync.Checked;
 
-        public bool OrderIdentifiers
-        {
-            get { return this.cbOrderIds.Checked; }
-        }
+	    public bool GenericList => cbGenericList.Checked;
 
-        public bool AsyncMethods
-        {
-            get { return this.cbAsync.Checked; }
-        }        
+	    public bool EnabledWsdlEndpoint => cbEnableWsdlEndpoint.Checked;
 
-        public bool GenericList
-        {
-            get { return this.cbGenericList.Checked; }
-        }
+	    public string InstanceContextMode => cbInstanceContextMode.Text;
 
-        public bool EnabledWsdlEndpoint
-        {
-            get { return this.cbEnableWsdlEndpoint.Checked; }
-        }
+	    public string ConcurrencyMode => cbConcurrencyMode.Text;
 
-		public string InstanceContextMode
-		{
-			get { return cbInstanceContextMode.Text; }
-		}
+	    public bool UseSynchronizationContext => cbUseSynchronizationContext.Checked;
 
-		public string ConcurrencyMode
-		{
-			get { return cbConcurrencyMode.Text; }
-		}
+	    public bool GenerateSvcFile => cbGenerateSvcFile.Checked;
 
-		public bool UseSynchronizationContext
-		{
-			get { return cbUseSynchronizationContext.Checked; }
-		}
-
-		public bool GenerateSvcFile
-		{
-			get { return cbGenerateSvcFile.Checked; }
-		}
-
-		public MethodImplementation MethodImplementation
+	    public MethodImplementation MethodImplementation
 		{
 			get
 			{
@@ -1165,10 +1058,6 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst
 				}
 			}
 		}
-
-		private void cbSettings_CheckedChanged(object sender, EventArgs e)
-        {
-        }
 
         private void cbCollections_CheckedChanged(object sender, EventArgs e)
         {

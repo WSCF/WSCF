@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Thinktecture.Tools.Web.Services.ContractFirst
 {
-    internal class VSCommandTable
+    internal static class VSCommandTable
     {
         private static class PackageGuidStrings
         {

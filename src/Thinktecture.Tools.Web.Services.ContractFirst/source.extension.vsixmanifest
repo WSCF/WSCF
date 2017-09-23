@@ -5,8 +5,7 @@
     <DisplayName>WSCF.blue</DisplayName>
     <Description xml:space="preserve">Use schema and WSDL first to generate client and service code skeletons for WCF Web Services and/or client side code and classes.</Description>
     <MoreInfo>https://github.com/WSCF/WSCF</MoreInfo>
-    <License>https://github.com/WSCF/WSCF/blob/master/LICENSE</License>
-    <GettingStartedGuide>https://github.com/WSCF/WSCF#wscf</GettingStartedGuide>
+    <License>LICENSE.txt</License>
     <ReleaseNotes>https://github.com/WSCF/WSCF#vsix-release-history</ReleaseNotes>
     <Icon>Resources\Icon.png</Icon>
     <PreviewImage>Resources\PreviewImage.png</PreviewImage>

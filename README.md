@@ -32,22 +32,6 @@ The diagram below shows the main steps involved in schema-first web service deve
 
 For the endpoints and the client proxy, WSCF also generates the necessary configuration file. 
 
-## VSIX Release History ##
+## Download ##
 
-### 2.1.0-beta ###
-
-Converted solution to Visual Studio 2017 and generates a VSIX v3 package.  Should support Visual Studio 2013 to 2017.
-
-### 2.0.0-beta ###
-
-This build is the first functional build for the WSCF.blue Visual Studio Extension.  The Contact class in the ContactFirst assembly was refactored to 
-decouple the Visual Studio code and contract generation from the Add-in and Extension specific implementations.  The WSCF.blue functionality remains
-the same but is now cleanly separated from the implementation.
-
-## Add-In Release History ##
-
-Add-ins are no longer supported as of Visual Studio 2015.  As such, the add-in is deprecated and new development would likely be done on the extension side.  The solution still supports both at this point, but the add-in is likely to be removed at some point.
-
-### 1.0.14 ###
-
-The current stable release is V1 (1.0.14). This is an MSI which will install the Visual Studio 2013 add-in.
+Release Notes and VSIX package downloads are available on the [GitHub Releases](https://github.com/WSCF/WSCF/releases) page.

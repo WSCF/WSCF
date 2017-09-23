@@ -6,7 +6,7 @@
     <Description xml:space="preserve">Use schema and WSDL first to generate client and service code skeletons for WCF Web Services and/or client side code and classes.</Description>
     <MoreInfo>https://github.com/WSCF/WSCF</MoreInfo>
     <License>LICENSE.txt</License>
-    <ReleaseNotes>https://github.com/WSCF/WSCF#vsix-release-history</ReleaseNotes>
+    <ReleaseNotes>https://github.com/WSCF/WSCF/releases</ReleaseNotes>
     <Icon>Resources\Icon.png</Icon>
     <PreviewImage>Resources\PreviewImage.png</PreviewImage>
     <Tags>WSCF, Web Services Contract First</Tags>

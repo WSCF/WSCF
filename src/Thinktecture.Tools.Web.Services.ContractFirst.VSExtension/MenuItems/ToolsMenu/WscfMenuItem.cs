@@ -4,15 +4,14 @@ using Microsoft.VisualStudio.Shell;
 
 namespace Thinktecture.Tools.Web.Services.ContractFirst.VSExtension.MenuItems.ToolsMenu
 {
-    internal class WscfMenuItem
+    internal static class WscfMenuItem
     {
         private static void BeforeQueryStatus(object sender, EventArgs e)
         {
-            var menu = sender as OleMenuCommand;
-            if (null != menu) menu.Visible = IsVisible();
+            if (sender is OleMenuCommand menu) menu.Visible = IsVisible();
         }
 
-        public static bool IsVisible()
+        private static bool IsVisible()
         {
             return true;
         }

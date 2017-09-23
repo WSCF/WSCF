@@ -56,7 +56,7 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst.VSExtension
 
         public static DTE2 DTE { get; private set; }
 
-        public static Connect ServiceFacade { get; private set; }
+        internal static ServiceFacade ServiceFacade { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="VSPackage"/> class.
@@ -81,7 +81,7 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst.VSExtension
 
             DTE = GetService(typeof(DTE)) as DTE2;
 
-            ServiceFacade = new Connect(VSPackage.DTE);
+            ServiceFacade = new ServiceFacade(VSPackage.DTE);
 
             var mcs = GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
             if (null == mcs) return;

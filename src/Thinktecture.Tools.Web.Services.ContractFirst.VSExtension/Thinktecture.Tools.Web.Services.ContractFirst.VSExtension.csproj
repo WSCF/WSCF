@@ -78,7 +78,10 @@
     <DeployExtension>False</DeployExtension>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AppLog.cs" />
     <Compile Include="Command1.cs" />
+    <Compile Include="ConfigurationManager.cs" />
+    <Compile Include="ServiceFacade.cs" />
     <Compile Include="MenuItems\SolutionExplorerItemContextMenu\CreateDataContractCodeMenuItem.cs" />
     <Compile Include="MenuItems\SolutionExplorerItemContextMenu\CreateWebServiceCodeMenuItem.cs" />
     <Compile Include="MenuItems\SolutionExplorerItemContextMenu\CreateWsdlMenuItem.cs" />
@@ -88,7 +91,20 @@
     <Compile Include="MenuItems\ToolsMenu\WscfMenuItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VSCommandTable.cs" />
+    <Compile Include="VsObjectWrappers\OutputWindowWriter.cs" />
+    <Compile Include="VsObjectWrappers\VisualStudio.cs" />
+    <Compile Include="VsObjectWrappers\VisualStudioProject.cs" />
+    <Compile Include="VsObjectWrappers\VisualStudioSelectedItem.cs" />
     <Compile Include="VSPackage.cs" />
+    <Compile Include="WebServiceCodeGenDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="XsdCodeGenDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="XsdCodeGenDialog.Designer.cs">
+      <DependentUpon>XsdCodeGenDialog.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -218,17 +234,36 @@
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="VSLangProj, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="VSLangProj80, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="VsWebSite.Interop, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="VSPackage.resx">
       <DependentUpon>VSPackage.cs</DependentUpon>
       <MergeWithCTO>true</MergeWithCTO>
       <ManifestResourceName>VSPackage</ManifestResourceName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebServiceCodeGenDialog.resx">
+      <DependentUpon>WebServiceCodeGenDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XsdCodeGenDialog.resx">
+      <DependentUpon>XsdCodeGenDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
@@ -240,10 +275,6 @@
     <ProjectReference Include="..\Thinktecture.Tools.Web.Services.CodeGeneration\Thinktecture.Tools.Web.Services.CodeGeneration.csproj">
       <Project>{c95e299d-a15e-4fd8-ac50-d3645f0caa48}</Project>
       <Name>Thinktecture.Tools.Web.Services.CodeGeneration</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Thinktecture.Tools.Web.Services.ContractFirst\Thinktecture.Tools.Web.Services.ContractFirst.csproj">
-      <Project>{2ed38673-d44a-415a-b3d9-634bd10ef870}</Project>
-      <Name>Thinktecture.Tools.Web.Services.ContractFirst</Name>
     </ProjectReference>
     <ProjectReference Include="..\Thinktecture.Tools.Web.Services.ServiceDescription\Thinktecture.Tools.Web.Services.ServiceDescription.csproj">
       <Project>{85343fa9-67cc-4def-9be8-514bc542b395}</Project>

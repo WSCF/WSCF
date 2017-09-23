@@ -5,16 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.Shell;
+using Thinktecture.Tools.Web.Services.ContractFirst.VSExtension.VsObjectWrappers;
 
 namespace Thinktecture.Tools.Web.Services.ContractFirst.VSExtension.MenuItems.SolutionExplorerItemContextMenu
 {
-    internal class EditWsdlMenuItem
+    internal static class EditWsdlMenuItem
     {
-
         private static void BeforeQueryStatus(object sender, EventArgs e)
         {
-            var menu = sender as OleMenuCommand;
-            if (null != menu) menu.Visible = IsVisible();
+            if (sender is OleMenuCommand menu) menu.Visible = IsVisible();
         }
 
         public static bool IsVisible()

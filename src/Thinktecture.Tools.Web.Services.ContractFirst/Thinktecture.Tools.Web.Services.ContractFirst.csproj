@@ -66,7 +66,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AppLog.cs" />
-    <Compile Include="Command1.cs" />
     <Compile Include="ConfigurationManager.cs" />
     <Compile Include="ServiceFacade.cs" />
     <Compile Include="MenuItems\SolutionExplorerItemContextMenu\CreateDataContractCodeMenuItem.cs" />
@@ -101,12 +100,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="index.html" />
     <Content Include="LICENSE.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Resources\Command1.png" />
     <Content Include="Resources\icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -120,11 +117,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Resources\wscf.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="stylesheet.css" />
     <Content Include="[Content_Types].xml">
       <SubType>Designer</SubType>
     </Content>
@@ -252,6 +244,7 @@
       <DependentUpon>VSPackage.cs</DependentUpon>
       <MergeWithCTO>true</MergeWithCTO>
       <ManifestResourceName>VSPackage</ManifestResourceName>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="WebServiceCodeGenDialog.resx">
       <DependentUpon>WebServiceCodeGenDialog.cs</DependentUpon>

@@ -8,8 +8,8 @@
     <License>https://github.com/WSCF/WSCF/blob/master/LICENSE</License>
     <GettingStartedGuide>https://github.com/WSCF/WSCF#wscf</GettingStartedGuide>
     <ReleaseNotes>https://github.com/WSCF/WSCF#vsix-release-history</ReleaseNotes>
-    <Icon>Resources\icon.png</Icon>
-    <PreviewImage>Resources\preview.png</PreviewImage>
+    <Icon>Resources\Icon.png</Icon>
+    <PreviewImage>Resources\PreviewImage.png</PreviewImage>
     <Tags>WSCF, Web Services Contract First</Tags>
   </Metadata>
   <Installation>

@@ -3,7 +3,8 @@
     <Metadata>
         <Identity Id="WSCF.blue.Thinktecture.5854de2e-43d5-4466-8f14-810261b8ec64" Version="2.1.0" Language="en-US" Publisher="WSCF" />
         <DisplayName>WSCF.blue (BETA)</DisplayName>
-        <Description xml:space="preserve">Use schema and WSDL first to generate client and service code skeletons for WCF Web Services and/or client side code and clases.</Description>
+        <Description xml:space="preserve">Use schema and WSDL first to generate client and service code skeletons for WCF Web Services and/or client side code and classes.</Description>
+        <MoreInfo>https://github.com/WSCF/WSCF</MoreInfo>
         <License>LICENSE.txt</License>
         <ReleaseNotes>VSIX Release Notes.txt</ReleaseNotes>
         <Icon>Resources\wscf.bmp</Icon>

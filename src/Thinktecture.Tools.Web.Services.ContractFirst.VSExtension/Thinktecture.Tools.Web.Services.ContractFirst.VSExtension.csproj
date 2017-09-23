@@ -17,7 +17,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>wscf.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\wscf.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Add-in|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -108,12 +108,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Key.snk" />
     <None Include="packages.config" />
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
-    <None Include="wscf.snk" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="index.html" />

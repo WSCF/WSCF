@@ -3,7 +3,7 @@ using System.IO;
 using System.IO.IsolatedStorage;
 using System.Xml;
 
-namespace Thinktecture.Tools.Web.Services.ContractFirst.VSExtension
+namespace Thinktecture.Tools.Web.Services.ContractFirst
 {
 	public sealed class ConfigurationManager 
 	{

@@ -10,7 +10,7 @@ using System.Globalization;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 
-namespace Thinktecture.Tools.Web.Services.ContractFirst.VSExtension
+namespace Thinktecture.Tools.Web.Services.ContractFirst
 {
     /// <summary>
     /// Command handler

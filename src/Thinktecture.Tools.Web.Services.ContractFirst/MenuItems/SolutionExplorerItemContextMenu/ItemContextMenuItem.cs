@@ -2,7 +2,7 @@
 using System.ComponentModel.Design;
 using Microsoft.VisualStudio.Shell;
 
-namespace Thinktecture.Tools.Web.Services.ContractFirst.VSExtension.MenuItems.SolutionExplorerItemContextMenu
+namespace Thinktecture.Tools.Web.Services.ContractFirst.MenuItems.SolutionExplorerItemContextMenu
 {
     internal static class ItemContextMenuItem
     {

@@ -10,7 +10,7 @@ using System.Reflection;
 using System.Xml;
 using ConfigurationManager = System.Configuration.ConfigurationManager;
 
-namespace Thinktecture.Tools.Web.Services.ContractFirst.VSExtension
+namespace Thinktecture.Tools.Web.Services.ContractFirst
 {
     internal class WscfConfiguration
     {

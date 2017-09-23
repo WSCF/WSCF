@@ -9,7 +9,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
 
-namespace Thinktecture.Tools.Web.Services.ContractFirst.VSExtension
+namespace Thinktecture.Tools.Web.Services.ContractFirst
 {
     public partial class XsdCodeGenDialog : Form
     {

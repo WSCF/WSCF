@@ -17,12 +17,12 @@ using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.Win32;
-using Thinktecture.Tools.Web.Services.ContractFirst.VSExtension.MenuItems;
-using Thinktecture.Tools.Web.Services.ContractFirst.VSExtension.MenuItems.SolutionExplorerItemContextMenu;
-using Thinktecture.Tools.Web.Services.ContractFirst.VSExtension.MenuItems.SolutionExplorerProjectContextMenu;
-using Thinktecture.Tools.Web.Services.ContractFirst.VSExtension.MenuItems.ToolsMenu;
+using Thinktecture.Tools.Web.Services.ContractFirst.MenuItems;
+using Thinktecture.Tools.Web.Services.ContractFirst.MenuItems.SolutionExplorerItemContextMenu;
+using Thinktecture.Tools.Web.Services.ContractFirst.MenuItems.SolutionExplorerProjectContextMenu;
+using Thinktecture.Tools.Web.Services.ContractFirst.MenuItems.ToolsMenu;
 
-namespace Thinktecture.Tools.Web.Services.ContractFirst.VSExtension
+namespace Thinktecture.Tools.Web.Services.ContractFirst
 {
     /// <summary>
     /// This is the class that implements the package exposed by this assembly.

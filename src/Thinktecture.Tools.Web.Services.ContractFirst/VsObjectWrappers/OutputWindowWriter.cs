@@ -2,7 +2,7 @@ using EnvDTE;
 
 using System.Linq;
 
-namespace Thinktecture.Tools.Web.Services.ContractFirst.VSExtension.VsObjectWrappers
+namespace Thinktecture.Tools.Web.Services.ContractFirst.VsObjectWrappers
 {
 	/// <summary>
 	/// Writes message to a 'WSCF.blue' pane in the Output window.

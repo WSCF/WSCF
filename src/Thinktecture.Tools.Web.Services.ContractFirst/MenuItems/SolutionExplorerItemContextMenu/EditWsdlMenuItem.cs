@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.Shell;
-using Thinktecture.Tools.Web.Services.ContractFirst.VSExtension.VsObjectWrappers;
+using Thinktecture.Tools.Web.Services.ContractFirst.VsObjectWrappers;
 
-namespace Thinktecture.Tools.Web.Services.ContractFirst.VSExtension.MenuItems.SolutionExplorerItemContextMenu
+namespace Thinktecture.Tools.Web.Services.ContractFirst.MenuItems.SolutionExplorerItemContextMenu
 {
     internal static class EditWsdlMenuItem
     {

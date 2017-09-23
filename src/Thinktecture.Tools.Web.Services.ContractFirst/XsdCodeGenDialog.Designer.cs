@@ -1,4 +1,4 @@
-namespace Thinktecture.Tools.Web.Services.ContractFirst.VSExtension
+namespace Thinktecture.Tools.Web.Services.ContractFirst
 {
     partial class XsdCodeGenDialog
     {

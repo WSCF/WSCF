@@ -4,7 +4,7 @@ using System.Text;
 using EnvDTE;
 using System.IO;
 
-namespace Thinktecture.Tools.Web.Services.ContractFirst.VSExtension.VsObjectWrappers
+namespace Thinktecture.Tools.Web.Services.ContractFirst.VsObjectWrappers
 {
     internal class VisualStudioSelectedItem
     {

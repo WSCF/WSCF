@@ -9,10 +9,10 @@ using System.Xml.Linq;
 using System.Xml.Schema;
 using EnvDTE80;
 using Thinktecture.Tools.Web.Services.CodeGeneration;
-using Thinktecture.Tools.Web.Services.ContractFirst.VSExtension.VsObjectWrappers;
+using Thinktecture.Tools.Web.Services.ContractFirst.VsObjectWrappers;
 using Thinktecture.Tools.Web.Services.WsdlWizard;
 
-namespace Thinktecture.Tools.Web.Services.ContractFirst.VSExtension
+namespace Thinktecture.Tools.Web.Services.ContractFirst
 {
     public enum WscfCommand
     {

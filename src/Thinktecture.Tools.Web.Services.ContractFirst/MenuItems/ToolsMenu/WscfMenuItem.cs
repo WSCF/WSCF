@@ -2,7 +2,7 @@
 using System.ComponentModel.Design;
 using Microsoft.VisualStudio.Shell;
 
-namespace Thinktecture.Tools.Web.Services.ContractFirst.VSExtension.MenuItems.ToolsMenu
+namespace Thinktecture.Tools.Web.Services.ContractFirst.MenuItems.ToolsMenu
 {
     internal static class WscfMenuItem
     {

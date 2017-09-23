@@ -6,7 +6,7 @@ using EnvDTE;
 using System.Diagnostics;
 using EnvDTE80;
 
-namespace Thinktecture.Tools.Web.Services.ContractFirst.VSExtension.VsObjectWrappers
+namespace Thinktecture.Tools.Web.Services.ContractFirst.VsObjectWrappers
 {
     internal class VisualStudio
     {

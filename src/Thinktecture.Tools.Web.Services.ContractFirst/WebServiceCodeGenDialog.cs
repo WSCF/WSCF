@@ -6,7 +6,7 @@ using System.Collections;
 using Thinktecture.Tools.Web.Services.CodeGeneration;
 using Thinktecture.Tools.Web.Services.Wscf.Environment;
 
-namespace Thinktecture.Tools.Web.Services.ContractFirst.VSExtension
+namespace Thinktecture.Tools.Web.Services.ContractFirst
 {
 	/// <summary>
 	/// Summary description for WebServiceCodeGenOptions.

@@ -23,7 +23,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thinktecture.ServiceModel.E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataExtensionPrototype", "MetadataExtensionPrototype\MetadataExtensionPrototype.csproj", "{67075509-1062-4AAB-8E47-80B37EB44809}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thinktecture.Tools.Web.Services.ContractFirst.VSExtension", "Thinktecture.Tools.Web.Services.ContractFirst.VSExtension\Thinktecture.Tools.Web.Services.ContractFirst.VSExtension.csproj", "{C69D4C24-8268-470B-8F73-8DB366A96E7F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thinktecture.Tools.Web.Services.ContractFirst", "Thinktecture.Tools.Web.Services.ContractFirst\Thinktecture.Tools.Web.Services.ContractFirst.csproj", "{C69D4C24-8268-470B-8F73-8DB366A96E7F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

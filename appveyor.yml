@@ -8,5 +8,8 @@ skip_tags: true
 
 clone_depth: 1
 
+before_build:
+  - nuget restore
+
 artifacts:
   - path: '**\*.vsix'

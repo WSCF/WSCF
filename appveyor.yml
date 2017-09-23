@@ -1,0 +1,12 @@
+version: 2.1.0.{build}
+
+os: Visual Studio 2017
+
+configuration: Release
+
+skip_tags: true
+
+clone_depth: 1
+
+artifacts:
+  - path: '**\*.vsix'

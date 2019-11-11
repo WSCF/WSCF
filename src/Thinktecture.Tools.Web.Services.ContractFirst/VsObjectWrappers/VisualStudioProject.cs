@@ -108,6 +108,10 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst.VsObjectWrappers
                 VSWebSite website = this.project.Object as VSWebSite;
                 website.References.AddFromGAC(assembly);
             }
+            else if (this.project.Object is VSProject2 prj2)
+            {
+                prj2.References.Add(assembly);
+            }
             else
             {
                 VSProject2 prj = this.project.Object as VSProject2;

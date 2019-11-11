@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="WSCF.blue.Thinktecture.5854de2e-43d5-4466-8f14-810261b8ec64" Version="2.1.1" Language="en-US" Publisher="WSCF" />
+    <Identity Id="WSCF.blue.Thinktecture.5854de2e-43d5-4466-8f14-810261b8ec64" Version="2.1.2" Language="en-US" Publisher="WSCF" />
     <DisplayName>WSCF.blue</DisplayName>
     <Description xml:space="preserve">Use schema and WSDL first to generate client and service code skeletons for WCF Web Services and/or client side code and classes.</Description>
     <MoreInfo>https://github.com/WSCF/WSCF</MoreInfo>

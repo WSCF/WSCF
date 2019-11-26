@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Design;
 using Microsoft.VisualStudio.Shell;
+using Task = System.Threading.Tasks.Task;
 
 namespace Thinktecture.Tools.Web.Services.ContractFirst.MenuItems.SolutionExplorerProjectContextMenu
 {
@@ -21,12 +22,16 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst.MenuItems.SolutionExplor
             VSPackage.ServiceFacade.ExecuteCommand(WscfCommand.GenerateWebServiceCode);
         }
 
-        public static void Register(MenuCommandService mcs)
+        // Asynchronous initialization
+        public static async Task InitializeAsync(AsyncPackage package)
         {
+            var commandService = (IMenuCommandService)await package.GetServiceAsync(typeof(IMenuCommandService));
+
             var cmdId = new CommandID(VSCommandTable.PackageGuids.VSPackageCmdSetGuid, VSCommandTable.CommandIds.ImplementWsdlCommand);
-            var menu = new OleMenuCommand(MenuItemCallbackHandler, cmdId);
-            menu.BeforeQueryStatus += BeforeQueryStatus;
-            mcs.AddCommand(menu);
+            var cmd = new OleMenuCommand(MenuItemCallbackHandler, cmdId);
+            cmd.BeforeQueryStatus += BeforeQueryStatus;
+
+            commandService.AddCommand(cmd);
         }
     }
 }

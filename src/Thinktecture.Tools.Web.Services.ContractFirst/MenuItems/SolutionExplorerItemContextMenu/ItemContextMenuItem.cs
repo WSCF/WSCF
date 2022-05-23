@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.Shell;
+using System;
 using System.ComponentModel.Design;
-using Microsoft.VisualStudio.Shell;
+using Task = System.Threading.Tasks.Task;
 
 namespace Thinktecture.Tools.Web.Services.ContractFirst.MenuItems.SolutionExplorerItemContextMenu
 {
@@ -14,16 +15,23 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst.MenuItems.SolutionExplor
         private static bool IsVisible()
         {
             return CreateWsdlMenuItem.IsVisible() ||
-                   EditWsdlMenuItem.IsVisible() || 
-                   CreateDataContractCodeMenuItem.IsVisible() ;
+                   EditWsdlMenuItem.IsVisible() ||
+                   CreateDataContractCodeMenuItem.IsVisible();
         }
 
-        public static void Register(MenuCommandService mcs)
+        // Asynchronous initialization
+        public static async Task InitializeAsync(AsyncPackage package)
         {
-            var cmdId = new CommandID(VSCommandTable.PackageGuids.VSPackageCmdSetGuid, VSCommandTable.CommandIds.SolutionExplorerItemContextMenuItem);
-            var menu = new OleMenuCommand((s, e) => { }, cmdId);
-            menu.BeforeQueryStatus += BeforeQueryStatus;
-            mcs.AddCommand(menu);
+            var commandService = (IMenuCommandService)await package.GetServiceAsync(typeof(IMenuCommandService));
+
+            if (commandService != null)
+            {
+                var cmdId = new CommandID(VSCommandTable.PackageGuids.VSPackageCmdSetGuid, VSCommandTable.CommandIds.SolutionExplorerItemContextMenuItem);
+                var cmd = new OleMenuCommand((s, e) => { }, cmdId);
+                cmd.BeforeQueryStatus += BeforeQueryStatus;
+
+                commandService.AddCommand(cmd); 
+            }
         }
     }
 }

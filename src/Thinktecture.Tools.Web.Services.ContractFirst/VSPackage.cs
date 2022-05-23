@@ -1,13 +1,17 @@
-﻿using System.ComponentModel.Design;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
+using System.Threading;
+using System.Threading.Tasks;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.VisualStudio.Threading;
 using Thinktecture.Tools.Web.Services.ContractFirst.MenuItems.SolutionExplorerItemContextMenu;
 using Thinktecture.Tools.Web.Services.ContractFirst.MenuItems.SolutionExplorerProjectContextMenu;
 using Thinktecture.Tools.Web.Services.ContractFirst.MenuItems.ToolsMenu;
+using Task = System.Threading.Tasks.Task;
 
 namespace Thinktecture.Tools.Web.Services.ContractFirst
 {
@@ -28,13 +32,13 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst
     /// To get loaded into VS, the package must be referred by &lt;Asset Type="Microsoft.VisualStudio.VsPackage" ...&gt; in .vsixmanifest file.
     /// </para>
     /// </remarks>
-    [PackageRegistration(UseManagedResourcesOnly = true)]
-    [InstalledProductRegistration("#110", "#112", "2.1.0", IconResourceID = 400)] // Info on this package for Help/About
+    [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
+    [InstalledProductRegistration("#110", "#112", "2.1.3", IconResourceID = 400)] // Info on this package for Help/About
     [Guid(PackageGuidString)]
-    [ProvideAutoLoad(UIContextGuids80.SolutionExists)]
+    [ProvideAutoLoad(UIContextGuids80.SolutionExists, PackageAutoLoadFlags.BackgroundLoad)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
     [ProvideMenuResource("Menus.ctmenu", 1)]
-    public sealed class VSPackage : Package
+    public sealed class VSPackage : AsyncPackage
     {
         private const string PackageGuidString = "ede032b5-9e2d-4576-a53a-58f117366ce4";
 
@@ -59,25 +63,28 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst
         /// Initialization of the package; this method is called right after the package is sited, so this is the place
         /// where you can put all the initialization code that rely on services provided by VisualStudio.
         /// </summary>
-        protected override void Initialize()
+        protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
-            base.Initialize();
+            await base.InitializeAsync(cancellationToken, progress);
 
-            DTE = GetService(typeof(DTE)) as DTE2;
+            // Switches to the UI thread in order to consume some services used in command initialization
+            await TaskScheduler.Default;
+            await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
 
+            // Query service asynchronously from the UI thread
+            DTE = await GetServiceAsync(typeof(DTE)) as DTE2;
             ServiceFacade = new ServiceFacade(DTE);
 
-            if (!(GetService(typeof(IMenuCommandService)) is OleMenuCommandService mcs)) return;
-
-            ItemContextMenuItem.Register(mcs);
-            CreateWsdlMenuItem.Register(mcs);
-            EditWsdlMenuItem.Register(mcs);
-            CreateDataContractCodeMenuItem.Register(mcs);
-            CreateWebServiceCodeMenuItem.Register(mcs);
-            ImplementWsdlMenuItem.Register(mcs);
-            WscfMenuItem.Register(mcs);
+            // Initializes the command asynchronously now on the UI thread
+            await ItemContextMenuItem.InitializeAsync(this);
+            await CreateWsdlMenuItem.InitializeAsync(this);
+            await EditWsdlMenuItem.InitializeAsync(this);
+            await CreateDataContractCodeMenuItem.InitializeAsync(this);
+            await CreateWebServiceCodeMenuItem.InitializeAsync(this);
+            await ImplementWsdlMenuItem.InitializeAsync(this);
+            await WscfMenuItem.InitializeAsync(this);
         }
-
-        #endregion
     }
+
+    #endregion
 }

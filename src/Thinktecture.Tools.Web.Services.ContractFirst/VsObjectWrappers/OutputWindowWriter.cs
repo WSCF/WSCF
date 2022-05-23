@@ -1,5 +1,5 @@
 using EnvDTE;
-
+using Microsoft.VisualStudio.Shell;
 using System.Linq;
 
 namespace Thinktecture.Tools.Web.Services.ContractFirst.VsObjectWrappers
@@ -17,12 +17,17 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst.VsObjectWrappers
 		/// <param name="applicationObject">The application object.</param>
 		public OutputWindowWriter(_DTE applicationObject)
 		{
-			Window window = applicationObject.Windows.Item(Constants.vsWindowKindOutput);
+            ThreadHelper.ThrowIfNotOnUIThread();
+            Window window = applicationObject.Windows.Item(Constants.vsWindowKindOutput);
 			OutputWindow outputWindow = (OutputWindow)window.Object;
 
             outputWindowPane = outputWindow.OutputWindowPanes
 				.OfType<OutputWindowPane>()
-				.Where(p => p.Name == "WSCF.blue")
+				.Where(p =>
+                {
+                    ThreadHelper.ThrowIfNotOnUIThread();
+                    return p.Name == "WSCF.blue";
+                })
 				.FirstOrDefault() ?? outputWindow.OutputWindowPanes.Add("WSCF.blue");
 
 			outputWindowPane.Clear();
@@ -34,7 +39,8 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst.VsObjectWrappers
 		/// </summary>
 		public void Clear()
 		{
-			outputWindowPane.Clear();
+            ThreadHelper.ThrowIfNotOnUIThread();
+            outputWindowPane.Clear();
 		}
 
 		/// <summary>
@@ -43,6 +49,7 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst.VsObjectWrappers
 		/// <param name="message">The message.</param>
 		public void WriteMessage(string message)
 		{
+            ThreadHelper.ThrowIfNotOnUIThread();
             outputWindowPane.OutputString(message);
 		}
 	}

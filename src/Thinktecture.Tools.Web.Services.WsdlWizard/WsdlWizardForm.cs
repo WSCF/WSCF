@@ -252,484 +252,487 @@ namespace Thinktecture.Tools.Web.Services.WsdlWizard
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.components = new System.ComponentModel.Container();
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WsdlWizardForm));
-			this.wsdlWizardCtrl = new WizardControl.Wizard();
-			this.wizardPageBasicMetadata = new WizardControl.WizardPage();
-			this.tbServiceDoc = new System.Windows.Forms.TextBox();
-			this.lblServiceDoc = new System.Windows.Forms.Label();
-			this.lblNamespace = new System.Windows.Forms.Label();
-			this.tbNamespace = new System.Windows.Forms.TextBox();
-			this.lblServiceName = new System.Windows.Forms.Label();
-			this.tbServiceName = new System.Windows.Forms.TextBox();
-			this.wizardPageSchemaImports = new WizardControl.WizardPage();
-			this.groupBox2 = new System.Windows.Forms.GroupBox();
-			this.llRemoveImport = new System.Windows.Forms.LinkLabel();
-			this.llAddImport = new System.Windows.Forms.LinkLabel();
-			this.importsListView = new Thinktecture.Tools.Web.Services.WsdlWizard.EditableListView();
-			this.wizardPageOperationsList = new WizardControl.WizardPage();
-			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.operationsListView = new Thinktecture.Tools.Web.Services.WsdlWizard.EditableListView();
-			this.llAddOperation = new System.Windows.Forms.LinkLabel();
-			this.llRemoveOperation = new System.Windows.Forms.LinkLabel();
-			this.cbInfer = new System.Windows.Forms.CheckBox();
-			this.panel1 = new System.Windows.Forms.Panel();
-			this.tbEdit = new System.Windows.Forms.TextBox();
-			this.cbMEPs = new System.Windows.Forms.ComboBox();
-			this.wizardPageMessageMapping = new WizardControl.WizardPage();
-			this.ptvServiceOperations = new WRM.Windows.Forms.PropertyTree();
-			this.wizardPageAdditionalOptions = new WizardControl.WizardPage();
-			this.cbSoap12 = new System.Windows.Forms.CheckBox();
-			this.cbSoap11 = new System.Windows.Forms.CheckBox();
-			this.cbNeedsServiceElement = new System.Windows.Forms.CheckBox();
-			this.cbCodeGenDialog = new System.Windows.Forms.CheckBox();
-			this.wizardPageAlternativeXSDPaths = new WizardControl.WizardPage();
-			this.xsdpathsListView = new Thinktecture.Tools.Web.Services.WsdlWizard.EditableListView();
-			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-			this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-			this.toolTipPath = new System.Windows.Forms.ToolTip(this.components);
-			this.wsdlWizardCtrl.SuspendLayout();
-			this.wizardPageBasicMetadata.SuspendLayout();
-			this.wizardPageSchemaImports.SuspendLayout();
-			this.groupBox2.SuspendLayout();
-			this.wizardPageOperationsList.SuspendLayout();
-			this.groupBox1.SuspendLayout();
-			this.panel1.SuspendLayout();
-			this.wizardPageMessageMapping.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.ptvServiceOperations)).BeginInit();
-			this.wizardPageAdditionalOptions.SuspendLayout();
-			this.wizardPageAlternativeXSDPaths.SuspendLayout();
-			this.SuspendLayout();
-			// 
-			// wsdlWizardCtrl
-			// 
-			this.wsdlWizardCtrl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-						| System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.wsdlWizardCtrl.BannerBitmap = ((System.Drawing.Image)(resources.GetObject("wsdlWizardCtrl.BannerBitmap")));
-			this.wsdlWizardCtrl.CloseForm = false;
-			this.wsdlWizardCtrl.Controls.Add(this.wizardPageBasicMetadata);
-			this.wsdlWizardCtrl.Controls.Add(this.wizardPageSchemaImports);
-			this.wsdlWizardCtrl.Controls.Add(this.wizardPageOperationsList);
-			this.wsdlWizardCtrl.Controls.Add(this.wizardPageMessageMapping);
-			this.wsdlWizardCtrl.Controls.Add(this.wizardPageAdditionalOptions);
-			this.wsdlWizardCtrl.Controls.Add(this.wizardPageAlternativeXSDPaths);
-			this.wsdlWizardCtrl.Location = new System.Drawing.Point(0, 0);
-			this.wsdlWizardCtrl.Name = "wsdlWizardCtrl";
-			this.wsdlWizardCtrl.Size = new System.Drawing.Size(497, 360);
-			this.wsdlWizardCtrl.TabIndex = 0;
-			this.wsdlWizardCtrl.Title = "Generate WSDL";
-			this.wsdlWizardCtrl.WelcomeBitmap = ((System.Drawing.Image)(resources.GetObject("wsdlWizardCtrl.WelcomeBitmap")));
-			this.wsdlWizardCtrl.WelcomeText = resources.GetString("wsdlWizardCtrl.WelcomeText");
-			this.wsdlWizardCtrl.Load += new System.EventHandler(this.wsdlWizardCtrl_Load);
-			this.wsdlWizardCtrl.Cancelled += new WizardControl.Wizard.CancelledEventHandler(this.wsdlWizardCtrl_Cancelled);
-			this.wsdlWizardCtrl.BeforeSummaryPageDisplayed += new WizardControl.Wizard.BeforeSummaryPageDisplayedEventHandler(this.wsdlWizardCtrl_BeforeSummaryPageDisplayed);
-			this.wsdlWizardCtrl.BeforePageDisplayed += new WizardControl.Wizard.BeforePageDisplayedEventHandler(this.wsdlWizardCtrl_BeforePageDisplayed);
-			this.wsdlWizardCtrl.Finished += new WizardControl.Wizard.FinishedEventHandler(this.wsdlWizardCtrl_Finished);
-			this.wsdlWizardCtrl.AfterPageDisplayed += new WizardControl.Wizard.AfterPageDisplayedEventHandler(this.wsdlWizardCtrl_AfterPageDisplayed);
-			this.wsdlWizardCtrl.ValidatePage += new WizardControl.Wizard.ValidatePageEventHandler(this.wsdlWizardCtrl_ValidatePage);
-			// 
-			// wizardPageBasicMetadata
-			// 
-			this.wizardPageBasicMetadata.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-						| System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.wizardPageBasicMetadata.Controls.Add(this.tbServiceDoc);
-			this.wizardPageBasicMetadata.Controls.Add(this.lblServiceDoc);
-			this.wizardPageBasicMetadata.Controls.Add(this.lblNamespace);
-			this.wizardPageBasicMetadata.Controls.Add(this.tbNamespace);
-			this.wizardPageBasicMetadata.Controls.Add(this.lblServiceName);
-			this.wizardPageBasicMetadata.Controls.Add(this.tbServiceName);
-			this.wizardPageBasicMetadata.Description = "Please enter the name and the XML namespace of the Web Service.";
-			this.wizardPageBasicMetadata.Heading = "Step 1: Specify your Web Service\'s basic settings";
-			this.wizardPageBasicMetadata.Location = new System.Drawing.Point(21, 71);
-			this.wizardPageBasicMetadata.Name = "wizardPageBasicMetadata";
-			this.wizardPageBasicMetadata.Size = new System.Drawing.Size(456, 230);
-			this.wizardPageBasicMetadata.TabIndex = 0;
-			// 
-			// tbServiceDoc
-			// 
-			this.tbServiceDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-						| System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.tbServiceDoc.Location = new System.Drawing.Point(120, 72);
-			this.tbServiceDoc.Multiline = true;
-			this.tbServiceDoc.Name = "tbServiceDoc";
-			this.tbServiceDoc.Size = new System.Drawing.Size(312, 88);
-			this.tbServiceDoc.TabIndex = 5;
-			// 
-			// lblServiceDoc
-			// 
-			this.lblServiceDoc.Location = new System.Drawing.Point(24, 72);
-			this.lblServiceDoc.Name = "lblServiceDoc";
-			this.lblServiceDoc.Size = new System.Drawing.Size(100, 23);
-			this.lblServiceDoc.TabIndex = 4;
-			this.lblServiceDoc.Text = "Documentation:";
-			// 
-			// lblNamespace
-			// 
-			this.lblNamespace.Location = new System.Drawing.Point(24, 40);
-			this.lblNamespace.Name = "lblNamespace";
-			this.lblNamespace.Size = new System.Drawing.Size(96, 23);
-			this.lblNamespace.TabIndex = 3;
-			this.lblNamespace.Text = "XML namespace:";
-			// 
-			// tbNamespace
-			// 
-			this.tbNamespace.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.tbNamespace.Location = new System.Drawing.Point(120, 40);
-			this.tbNamespace.Name = "tbNamespace";
-			this.tbNamespace.Size = new System.Drawing.Size(312, 20);
-			this.tbNamespace.TabIndex = 2;
-			// 
-			// lblServiceName
-			// 
-			this.lblServiceName.Location = new System.Drawing.Point(24, 8);
-			this.lblServiceName.Name = "lblServiceName";
-			this.lblServiceName.Size = new System.Drawing.Size(88, 23);
-			this.lblServiceName.TabIndex = 1;
-			this.lblServiceName.Text = "Service name:";
-			this.toolTip1.SetToolTip(this.lblServiceName, "\'Service name\' specifies the name of the Web Service binding to be generated. Thi" +
-					"s will be the e.g. the class name for your Web Service proxy when generated from" +
-					" the service description.");
-			// 
-			// tbServiceName
-			// 
-			this.tbServiceName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.tbServiceName.Location = new System.Drawing.Point(120, 6);
-			this.tbServiceName.Name = "tbServiceName";
-			this.tbServiceName.Size = new System.Drawing.Size(312, 20);
-			this.tbServiceName.TabIndex = 0;
-			this.toolTip1.SetToolTip(this.tbServiceName, "\'Service name\' specifies the name of the Web Service binding to be generated. Thi" +
-					"s will be the e.g. the class name for your Web Service proxy when generated from" +
-					" the service description.");
-			// 
-			// wizardPageSchemaImports
-			// 
-			this.wizardPageSchemaImports.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-						| System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.wizardPageSchemaImports.Controls.Add(this.groupBox2);
-			this.wizardPageSchemaImports.Cursor = System.Windows.Forms.Cursors.Default;
-			this.wizardPageSchemaImports.Description = "Please add additional message schemas from XSD files as appropriate.";
-			this.wizardPageSchemaImports.Heading = "Step 2: Specify additional message schemas";
-			this.wizardPageSchemaImports.Location = new System.Drawing.Point(21, 71);
-			this.wizardPageSchemaImports.Name = "wizardPageSchemaImports";
-			this.wizardPageSchemaImports.Size = new System.Drawing.Size(456, 230);
-			this.wizardPageSchemaImports.TabIndex = 2;
-			// 
-			// groupBox2
-			// 
-			this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-						| System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.groupBox2.Controls.Add(this.llRemoveImport);
-			this.groupBox2.Controls.Add(this.llAddImport);
-			this.groupBox2.Controls.Add(this.importsListView);
-			this.groupBox2.Location = new System.Drawing.Point(8, 3);
-			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(440, 224);
-			this.groupBox2.TabIndex = 2;
-			this.groupBox2.TabStop = false;
-			this.groupBox2.Text = "XSD Imports:";
-			// 
-			// llRemoveImport
-			// 
-			this.llRemoveImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.llRemoveImport.Location = new System.Drawing.Point(95, 205);
-			this.llRemoveImport.Name = "llRemoveImport";
-			this.llRemoveImport.Size = new System.Drawing.Size(100, 16);
-			this.llRemoveImport.TabIndex = 4;
-			this.llRemoveImport.TabStop = true;
-			this.llRemoveImport.Text = "Remove import";
-			this.llRemoveImport.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llRemoveImport_LinkClicked);
-			// 
-			// llAddImport
-			// 
-			this.llAddImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.llAddImport.Location = new System.Drawing.Point(8, 205);
-			this.llAddImport.Name = "llAddImport";
-			this.llAddImport.Size = new System.Drawing.Size(81, 15);
-			this.llAddImport.TabIndex = 3;
-			this.llAddImport.TabStop = true;
-			this.llAddImport.Text = "Add import";
-			this.llAddImport.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llAddImport_LinkClicked);
-			// 
-			// importsListView
-			// 
-			this.importsListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-						| System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.importsListView.DisabledColumns = ((System.Collections.ArrayList)(resources.GetObject("importsListView.DisabledColumns")));
-			this.importsListView.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.importsListView.FullRowSelect = true;
-			this.importsListView.GridLines = true;
-			this.importsListView.Location = new System.Drawing.Point(8, 16);
-			this.importsListView.Name = "importsListView";
-			this.importsListView.Size = new System.Drawing.Size(424, 184);
-			this.importsListView.TabIndex = 2;
-			this.importsListView.UseCompatibleStateImageBehavior = false;
-			this.importsListView.View = System.Windows.Forms.View.Details;
-			this.importsListView.MouseMove += new System.Windows.Forms.MouseEventHandler(this.importsListView_MouseMove);
-			// 
-			// wizardPageOperationsList
-			// 
-			this.wizardPageOperationsList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-						| System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.wizardPageOperationsList.Controls.Add(this.groupBox1);
-			this.wizardPageOperationsList.Controls.Add(this.panel1);
-			this.wizardPageOperationsList.Description = "Please add operations to the Web Service as needed.";
-			this.wizardPageOperationsList.Heading = "Step 3: Specify settings for your Web Service\'s operations.";
-			this.wizardPageOperationsList.Location = new System.Drawing.Point(21, 71);
-			this.wizardPageOperationsList.Name = "wizardPageOperationsList";
-			this.wizardPageOperationsList.Size = new System.Drawing.Size(456, 230);
-			this.wizardPageOperationsList.TabIndex = 1;
-			// 
-			// groupBox1
-			// 
-			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-						| System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.groupBox1.Controls.Add(this.operationsListView);
-			this.groupBox1.Controls.Add(this.llAddOperation);
-			this.groupBox1.Controls.Add(this.llRemoveOperation);
-			this.groupBox1.Controls.Add(this.cbInfer);
-			this.groupBox1.Location = new System.Drawing.Point(8, 3);
-			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(440, 224);
-			this.groupBox1.TabIndex = 4;
-			this.groupBox1.TabStop = false;
-			this.groupBox1.Text = "Operations:";
-			// 
-			// operationsListView
-			// 
-			this.operationsListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-						| System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.operationsListView.DisabledColumns = ((System.Collections.ArrayList)(resources.GetObject("operationsListView.DisabledColumns")));
-			this.operationsListView.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.operationsListView.FullRowSelect = true;
-			this.operationsListView.GridLines = true;
-			this.operationsListView.Location = new System.Drawing.Point(8, 16);
-			this.operationsListView.Name = "operationsListView";
-			this.operationsListView.Size = new System.Drawing.Size(424, 184);
-			this.operationsListView.TabIndex = 0;
-			this.operationsListView.UseCompatibleStateImageBehavior = false;
-			this.operationsListView.View = System.Windows.Forms.View.Details;
-			// 
-			// llAddOperation
-			// 
-			this.llAddOperation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.llAddOperation.Location = new System.Drawing.Point(7, 205);
-			this.llAddOperation.Name = "llAddOperation";
-			this.llAddOperation.Size = new System.Drawing.Size(81, 15);
-			this.llAddOperation.TabIndex = 1;
-			this.llAddOperation.TabStop = true;
-			this.llAddOperation.Text = "Add operation";
-			this.llAddOperation.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llAddItem_LinkClicked);
-			// 
-			// llRemoveOperation
-			// 
-			this.llRemoveOperation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.llRemoveOperation.Location = new System.Drawing.Point(95, 205);
-			this.llRemoveOperation.Name = "llRemoveOperation";
-			this.llRemoveOperation.Size = new System.Drawing.Size(100, 16);
-			this.llRemoveOperation.TabIndex = 2;
-			this.llRemoveOperation.TabStop = true;
-			this.llRemoveOperation.Text = "Remove operation";
-			this.llRemoveOperation.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llRemoveItem_LinkClicked);
-			// 
-			// cbInfer
-			// 
-			this.cbInfer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.cbInfer.Location = new System.Drawing.Point(336, 204);
-			this.cbInfer.Name = "cbInfer";
-			this.cbInfer.Size = new System.Drawing.Size(104, 16);
-			this.cbInfer.TabIndex = 4;
-			this.cbInfer.Text = "Infer Operations";
-			this.cbInfer.CheckedChanged += new System.EventHandler(this.cbInfer_CheckedChanged);
-			// 
-			// panel1
-			// 
-			this.panel1.Controls.Add(this.tbEdit);
-			this.panel1.Controls.Add(this.cbMEPs);
-			this.panel1.Location = new System.Drawing.Point(24, 32);
-			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(408, 192);
-			this.panel1.TabIndex = 2;
-			// 
-			// tbEdit
-			// 
-			this.tbEdit.Location = new System.Drawing.Point(16, 16);
-			this.tbEdit.Name = "tbEdit";
-			this.tbEdit.Size = new System.Drawing.Size(100, 20);
-			this.tbEdit.TabIndex = 3;
-			this.tbEdit.Text = "textBox2";
-			this.tbEdit.Visible = false;
-			// 
-			// cbMEPs
-			// 
-			this.cbMEPs.ItemHeight = 13;
-			this.cbMEPs.Items.AddRange(new object[] {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WsdlWizardForm));
+            this.wsdlWizardCtrl = new WizardControl.Wizard();
+            this.wizardPageBasicMetadata = new WizardControl.WizardPage();
+            this.tbServiceDoc = new System.Windows.Forms.TextBox();
+            this.lblServiceDoc = new System.Windows.Forms.Label();
+            this.lblNamespace = new System.Windows.Forms.Label();
+            this.tbNamespace = new System.Windows.Forms.TextBox();
+            this.lblServiceName = new System.Windows.Forms.Label();
+            this.tbServiceName = new System.Windows.Forms.TextBox();
+            this.wizardPageSchemaImports = new WizardControl.WizardPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.llRemoveImport = new System.Windows.Forms.LinkLabel();
+            this.llAddImport = new System.Windows.Forms.LinkLabel();
+            this.importsListView = new Thinktecture.Tools.Web.Services.WsdlWizard.EditableListView();
+            this.wizardPageOperationsList = new WizardControl.WizardPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.operationsListView = new Thinktecture.Tools.Web.Services.WsdlWizard.EditableListView();
+            this.llAddOperation = new System.Windows.Forms.LinkLabel();
+            this.llRemoveOperation = new System.Windows.Forms.LinkLabel();
+            this.cbInfer = new System.Windows.Forms.CheckBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.tbEdit = new System.Windows.Forms.TextBox();
+            this.cbMEPs = new System.Windows.Forms.ComboBox();
+            this.wizardPageMessageMapping = new WizardControl.WizardPage();
+            this.ptvServiceOperations = new WRM.Windows.Forms.PropertyTree();
+            this.wizardPageAdditionalOptions = new WizardControl.WizardPage();
+            this.cbSoap12 = new System.Windows.Forms.CheckBox();
+            this.cbSoap11 = new System.Windows.Forms.CheckBox();
+            this.cbNeedsServiceElement = new System.Windows.Forms.CheckBox();
+            this.cbCodeGenDialog = new System.Windows.Forms.CheckBox();
+            this.wizardPageAlternativeXSDPaths = new WizardControl.WizardPage();
+            this.xsdpathsListView = new Thinktecture.Tools.Web.Services.WsdlWizard.EditableListView();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.toolTipPath = new System.Windows.Forms.ToolTip(this.components);
+            this.wsdlWizardCtrl.SuspendLayout();
+            this.wizardPageBasicMetadata.SuspendLayout();
+            this.wizardPageSchemaImports.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.wizardPageOperationsList.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.wizardPageMessageMapping.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptvServiceOperations)).BeginInit();
+            this.wizardPageAdditionalOptions.SuspendLayout();
+            this.wizardPageAlternativeXSDPaths.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // wsdlWizardCtrl
+            // 
+            this.wsdlWizardCtrl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.wsdlWizardCtrl.BannerBitmap = ((System.Drawing.Image)(resources.GetObject("wsdlWizardCtrl.BannerBitmap")));
+            this.wsdlWizardCtrl.CloseForm = false;
+            this.wsdlWizardCtrl.Controls.Add(this.wizardPageBasicMetadata);
+            this.wsdlWizardCtrl.Controls.Add(this.wizardPageSchemaImports);
+            this.wsdlWizardCtrl.Controls.Add(this.wizardPageOperationsList);
+            this.wsdlWizardCtrl.Controls.Add(this.wizardPageMessageMapping);
+            this.wsdlWizardCtrl.Controls.Add(this.wizardPageAdditionalOptions);
+            this.wsdlWizardCtrl.Controls.Add(this.wizardPageAlternativeXSDPaths);
+            this.wsdlWizardCtrl.Location = new System.Drawing.Point(0, 0);
+            this.wsdlWizardCtrl.Name = "wsdlWizardCtrl";
+            this.wsdlWizardCtrl.Size = new System.Drawing.Size(882, 568);
+            this.wsdlWizardCtrl.TabIndex = 0;
+            this.wsdlWizardCtrl.Title = "Generate WSDL";
+            this.wsdlWizardCtrl.WelcomeBitmap = ((System.Drawing.Image)(resources.GetObject("wsdlWizardCtrl.WelcomeBitmap")));
+            this.wsdlWizardCtrl.WelcomeText = resources.GetString("wsdlWizardCtrl.WelcomeText");
+            this.wsdlWizardCtrl.BeforeSummaryPageDisplayed += new WizardControl.Wizard.BeforeSummaryPageDisplayedEventHandler(this.wsdlWizardCtrl_BeforeSummaryPageDisplayed);
+            this.wsdlWizardCtrl.BeforePageDisplayed += new WizardControl.Wizard.BeforePageDisplayedEventHandler(this.wsdlWizardCtrl_BeforePageDisplayed);
+            this.wsdlWizardCtrl.AfterPageDisplayed += new WizardControl.Wizard.AfterPageDisplayedEventHandler(this.wsdlWizardCtrl_AfterPageDisplayed);
+            this.wsdlWizardCtrl.ValidatePage += new WizardControl.Wizard.ValidatePageEventHandler(this.wsdlWizardCtrl_ValidatePage);
+            this.wsdlWizardCtrl.Finished += new WizardControl.Wizard.FinishedEventHandler(this.wsdlWizardCtrl_Finished);
+            this.wsdlWizardCtrl.Cancelled += new WizardControl.Wizard.CancelledEventHandler(this.wsdlWizardCtrl_Cancelled);
+            this.wsdlWizardCtrl.Load += new System.EventHandler(this.wsdlWizardCtrl_Load);
+            // 
+            // wizardPageBasicMetadata
+            // 
+            this.wizardPageBasicMetadata.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.wizardPageBasicMetadata.Controls.Add(this.tbServiceDoc);
+            this.wizardPageBasicMetadata.Controls.Add(this.lblServiceDoc);
+            this.wizardPageBasicMetadata.Controls.Add(this.lblNamespace);
+            this.wizardPageBasicMetadata.Controls.Add(this.tbNamespace);
+            this.wizardPageBasicMetadata.Controls.Add(this.lblServiceName);
+            this.wizardPageBasicMetadata.Controls.Add(this.tbServiceName);
+            this.wizardPageBasicMetadata.Description = "Please enter the name and the XML namespace of the Web Service.";
+            this.wizardPageBasicMetadata.Heading = "Step 1: Specify your Web Service\'s basic settings";
+            this.wizardPageBasicMetadata.Location = new System.Drawing.Point(21, 71);
+            this.wizardPageBasicMetadata.Name = "wizardPageBasicMetadata";
+            this.wizardPageBasicMetadata.Size = new System.Drawing.Size(841, 438);
+            this.wizardPageBasicMetadata.TabIndex = 0;
+            // 
+            // tbServiceDoc
+            // 
+            this.tbServiceDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbServiceDoc.Location = new System.Drawing.Point(144, 83);
+            this.tbServiceDoc.Multiline = true;
+            this.tbServiceDoc.Name = "tbServiceDoc";
+            this.tbServiceDoc.Size = new System.Drawing.Size(668, 275);
+            this.tbServiceDoc.TabIndex = 5;
+            // 
+            // lblServiceDoc
+            // 
+            this.lblServiceDoc.Location = new System.Drawing.Point(29, 83);
+            this.lblServiceDoc.Name = "lblServiceDoc";
+            this.lblServiceDoc.Size = new System.Drawing.Size(120, 27);
+            this.lblServiceDoc.TabIndex = 4;
+            this.lblServiceDoc.Text = "Documentation:";
+            // 
+            // lblNamespace
+            // 
+            this.lblNamespace.Location = new System.Drawing.Point(29, 46);
+            this.lblNamespace.Name = "lblNamespace";
+            this.lblNamespace.Size = new System.Drawing.Size(115, 27);
+            this.lblNamespace.TabIndex = 3;
+            this.lblNamespace.Text = "XML namespace:";
+            // 
+            // tbNamespace
+            // 
+            this.tbNamespace.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbNamespace.Location = new System.Drawing.Point(144, 46);
+            this.tbNamespace.Name = "tbNamespace";
+            this.tbNamespace.Size = new System.Drawing.Size(668, 22);
+            this.tbNamespace.TabIndex = 2;
+            // 
+            // lblServiceName
+            // 
+            this.lblServiceName.Location = new System.Drawing.Point(29, 9);
+            this.lblServiceName.Name = "lblServiceName";
+            this.lblServiceName.Size = new System.Drawing.Size(105, 27);
+            this.lblServiceName.TabIndex = 1;
+            this.lblServiceName.Text = "Service name:";
+            this.toolTip1.SetToolTip(this.lblServiceName, "\'Service name\' specifies the name of the Web Service binding to be generated. Thi" +
+        "s will be the e.g. the class name for your Web Service proxy when generated from" +
+        " the service description.");
+            // 
+            // tbServiceName
+            // 
+            this.tbServiceName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbServiceName.Location = new System.Drawing.Point(144, 7);
+            this.tbServiceName.Name = "tbServiceName";
+            this.tbServiceName.Size = new System.Drawing.Size(668, 22);
+            this.tbServiceName.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.tbServiceName, "\'Service name\' specifies the name of the Web Service binding to be generated. Thi" +
+        "s will be the e.g. the class name for your Web Service proxy when generated from" +
+        " the service description.");
+            // 
+            // wizardPageSchemaImports
+            // 
+            this.wizardPageSchemaImports.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.wizardPageSchemaImports.Controls.Add(this.groupBox2);
+            this.wizardPageSchemaImports.Cursor = System.Windows.Forms.Cursors.Default;
+            this.wizardPageSchemaImports.Description = "Please add additional message schemas from XSD files as appropriate.";
+            this.wizardPageSchemaImports.Heading = "Step 2: Specify additional message schemas";
+            this.wizardPageSchemaImports.Location = new System.Drawing.Point(21, 71);
+            this.wizardPageSchemaImports.Name = "wizardPageSchemaImports";
+            this.wizardPageSchemaImports.Size = new System.Drawing.Size(841, 438);
+            this.wizardPageSchemaImports.TabIndex = 2;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.llRemoveImport);
+            this.groupBox2.Controls.Add(this.llAddImport);
+            this.groupBox2.Controls.Add(this.importsListView);
+            this.groupBox2.Location = new System.Drawing.Point(10, 3);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(822, 432);
+            this.groupBox2.TabIndex = 2;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "XSD Imports:";
+            // 
+            // llRemoveImport
+            // 
+            this.llRemoveImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.llRemoveImport.Location = new System.Drawing.Point(114, 410);
+            this.llRemoveImport.Name = "llRemoveImport";
+            this.llRemoveImport.Size = new System.Drawing.Size(120, 18);
+            this.llRemoveImport.TabIndex = 4;
+            this.llRemoveImport.TabStop = true;
+            this.llRemoveImport.Text = "Remove import";
+            this.llRemoveImport.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llRemoveImport_LinkClicked);
+            // 
+            // llAddImport
+            // 
+            this.llAddImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.llAddImport.Location = new System.Drawing.Point(10, 410);
+            this.llAddImport.Name = "llAddImport";
+            this.llAddImport.Size = new System.Drawing.Size(97, 17);
+            this.llAddImport.TabIndex = 3;
+            this.llAddImport.TabStop = true;
+            this.llAddImport.Text = "Add import";
+            this.llAddImport.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llAddImport_LinkClicked);
+            // 
+            // importsListView
+            // 
+            this.importsListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.importsListView.DisabledColumns = ((System.Collections.ArrayList)(resources.GetObject("importsListView.DisabledColumns")));
+            this.importsListView.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.importsListView.FullRowSelect = true;
+            this.importsListView.GridLines = true;
+            this.importsListView.HideSelection = false;
+            this.importsListView.Location = new System.Drawing.Point(10, 18);
+            this.importsListView.Name = "importsListView";
+            this.importsListView.Size = new System.Drawing.Size(802, 386);
+            this.importsListView.TabIndex = 2;
+            this.importsListView.UseCompatibleStateImageBehavior = false;
+            this.importsListView.View = System.Windows.Forms.View.Details;
+            this.importsListView.MouseMove += new System.Windows.Forms.MouseEventHandler(this.importsListView_MouseMove);
+            // 
+            // wizardPageOperationsList
+            // 
+            this.wizardPageOperationsList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.wizardPageOperationsList.Controls.Add(this.groupBox1);
+            this.wizardPageOperationsList.Controls.Add(this.panel1);
+            this.wizardPageOperationsList.Description = "Please add operations to the Web Service as needed.";
+            this.wizardPageOperationsList.Heading = "Step 3: Specify settings for your Web Service\'s operations.";
+            this.wizardPageOperationsList.Location = new System.Drawing.Point(21, 71);
+            this.wizardPageOperationsList.Name = "wizardPageOperationsList";
+            this.wizardPageOperationsList.Size = new System.Drawing.Size(841, 438);
+            this.wizardPageOperationsList.TabIndex = 1;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.operationsListView);
+            this.groupBox1.Controls.Add(this.llAddOperation);
+            this.groupBox1.Controls.Add(this.llRemoveOperation);
+            this.groupBox1.Controls.Add(this.cbInfer);
+            this.groupBox1.Location = new System.Drawing.Point(10, 3);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(822, 432);
+            this.groupBox1.TabIndex = 4;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Operations:";
+            // 
+            // operationsListView
+            // 
+            this.operationsListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.operationsListView.DisabledColumns = ((System.Collections.ArrayList)(resources.GetObject("operationsListView.DisabledColumns")));
+            this.operationsListView.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.operationsListView.FullRowSelect = true;
+            this.operationsListView.GridLines = true;
+            this.operationsListView.HideSelection = false;
+            this.operationsListView.Location = new System.Drawing.Point(10, 18);
+            this.operationsListView.Name = "operationsListView";
+            this.operationsListView.Size = new System.Drawing.Size(802, 386);
+            this.operationsListView.TabIndex = 0;
+            this.operationsListView.UseCompatibleStateImageBehavior = false;
+            this.operationsListView.View = System.Windows.Forms.View.Details;
+            // 
+            // llAddOperation
+            // 
+            this.llAddOperation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.llAddOperation.Location = new System.Drawing.Point(8, 410);
+            this.llAddOperation.Name = "llAddOperation";
+            this.llAddOperation.Size = new System.Drawing.Size(98, 17);
+            this.llAddOperation.TabIndex = 1;
+            this.llAddOperation.TabStop = true;
+            this.llAddOperation.Text = "Add operation";
+            this.llAddOperation.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llAddItem_LinkClicked);
+            // 
+            // llRemoveOperation
+            // 
+            this.llRemoveOperation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.llRemoveOperation.Location = new System.Drawing.Point(114, 410);
+            this.llRemoveOperation.Name = "llRemoveOperation";
+            this.llRemoveOperation.Size = new System.Drawing.Size(120, 18);
+            this.llRemoveOperation.TabIndex = 2;
+            this.llRemoveOperation.TabStop = true;
+            this.llRemoveOperation.Text = "Remove operation";
+            this.llRemoveOperation.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llRemoveItem_LinkClicked);
+            // 
+            // cbInfer
+            // 
+            this.cbInfer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbInfer.Location = new System.Drawing.Point(697, 408);
+            this.cbInfer.Name = "cbInfer";
+            this.cbInfer.Size = new System.Drawing.Size(125, 19);
+            this.cbInfer.TabIndex = 4;
+            this.cbInfer.Text = "Infer Operations";
+            this.cbInfer.CheckedChanged += new System.EventHandler(this.cbInfer_CheckedChanged);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.tbEdit);
+            this.panel1.Controls.Add(this.cbMEPs);
+            this.panel1.Location = new System.Drawing.Point(29, 37);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(489, 221);
+            this.panel1.TabIndex = 2;
+            // 
+            // tbEdit
+            // 
+            this.tbEdit.Location = new System.Drawing.Point(19, 18);
+            this.tbEdit.Name = "tbEdit";
+            this.tbEdit.Size = new System.Drawing.Size(120, 22);
+            this.tbEdit.TabIndex = 3;
+            this.tbEdit.Text = "textBox2";
+            this.tbEdit.Visible = false;
+            // 
+            // cbMEPs
+            // 
+            this.cbMEPs.ItemHeight = 16;
+            this.cbMEPs.Items.AddRange(new object[] {
             "Request/Response",
             "One-Way"});
-			this.cbMEPs.Location = new System.Drawing.Point(272, 16);
-			this.cbMEPs.Name = "cbMEPs";
-			this.cbMEPs.Size = new System.Drawing.Size(121, 21);
-			this.cbMEPs.TabIndex = 2;
-			this.cbMEPs.Text = "comboBox1";
-			this.cbMEPs.Visible = false;
-			// 
-			// wizardPageMessageMapping
-			// 
-			this.wizardPageMessageMapping.Controls.Add(this.ptvServiceOperations);
-			this.wizardPageMessageMapping.Description = "Please enter all details for the service\'s operations and messages.";
-			this.wizardPageMessageMapping.Heading = "Step 4: Specify the operation\'s message parameters";
-			this.wizardPageMessageMapping.Location = new System.Drawing.Point(21, 71);
-			this.wizardPageMessageMapping.Name = "wizardPageMessageMapping";
-			this.wizardPageMessageMapping.Size = new System.Drawing.Size(456, 230);
-			this.wizardPageMessageMapping.TabIndex = 3;
-			// 
-			// ptvServiceOperations
-			// 
-			this.ptvServiceOperations.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-						| System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.ptvServiceOperations.ImageList = null;
-			this.ptvServiceOperations.Indent = 19;
-			this.ptvServiceOperations.Location = new System.Drawing.Point(0, -1);
-			this.ptvServiceOperations.Name = "ptvServiceOperations";
-			this.ptvServiceOperations.PaneHeaderVisible = false;
-			this.ptvServiceOperations.SelectedImageIndex = -1;
-			this.ptvServiceOperations.SelectedPaneNode = null;
-			this.ptvServiceOperations.ShowLines = true;
-			this.ptvServiceOperations.ShowPlusMinus = true;
-			this.ptvServiceOperations.ShowRootLines = true;
-			this.ptvServiceOperations.Size = new System.Drawing.Size(456, 232);
-			this.ptvServiceOperations.SplitterColor = System.Drawing.SystemColors.AppWorkspace;
-			this.ptvServiceOperations.SplitterLeft = 184;
-			this.ptvServiceOperations.TabIndex = 1;
-			// 
-			// wizardPageAdditionalOptions
-			// 
-			this.wizardPageAdditionalOptions.Controls.Add(this.cbSoap12);
-			this.wizardPageAdditionalOptions.Controls.Add(this.cbSoap11);
-			this.wizardPageAdditionalOptions.Controls.Add(this.cbNeedsServiceElement);
-			this.wizardPageAdditionalOptions.Controls.Add(this.cbCodeGenDialog);
-			this.wizardPageAdditionalOptions.Description = "Please select any additional options to configure.";
-			this.wizardPageAdditionalOptions.Heading = "Step 5: Additional options";
-			this.wizardPageAdditionalOptions.Location = new System.Drawing.Point(21, 71);
-			this.wizardPageAdditionalOptions.Name = "wizardPageAdditionalOptions";
-			this.wizardPageAdditionalOptions.Size = new System.Drawing.Size(456, 230);
-			this.wizardPageAdditionalOptions.TabIndex = 4;
-			// 
-			// cbSoap12
-			// 
-			this.cbSoap12.AutoSize = true;
-			this.cbSoap12.Location = new System.Drawing.Point(24, 87);
-			this.cbSoap12.Name = "cbSoap12";
-			this.cbSoap12.Size = new System.Drawing.Size(144, 17);
-			this.cbSoap12.TabIndex = 12;
-			this.cbSoap12.Text = "Create SOAP 1.2 binding";
-			this.cbSoap12.UseVisualStyleBackColor = true;
-			// 
-			// cbSoap11
-			// 
-			this.cbSoap11.AutoSize = true;
-			this.cbSoap11.Checked = true;
-			this.cbSoap11.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.cbSoap11.Enabled = false;
-			this.cbSoap11.Location = new System.Drawing.Point(24, 51);
-			this.cbSoap11.Name = "cbSoap11";
-			this.cbSoap11.Size = new System.Drawing.Size(144, 17);
-			this.cbSoap11.TabIndex = 11;
-			this.cbSoap11.Text = "Create SOAP 1.1 binding";
-			this.cbSoap11.UseVisualStyleBackColor = true;
-			// 
-			// cbNeedsServiceElement
-			// 
-			this.cbNeedsServiceElement.Location = new System.Drawing.Point(24, 8);
-			this.cbNeedsServiceElement.Name = "cbNeedsServiceElement";
-			this.cbNeedsServiceElement.Size = new System.Drawing.Size(192, 24);
-			this.cbNeedsServiceElement.TabIndex = 10;
-			this.cbNeedsServiceElement.Text = "Generate <service> element.";
-			this.toolTip1.SetToolTip(this.cbNeedsServiceElement, "Enable this option if you want to have a <service> element generated for the WSDL" +
-					" service description.");
-			// 
-			// cbCodeGenDialog
-			// 
-			this.cbCodeGenDialog.Location = new System.Drawing.Point(24, 169);
-			this.cbCodeGenDialog.Name = "cbCodeGenDialog";
-			this.cbCodeGenDialog.Size = new System.Drawing.Size(408, 24);
-			this.cbCodeGenDialog.TabIndex = 6;
-			this.cbCodeGenDialog.Text = "Open the code generation dialog after this wizard closes.";
-			this.cbCodeGenDialog.CheckedChanged += new System.EventHandler(this.cbCodeGenDialog_CheckedChanged);
-			// 
-			// wizardPageAlternativeXSDPaths
-			// 
-			this.wizardPageAlternativeXSDPaths.Controls.Add(this.xsdpathsListView);
-			this.wizardPageAlternativeXSDPaths.Description = "Please select the alternative XSD path for each XSD file imported.";
-			this.wizardPageAlternativeXSDPaths.Heading = "Step 6: Alternative XSD Paths";
-			this.wizardPageAlternativeXSDPaths.Location = new System.Drawing.Point(21, 71);
-			this.wizardPageAlternativeXSDPaths.Name = "wizardPageAlternativeXSDPaths";
-			this.wizardPageAlternativeXSDPaths.Size = new System.Drawing.Size(456, 230);
-			this.wizardPageAlternativeXSDPaths.TabIndex = 5;
-			// 
-			// xsdpathsListView
-			// 
-			this.xsdpathsListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-						| System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.xsdpathsListView.DisabledColumns = ((System.Collections.ArrayList)(resources.GetObject("xsdpathsListView.DisabledColumns")));
-			this.xsdpathsListView.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.xsdpathsListView.FullRowSelect = true;
-			this.xsdpathsListView.GridLines = true;
-			this.xsdpathsListView.Location = new System.Drawing.Point(0, 0);
-			this.xsdpathsListView.Name = "xsdpathsListView";
-			this.xsdpathsListView.Size = new System.Drawing.Size(456, 224);
-			this.xsdpathsListView.TabIndex = 3;
-			this.xsdpathsListView.UseCompatibleStateImageBehavior = false;
-			this.xsdpathsListView.View = System.Windows.Forms.View.Details;
-			// 
-			// openFileDialog1
-			// 
-			this.openFileDialog1.Filter = "XSD Files(*.xsd)|*.xsd";
-			// 
-			// toolTipPath
-			// 
-			this.toolTipPath.AutomaticDelay = 1000;
-			// 
-			// WsdlWizardForm
-			// 
-			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(497, 360);
-			this.Controls.Add(this.wsdlWizardCtrl);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-			this.HelpButton = true;
-			this.Name = "WsdlWizardForm";
-			this.ShowInTaskbar = false;
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-			this.Text = "Create a WSDL Interface Description";
-			this.Load += new System.EventHandler(this.WSDLWizard_Load);
-			this.Closing += new System.ComponentModel.CancelEventHandler(this.WsdlWizardForm_Closing);
-			this.wsdlWizardCtrl.ResumeLayout(false);
-			this.wizardPageBasicMetadata.ResumeLayout(false);
-			this.wizardPageBasicMetadata.PerformLayout();
-			this.wizardPageSchemaImports.ResumeLayout(false);
-			this.groupBox2.ResumeLayout(false);
-			this.wizardPageOperationsList.ResumeLayout(false);
-			this.groupBox1.ResumeLayout(false);
-			this.panel1.ResumeLayout(false);
-			this.panel1.PerformLayout();
-			this.wizardPageMessageMapping.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.ptvServiceOperations)).EndInit();
-			this.wizardPageAdditionalOptions.ResumeLayout(false);
-			this.wizardPageAdditionalOptions.PerformLayout();
-			this.wizardPageAlternativeXSDPaths.ResumeLayout(false);
-			this.ResumeLayout(false);
+            this.cbMEPs.Location = new System.Drawing.Point(326, 18);
+            this.cbMEPs.Name = "cbMEPs";
+            this.cbMEPs.Size = new System.Drawing.Size(146, 24);
+            this.cbMEPs.TabIndex = 2;
+            this.cbMEPs.Text = "comboBox1";
+            this.cbMEPs.Visible = false;
+            // 
+            // wizardPageMessageMapping
+            // 
+            this.wizardPageMessageMapping.Controls.Add(this.ptvServiceOperations);
+            this.wizardPageMessageMapping.Description = "Please enter all details for the service\'s operations and messages.";
+            this.wizardPageMessageMapping.Heading = "Step 4: Specify the operation\'s message parameters";
+            this.wizardPageMessageMapping.Location = new System.Drawing.Point(21, 71);
+            this.wizardPageMessageMapping.Name = "wizardPageMessageMapping";
+            this.wizardPageMessageMapping.Size = new System.Drawing.Size(841, 438);
+            this.wizardPageMessageMapping.TabIndex = 3;
+            // 
+            // ptvServiceOperations
+            // 
+            this.ptvServiceOperations.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ptvServiceOperations.ImageList = null;
+            this.ptvServiceOperations.Indent = 19;
+            this.ptvServiceOperations.Location = new System.Drawing.Point(0, -1);
+            this.ptvServiceOperations.Name = "ptvServiceOperations";
+            this.ptvServiceOperations.PaneHeaderVisible = false;
+            this.ptvServiceOperations.SelectedImageIndex = -1;
+            this.ptvServiceOperations.SelectedPaneNode = null;
+            this.ptvServiceOperations.ShowLines = true;
+            this.ptvServiceOperations.ShowPlusMinus = true;
+            this.ptvServiceOperations.ShowRootLines = true;
+            this.ptvServiceOperations.Size = new System.Drawing.Size(841, 438);
+            this.ptvServiceOperations.SplitterColor = System.Drawing.SystemColors.AppWorkspace;
+            this.ptvServiceOperations.SplitterLeft = 329;
+            this.ptvServiceOperations.TabIndex = 1;
+            // 
+            // wizardPageAdditionalOptions
+            // 
+            this.wizardPageAdditionalOptions.Controls.Add(this.cbSoap12);
+            this.wizardPageAdditionalOptions.Controls.Add(this.cbSoap11);
+            this.wizardPageAdditionalOptions.Controls.Add(this.cbNeedsServiceElement);
+            this.wizardPageAdditionalOptions.Controls.Add(this.cbCodeGenDialog);
+            this.wizardPageAdditionalOptions.Description = "Please select any additional options to configure.";
+            this.wizardPageAdditionalOptions.Heading = "Step 5: Additional options";
+            this.wizardPageAdditionalOptions.Location = new System.Drawing.Point(21, 71);
+            this.wizardPageAdditionalOptions.Name = "wizardPageAdditionalOptions";
+            this.wizardPageAdditionalOptions.Size = new System.Drawing.Size(841, 438);
+            this.wizardPageAdditionalOptions.TabIndex = 4;
+            // 
+            // cbSoap12
+            // 
+            this.cbSoap12.AutoSize = true;
+            this.cbSoap12.Location = new System.Drawing.Point(29, 100);
+            this.cbSoap12.Name = "cbSoap12";
+            this.cbSoap12.Size = new System.Drawing.Size(176, 20);
+            this.cbSoap12.TabIndex = 12;
+            this.cbSoap12.Text = "Create SOAP 1.2 binding";
+            this.cbSoap12.UseVisualStyleBackColor = true;
+            // 
+            // cbSoap11
+            // 
+            this.cbSoap11.AutoSize = true;
+            this.cbSoap11.Checked = true;
+            this.cbSoap11.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbSoap11.Enabled = false;
+            this.cbSoap11.Location = new System.Drawing.Point(29, 59);
+            this.cbSoap11.Name = "cbSoap11";
+            this.cbSoap11.Size = new System.Drawing.Size(176, 20);
+            this.cbSoap11.TabIndex = 11;
+            this.cbSoap11.Text = "Create SOAP 1.1 binding";
+            this.cbSoap11.UseVisualStyleBackColor = true;
+            // 
+            // cbNeedsServiceElement
+            // 
+            this.cbNeedsServiceElement.Location = new System.Drawing.Point(29, 9);
+            this.cbNeedsServiceElement.Name = "cbNeedsServiceElement";
+            this.cbNeedsServiceElement.Size = new System.Drawing.Size(230, 28);
+            this.cbNeedsServiceElement.TabIndex = 10;
+            this.cbNeedsServiceElement.Text = "Generate <service> element.";
+            this.toolTip1.SetToolTip(this.cbNeedsServiceElement, "Enable this option if you want to have a <service> element generated for the WSDL" +
+        " service description.");
+            // 
+            // cbCodeGenDialog
+            // 
+            this.cbCodeGenDialog.Location = new System.Drawing.Point(29, 195);
+            this.cbCodeGenDialog.Name = "cbCodeGenDialog";
+            this.cbCodeGenDialog.Size = new System.Drawing.Size(489, 28);
+            this.cbCodeGenDialog.TabIndex = 6;
+            this.cbCodeGenDialog.Text = "Open the code generation dialog after this wizard closes.";
+            this.cbCodeGenDialog.CheckedChanged += new System.EventHandler(this.cbCodeGenDialog_CheckedChanged);
+            // 
+            // wizardPageAlternativeXSDPaths
+            // 
+            this.wizardPageAlternativeXSDPaths.Controls.Add(this.xsdpathsListView);
+            this.wizardPageAlternativeXSDPaths.Description = "Please select the alternative XSD path for each XSD file imported.";
+            this.wizardPageAlternativeXSDPaths.Heading = "Step 6: Alternative XSD Paths";
+            this.wizardPageAlternativeXSDPaths.Location = new System.Drawing.Point(21, 71);
+            this.wizardPageAlternativeXSDPaths.Name = "wizardPageAlternativeXSDPaths";
+            this.wizardPageAlternativeXSDPaths.Size = new System.Drawing.Size(841, 438);
+            this.wizardPageAlternativeXSDPaths.TabIndex = 5;
+            // 
+            // xsdpathsListView
+            // 
+            this.xsdpathsListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.xsdpathsListView.DisabledColumns = ((System.Collections.ArrayList)(resources.GetObject("xsdpathsListView.DisabledColumns")));
+            this.xsdpathsListView.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.xsdpathsListView.FullRowSelect = true;
+            this.xsdpathsListView.GridLines = true;
+            this.xsdpathsListView.HideSelection = false;
+            this.xsdpathsListView.Location = new System.Drawing.Point(0, 0);
+            this.xsdpathsListView.Name = "xsdpathsListView";
+            this.xsdpathsListView.Size = new System.Drawing.Size(841, 431);
+            this.xsdpathsListView.TabIndex = 3;
+            this.xsdpathsListView.UseCompatibleStateImageBehavior = false;
+            this.xsdpathsListView.View = System.Windows.Forms.View.Details;
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.Filter = "XSD Files(*.xsd)|*.xsd";
+            // 
+            // toolTipPath
+            // 
+            this.toolTipPath.AutomaticDelay = 1000;
+            // 
+            // WsdlWizardForm
+            // 
+            this.AutoScaleBaseSize = new System.Drawing.Size(6, 15);
+            this.ClientSize = new System.Drawing.Size(882, 568);
+            this.Controls.Add(this.wsdlWizardCtrl);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.HelpButton = true;
+            this.Name = "WsdlWizardForm";
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Create a WSDL Interface Description";
+            this.Closing += new System.ComponentModel.CancelEventHandler(this.WsdlWizardForm_Closing);
+            this.Load += new System.EventHandler(this.WSDLWizard_Load);
+            this.wsdlWizardCtrl.ResumeLayout(false);
+            this.wizardPageBasicMetadata.ResumeLayout(false);
+            this.wizardPageBasicMetadata.PerformLayout();
+            this.wizardPageSchemaImports.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.wizardPageOperationsList.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.wizardPageMessageMapping.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ptvServiceOperations)).EndInit();
+            this.wizardPageAdditionalOptions.ResumeLayout(false);
+            this.wizardPageAdditionalOptions.PerformLayout();
+            this.wizardPageAlternativeXSDPaths.ResumeLayout(false);
+            this.ResumeLayout(false);
 
 		}
 		#endregion

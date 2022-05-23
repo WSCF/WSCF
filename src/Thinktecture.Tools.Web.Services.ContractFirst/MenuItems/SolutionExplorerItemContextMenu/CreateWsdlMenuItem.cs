@@ -31,11 +31,14 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst.MenuItems.SolutionExplor
         {
             var commandService = (IMenuCommandService)await package.GetServiceAsync(typeof(IMenuCommandService));
 
-            var cmdId = new CommandID(VSCommandTable.PackageGuids.VSPackageCmdSetGuid, VSCommandTable.CommandIds.CreateWsdl);
-            var cmd = new OleMenuCommand(MenuItemCallbackHandler, cmdId);
-            cmd.BeforeQueryStatus += BeforeQueryStatus;
+            if (commandService != null)
+            {
+                var cmdId = new CommandID(VSCommandTable.PackageGuids.VSPackageCmdSetGuid, VSCommandTable.CommandIds.CreateWsdl);
+                var cmd = new OleMenuCommand(MenuItemCallbackHandler, cmdId);
+                cmd.BeforeQueryStatus += BeforeQueryStatus;
 
-            commandService.AddCommand(cmd);
+                commandService.AddCommand(cmd); 
+            }
         }
     }
 }

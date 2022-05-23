@@ -1,10 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using EnvDTE;
-using System.Diagnostics;
 using EnvDTE80;
+using Microsoft.VisualStudio.Shell;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Thinktecture.Tools.Web.Services.ContractFirst.VsObjectWrappers
 {
@@ -39,6 +37,7 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst.VsObjectWrappers
             bool flushItem,
             bool allowDuplicates)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             Debug.Assert(description != null, "description parameter could not be null.");
             Debug.Assert(category != null, "category parameter could not be null.");
             Debug.Assert(subcategory != null, "subcategory parameter could not be null.");
@@ -89,6 +88,7 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst.VsObjectWrappers
         {
             get
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
                 // First try to read the project from the selected item (assuming a project is 
                 // currently selected). 
                 Project selectedProject = this.applicationObject.SelectedItems.Item(1).Project;
@@ -116,6 +116,7 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst.VsObjectWrappers
         {
             get
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
                 return (this.applicationObject.SelectedItems.Count > 0 &&
                     this.applicationObject.SelectedItems.SelectionContainer != null &&
                     this.applicationObject.SelectedItems.SelectionContainer.Count > 0);
@@ -126,6 +127,7 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst.VsObjectWrappers
         {
             get
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
                 if (this.applicationObject.SelectedItems.Count == 0)
                 {
                     return null;
@@ -134,16 +136,16 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst.VsObjectWrappers
             }
         }
 
-    	public IEnumerable<VisualStudioSelectedItem> SelectedItems
-    	{
-    		get
-    		{
-				foreach (SelectedItem item in applicationObject.SelectedItems)
-    			{
-    				yield return new VisualStudioSelectedItem(item);
-    			}
-    		}
-    	}
+        public IEnumerable<VisualStudioSelectedItem> SelectedItems
+        {
+            get
+            {
+                foreach (SelectedItem item in applicationObject.SelectedItems)
+                {
+                    yield return new VisualStudioSelectedItem(item);
+                }
+            }
+        }
 
         #endregion
 
@@ -155,6 +157,7 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst.VsObjectWrappers
         /// </summary>
         private void ActivateTaskBar()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             object cin = "Add-ins and Macros";
             object cout = new object();
 

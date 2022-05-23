@@ -1,7 +1,9 @@
 ﻿using System;
 using System.ComponentModel.Design;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Threading;
 using Thinktecture.Tools.Web.Services.ContractFirst.VsObjectWrappers;
 using Task = System.Threading.Tasks.Task;
 
@@ -31,11 +33,14 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst.MenuItems.SolutionExplor
         {
             var commandService = (IMenuCommandService)await package.GetServiceAsync(typeof(IMenuCommandService));
 
-            var cmdId = new CommandID(VSCommandTable.PackageGuids.VSPackageCmdSetGuid, VSCommandTable.CommandIds.CreateContractCode);
-            var cmd = new OleMenuCommand(MenuItemCallbackHandler, cmdId);
-            cmd.BeforeQueryStatus += BeforeQueryStatus;
+            if (commandService != null)
+            {
+                var cmdId = new CommandID(VSCommandTable.PackageGuids.VSPackageCmdSetGuid, VSCommandTable.CommandIds.CreateContractCode);
+                var cmd = new OleMenuCommand(MenuItemCallbackHandler, cmdId);
+                cmd.BeforeQueryStatus += BeforeQueryStatus;
 
-            commandService.AddCommand(cmd);
+                commandService.AddCommand(cmd); 
+            }
         }
     }
 }

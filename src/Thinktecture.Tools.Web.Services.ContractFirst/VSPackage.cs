@@ -2,10 +2,12 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Threading.Tasks;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.VisualStudio.Threading;
 using Thinktecture.Tools.Web.Services.ContractFirst.MenuItems.SolutionExplorerItemContextMenu;
 using Thinktecture.Tools.Web.Services.ContractFirst.MenuItems.SolutionExplorerProjectContextMenu;
 using Thinktecture.Tools.Web.Services.ContractFirst.MenuItems.ToolsMenu;
@@ -31,7 +33,7 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst
     /// </para>
     /// </remarks>
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
-    [InstalledProductRegistration("#110", "#112", "2.1.2", IconResourceID = 400)] // Info on this package for Help/About
+    [InstalledProductRegistration("#110", "#112", "2.1.3", IconResourceID = 400)] // Info on this package for Help/About
     [Guid(PackageGuidString)]
     [ProvideAutoLoad(UIContextGuids80.SolutionExists, PackageAutoLoadFlags.BackgroundLoad)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
@@ -65,10 +67,8 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst
         {
             await base.InitializeAsync(cancellationToken, progress);
 
-            // runs in the background thread and doesn't affect the responsiveness of the UI thread.
-            await Task.Delay(5000);
-
             // Switches to the UI thread in order to consume some services used in command initialization
+            await TaskScheduler.Default;
             await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
 
             // Query service asynchronously from the UI thread

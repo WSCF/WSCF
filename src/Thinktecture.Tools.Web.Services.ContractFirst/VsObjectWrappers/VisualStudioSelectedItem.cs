@@ -1,7 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using EnvDTE;
+using Microsoft.VisualStudio.Shell;
 using System.IO;
 
 namespace Thinktecture.Tools.Web.Services.ContractFirst.VsObjectWrappers
@@ -62,6 +60,7 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst.VsObjectWrappers
         {
             get
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
                 // Return true if the project is selected.
                 if (IsProject)
                 {
@@ -83,6 +82,7 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst.VsObjectWrappers
         {
             get
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
                 return (this.selectedItem.Project != null);
             }
         }
@@ -91,6 +91,7 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst.VsObjectWrappers
         {
             get
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
                 if (IsProject)
                 {
                     return new VisualStudioProject(this.selectedItem.Project);
@@ -116,24 +117,25 @@ namespace Thinktecture.Tools.Web.Services.ContractFirst.VsObjectWrappers
 
         private void ExtractFileNames()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (IsProject)
             {
                 this.fileNames = new string[1] { this.selectedItem.Project.FullName };
             }
             else
             {
-				if (selectedItem.ProjectItem == null)
-				{
-					fileNames = new string[0];
-					return;
-				}
+                if (selectedItem.ProjectItem == null)
+                {
+                    fileNames = new string[0];
+                    return;
+                }
                 int filesCount = this.selectedItem.ProjectItem.FileCount;
                 this.fileNames = new string[filesCount];
                 for (short i = 1; i <= (short)this.selectedItem.ProjectItem.FileCount; i++)
                 {
                     this.fileNames[i - 1] = this.selectedItem.ProjectItem.get_FileNames(i);
                 }
-            }            
+            }
         }
     }
 }
